@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Inter', sans-serif;
+
+    --color-primary: #10b77f;
+    --color-accent: #f59e0b;
+    --color-background-light: #f6f8f7;
+    --color-background-dark: #10221c;
+    --color-emerald-dark: #064e3b;
+
+    --radius: 0.25rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+}
+
+/* Class-based dark mode (use "dark" class on <html> or <body>) */
+@variant dark (&:where(.dark, .dark *));
