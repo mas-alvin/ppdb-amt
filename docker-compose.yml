@@ -1,0 +1,73 @@
+services:
+  # 1. Aplikasi Utama
+  ppdb-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER: alfiansyah
+        UID: 1000
+    image: ppdb-app
+    container_name: ppdb-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    networks:
+      - ppdb-network
+    depends_on:
+      ppdb-db:
+        condition: service_healthy
+
+  # 2. Web Server
+  ppdb-web:
+    image: nginx:alpine
+    container_name: ppdb-web
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8000}:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - ppdb-network
+    depends_on:
+      - ppdb-app
+
+  # 3. Database
+  ppdb-db:
+    image: postgres:15-alpine
+    container_name: ppdb-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-ppdb_db}
+      POSTGRES_USER: ${DB_USERNAME:-ppdb_admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-ppdb_password}
+    ports:
+      - "${DB_PORT_EXTERNAL:-5433}:5432"
+    volumes:
+      - ppdb-db-data:/var/lib/postgresql/data
+    networks:
+      - ppdb-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-ppdb_admin} -d ${DB_DATABASE:-ppdb_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 4. Adminer
+  ppdb-adminer:
+    image: adminer
+    container_name: ppdb-adminer
+    restart: unless-stopped
+    ports:
+      - "${ADMINER_PORT:-8081}:8080"
+    networks:
+      - ppdb-network
+
+networks:
+  ppdb-network:
+    driver: bridge
+
+volumes:
+  ppdb-db-data:
