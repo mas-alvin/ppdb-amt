@@ -24,6 +24,7 @@
             scrollbar-width: none;
         }
     </style>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
@@ -31,10 +32,8 @@
 
     <x-footer />
 
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        lucide.createIcons();
         AOS.init({
             duration: 800,
             once: true,

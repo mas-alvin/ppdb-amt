@@ -7,39 +7,91 @@
     $logs = config('ppdb_admin.system_log_demo', []);
 @endphp
 
-<x-admin-layout title="Ringkasan operasional" :breadcrumbs="[['label' => 'Ringkasan']]">
+<x-admin-layout title="Ringkasan Operasional" :breadcrumbs="[['label' => 'Dashboard']]">
     <div class="space-y-8">
-        <p class="text-sm text-gray-500 max-w-2xl">
-            Indikator dan visualisasi di bawah memetakan data domain PPDB dari alur pendaftar (formulir, dokumen,
-            tahapan). Nilai contoh siap diganti query agregat.
-        </p>
+        
+        {{-- Welcome Header --}}
+        <div class="bg-emerald-950 rounded-lg p-8 text-white relative overflow-hidden shadow-2xl shadow-emerald-950/20" data-aos="fade-down">
+            
+            <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-black mb-2 tracking-tight">Halo, Administrator!</h1>
+                    <p class="text-emerald-100/60 max-w-xl text-lg">
+                        Selamat datang di pusat kendali PPDB SMK AL-MUJTAMA'. Pantau seluruh aplikasi dan verifikasi berkas pendaftar di sini.
+                    </p>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-center px-6 py-3 bg-white/10 rounded-lg border border-white/10 backdrop-blur-md">
+                        <p class="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-1">Status Sistem</p>
+                        <p class="font-bold">AKTIF</p>
+                    </div>
+                    <div class="text-center px-6 py-3 bg-white/10 rounded-lg border border-white/10 backdrop-blur-md">
+                        <p class="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-1">Tahun Ajaran</p>
+                        <p class="font-bold">2026/2027</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
+        {{-- KPI Cards --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6" data-aos="fade-up">
             @foreach ($kpis as $kpi)
-                <x-admin.kpi-card :label="$kpi['label']" :value="number_format($kpiValues[$kpi['id']] ?? 0)" :tone="$kpi['tone'] ?? 'emerald'"
-                    :hint="'Sumber: ' . ($kpi['entity_key'] ?? '') . ' · ' . ($kpi['metric'] ?? '')" />
+                <div class="bg-white p-6 rounded-lg border border-slate-100 shadow-sm transition-all hover:shadow-lg hover:-translate-y-1">
+                    <div class="flex justify-between items-start mb-4">
+                        <div @class([
+                            'size-12 rounded-lg flex items-center justify-center shadow-lg',
+                            'bg-emerald-900 text-white shadow-emerald-900/20' => ($kpi['tone'] ?? 'emerald') == 'emerald',
+                            'bg-blue-600 text-white shadow-blue-600/20' => ($kpi['tone'] ?? 'emerald') == 'blue',
+                            'bg-yellow-500 text-green-950 shadow-yellow-500/20' => ($kpi['tone'] ?? 'emerald') == 'amber',
+                            'bg-red-600 text-white shadow-red-600/20' => ($kpi['tone'] ?? 'emerald') == 'red',
+                        ])>
+                            <iconify-icon icon="lucide:{{ $kpi['icon'] ?? 'bar-chart' }}" class="text-2xl"></iconify-icon>
+                        </div>
+                        <span class="text-xs font-black text-slate-300 uppercase">Live</span>
+                    </div>
+                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">{{ $kpi['label'] }}</h3>
+                    <p class="text-3xl font-black text-green-950">{{ number_format($kpiValues[$kpi['id']] ?? 0) }}</p>
+                </div>
             @endforeach
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-            <x-admin.chart-bar-trend title="Tren pengajuan (contoh mingguan)" :points="$trend" />
-            <x-admin.chart-distribution title="Distribusi menurut tahap pipeline" :segments="$distribution" />
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 items-start">
-            <x-admin.activity-feed title="Aktivitas pendaftar" :items="$activity" />
-            <x-admin.system-log-panel title="Log sistem" :entries="$logs" />
-        </div>
-
-        {{-- Contoh skeleton load --}}
-        <details class="group rounded-xl border border-gray-100 bg-white p-4 text-sm">
-            <summary class="cursor-pointer font-semibold text-gray-700 list-none flex items-center gap-2">
-                <span class="transition group-open:rotate-90">▸</span>
-                Pratinjau status pemuatan (skeleton)
-            </summary>
-            <div class="mt-4">
-                <x-admin.skeleton-table :rows="4" :cols="4" />
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {{-- Charts --}}
+            <div class="lg:col-span-8 space-y-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white p-8 rounded-lg border border-slate-100 shadow-sm">
+                    <h3 class="text-lg font-black text-green-950 mb-8 uppercase tracking-wide">Tren Pendaftaran Mingguan</h3>
+                    <x-admin.chart-bar-trend :points="$trend" />
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg border border-slate-100 shadow-sm">
+                    <h3 class="text-lg font-black text-green-950 mb-8 uppercase tracking-wide">Distribusi Tahapan Siswa</h3>
+                    <x-admin.chart-distribution :segments="$distribution" />
+                </div>
             </div>
-        </details>
+
+            {{-- Feeds --}}
+            <div class="lg:col-span-4 space-y-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-white rounded-lg border border-slate-100 shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-slate-50 flex items-center justify-between bg-slate-50/50">
+                        <h3 class="font-black text-green-950 uppercase text-xs tracking-widest">Aktivitas Pendaftar</h3>
+                        <iconify-icon icon="lucide:clock" class="text-slate-400"></iconify-icon>
+                    </div>
+                    <div class="p-6">
+                        <x-admin.activity-feed :items="$activity" />
+                    </div>
+                </div>
+
+                <div class="bg-emerald-950 rounded-lg border border-emerald-900 shadow-sm overflow-hidden text-white">
+                    <div class="p-6 border-b border-white/5 flex items-center justify-between bg-white/5">
+                        <h3 class="font-black text-yellow-500 uppercase text-xs tracking-widest">Sistem Log</h3>
+                        <iconify-icon icon="lucide:scroll-text" class="text-emerald-500"></iconify-icon>
+                    </div>
+                    <div class="p-6">
+                        <x-admin.system-log-panel :entries="$logs" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </x-admin-layout>

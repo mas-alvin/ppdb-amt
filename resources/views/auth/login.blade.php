@@ -35,8 +35,8 @@
             <!-- Login Form Content -->
             <div class="p-8">
                 <div class="flex flex-col items-center gap-2 mb-6">
-                    <div class="size-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                        <iconify-icon icon="lucide:graduation-cap" class="text-3xl"></iconify-icon>
+                    <div class="rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                        <img class="w-24 h-24 object-contain" src="{{ asset('logo-amt.webp') }}" alt="Logo AMT">
                     </div>
                     <div class="text-center">
                         <h1 class="text-xl font-bold leading-tight tracking-tight">PPDB <span

@@ -1,13 +1,15 @@
 @props([
-    'title' => 'Log sistem',
+    'title' => null,
     'entries' => [],
 ])
 
-<div class="bg-slate-900 text-slate-100 rounded-xl shadow-sm overflow-hidden font-mono text-xs">
-    <div class="px-4 py-3 border-b border-slate-700 flex items-center justify-between">
-        <h3 class="text-sm font-semibold text-white">{{ $title }}</h3>
-        <span class="text-[10px] uppercase tracking-wider text-slate-500">read-only</span>
-    </div>
+<div class="bg-transparent text-slate-100 rounded-lg overflow-hidden font-mono text-xs">
+    @if($title)
+        <div class="px-4 py-3 border-b border-slate-700 flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-white">{{ $title }}</h3>
+            <span class="text-[10px] uppercase tracking-wider text-slate-500">read-only</span>
+        </div>
+    @endif
     <ul class="max-h-56 overflow-y-auto divide-y divide-slate-800">
         @forelse ($entries as $entry)
             @php

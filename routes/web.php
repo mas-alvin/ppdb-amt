@@ -12,18 +12,18 @@ Route::get('/register', function () {
     return view('auth.register');
 });
 Route::get('/dashboard', function () {
-    return view('pages.dashboard');
+    return view('pages.students.dashboard');
 });
 
 Route::prefix('pendaftaran')->group(function () {
     Route::get('/', function () {
-        return view('pages.registration.wizard');
+        return view('pages.students.wizard');
     });
     Route::get('/dokumen', function () {
-        return view('pages.registration.documents');
+        return view('pages.students.documents');
     });
     Route::get('/status', function () {
-        return view('pages.registration.status');
+        return view('pages.students.status');
     });
 });
 

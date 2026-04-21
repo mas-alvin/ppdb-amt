@@ -8,43 +8,67 @@
     ];
 @endphp
 
-<x-admin-layout title="Tahap & alur seleksi" :breadcrumbs="[['label' => 'Tahap & alur']]">
-    <div class="space-y-6">
-        <div>
-            <h2 class="text-lg font-bold text-gray-900">Konfigurasi alur</h2>
-            <p class="text-sm text-gray-500 mt-1 max-w-2xl">Mencermati timeline di halaman status pendaftar—urutan tahap
-                dapat diaktifkan, diganti label, atau dihubungkan otomatis ke notifikasi.</p>
+<x-admin-layout title="Manajemen Kelulusan" :breadcrumbs="[['label' => 'Kelulusan']]">
+    <div class="space-y-8" x-data="{ alurOpen: false, activeStage: null }">
+        <div data-aos="fade-down">
+            <h2 class="text-2xl font-black text-green-950 uppercase tracking-tight">Seleksi & Manajemen Kelulusan</h2>
+            <p class="text-sm text-slate-500 mt-1 max-w-2xl">Atur tahapan seleksi dan tentukan status kelulusan akhir untuk setiap calon pendaftar di pipeline PPDB.</p>
         </div>
 
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-            <div class="p-4 md:p-6 border-b border-gray-50 flex flex-wrap gap-3 justify-between items-center">
-                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Urutan pipeline</span>
-                <button type="button" onclick="showToast('Simpan alur (stub)', 'success')"
-                    class="text-sm font-semibold text-emerald-600 hover:text-emerald-800">Simpan perubahan</button>
+        <div class="bg-white rounded-lg border border-slate-100 shadow-sm overflow-hidden" data-aos="fade-up">
+            <div class="px-6 py-4 border-b border-slate-50 flex flex-wrap gap-3 justify-between items-center bg-slate-50/50">
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Urutan Pipeline PPDB</span>
+                <button type="button" @click="showToast('Konfigurasi alur berhasil diperbarui', 'success')"
+                    class="text-xs font-black text-green-900 hover:text-green-700 uppercase tracking-widest transition-colors">SIMPAN PERUBAHAN</button>
             </div>
-            <ol class="divide-y divide-gray-50">
+            <ol class="divide-y divide-slate-50">
                 @foreach ($stages as $i => $stage)
-                    <li class="p-4 md:p-6 flex flex-col md:flex-row md:items-center gap-4 hover:bg-gray-50/50 transition-colors">
+                    <li class="p-6 flex flex-col md:flex-row md:items-center gap-6 hover:bg-slate-50/30 transition-colors group">
                         <div
-                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 {{ $stage['active'] ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-gray-200 text-gray-400' }} font-bold text-sm">
+                            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border-2 transition-all duration-300 {{ $stage['active'] ? 'border-green-900 bg-green-900 text-white shadow-lg shadow-green-900/20 scale-110' : 'border-slate-200 text-slate-400 group-hover:border-slate-300' }} font-black text-sm">
                             {{ $i + 1 }}
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-gray-900">{{ $stage['label'] }}</p>
-                            <p class="text-sm text-gray-500">{{ $stage['desc'] }}</p>
+                            <p class="font-black text-green-950 uppercase tracking-tight text-lg mb-1">{{ $stage['label'] }}</p>
+                            <p class="text-sm text-slate-500">{{ $stage['desc'] }}</p>
                         </div>
-                        <div class="flex items-center gap-3 shrink-0">
-                            <label class="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
-                                <input type="checkbox" class="rounded border-gray-300 text-emerald-600"
+                        <div class="flex items-center gap-6 shrink-0">
+                            <label class="flex items-center gap-3 text-xs font-bold text-slate-600 cursor-pointer">
+                                <input type="checkbox" class="rounded-lg border-slate-300 text-green-900 focus:ring-green-900"
                                     {{ $stage['active'] ? 'checked' : '' }}>
-                                Aktif
+                                <span class="uppercase tracking-widest text-[10px]">AKTIF</span>
                             </label>
-                            <button type="button" class="text-xs font-semibold text-gray-500 hover:text-gray-800">Ubah
-                                label</button>
+                            <button type="button" @click="activeStage = @js($stage); alurOpen = true" 
+                                class="px-4 py-2 text-[10px] font-black text-slate-400 border border-slate-200 rounded-lg hover:bg-slate-50 hover:text-green-950 transition-all uppercase tracking-widest">
+                                UBAH LABEL
+                            </button>
                         </div>
                     </li>
                 @endforeach
             </ol>
         </div>
+
+        {{-- MODAL UBAH LABEL --}}
+        <x-admin.modal id="alur" title="Ubah Konfigurasi Tahap" size="md">
+            <form @submit.prevent="alurOpen = false; showToast('Label tahap berhasil diubah', 'success')" class="space-y-6">
+                <div x-show="activeStage">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Nama Tahapan</label>
+                            <input type="text" :value="activeStage?.label" 
+                                   class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Deskripsi Keterangan</label>
+                            <textarea rows="3" class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white" x-text="activeStage?.desc"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">
+                    <button type="button" @click="alurOpen = false" class="px-6 py-2.5 rounded-lg bg-slate-100 text-slate-600 text-xs font-black uppercase tracking-widest hover:bg-slate-200 transition-all">BATAL</button>
+                    <button type="submit" class="px-8 py-2.5 rounded-lg bg-green-900 text-white text-xs font-black uppercase tracking-widest hover:bg-green-800 shadow-xl shadow-green-900/20 transition-all">SIMPAN</button>
+                </div>
+            </form>
+        </x-admin.modal>
     </div>
 </x-admin-layout>

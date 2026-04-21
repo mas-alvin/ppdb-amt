@@ -1,8 +1,7 @@
-<x-admin-layout title="Pengguna portal" :breadcrumbs="[['label' => 'Pengguna portal']]">
-    <div class="mb-6">
-        <h2 class="text-lg font-bold text-gray-900">Akun calon siswa</h2>
-        <p class="text-sm text-gray-500 mt-1 max-w-xl">Terhubung ke entitas <code
-                class="text-xs bg-gray-100 px-1 rounded">portal_user</code> dan autentikasi.</p>
+<x-admin-layout title="Akun Siswa" :breadcrumbs="[['label' => 'Akun Siswa']]">
+    <div class="mb-8" data-aos="fade-down">
+        <h2 class="text-2xl font-black text-green-950 uppercase tracking-tight">Manajemen Akun Siswa</h2>
+        <p class="text-sm text-slate-500 mt-1 max-w-2xl">Kelola data login, status aktivasi, dan informasi autentikasi untuk seluruh calon siswa pendaftar.</p>
     </div>
     <x-admin.resource-table resource-key="portal_users" />
 </x-admin-layout>

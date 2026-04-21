@@ -2,10 +2,12 @@
     <div class="min-h-screen bg-slate-50 dark:bg-background-dark py-12 px-4 sm:px-6 lg:px-8" x-data="{ step: 1 }">
         <div class="max-w-4xl mx-auto">
             <!-- Header Section -->
-            <div class="text-center mb-10">
-                <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Formulir Pendaftaran</h1>
-                <p class="mt-2 text-slate-500">Silakan lengkapi data pendaftaran Anda dengan benar sesuai dokumen asli.
-                </p>
+            <div class="text-center mb-12" data-aos="fade-down">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-green-100 text-green-800 text-xs font-black mb-4 border border-green-200 uppercase tracking-widest">
+                    Registration Wizard
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black text-green-950 tracking-tight leading-tight">Formulir Pendaftaran</h1>
+                <p class="mt-2 text-slate-500 text-lg">Lengkapi data Anda dengan teliti sesuai dokumen asli.</p>
             </div>
 
             <!-- Step Indicator -->
@@ -13,7 +15,7 @@
 
             <!-- Wizard Form -->
             <div
-                class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 overflow-hidden">
+                class="bg-white dark:bg-slate-900 rounded-lg shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 overflow-hidden">
                 <form action="#" method="POST" id="registrationForm"
                     onsubmit="event.preventDefault(); alert('Pendaftaran Berhasil Dikirim!'); window.location.href='/dashboard';">
                     @csrf
@@ -23,10 +25,10 @@
                         <div>
                             <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-6">
                                 <span
-                                    class="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                                    <iconify-icon icon="lucide:user" class="text-xl"></iconify-icon>
+                                    class="size-10 rounded-lg bg-green-900 text-white flex items-center justify-center shadow-lg shadow-green-900/20">
+                                    <iconify-icon icon="lucide:user" class="text-2xl"></iconify-icon>
                                 </span>
-                                Data Pribadi
+                                Data Pribadi Calon Siswa
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <x-form-input label="Nama Lengkap (Sesuai Ijazah)" name="nama_lengkap"
@@ -56,10 +58,10 @@
                         <div class="pt-6 border-t border-slate-100 dark:border-slate-800">
                             <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-6">
                                 <span
-                                    class="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                                    <iconify-icon icon="lucide:map-pin" class="text-xl"></iconify-icon>
+                                    class="size-10 rounded-lg bg-yellow-500 text-green-950 flex items-center justify-center shadow-lg shadow-yellow-500/20">
+                                    <iconify-icon icon="lucide:map-pin" class="text-2xl"></iconify-icon>
                                 </span>
-                                Alamat Domisili
+                                Alamat Domisili Lengkap
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="md:col-span-2">
@@ -82,10 +84,10 @@
                         <div class="pt-6 border-t border-slate-100 dark:border-slate-800">
                             <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-6">
                                 <span
-                                    class="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                                    <iconify-icon icon="lucide:phone" class="text-xl"></iconify-icon>
+                                    class="size-10 rounded-lg bg-green-900 text-white flex items-center justify-center shadow-lg shadow-green-900/20">
+                                    <iconify-icon icon="lucide:phone" class="text-2xl"></iconify-icon>
                                 </span>
-                                Kontak Aktif
+                                Informasi Kontak Aktif
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <x-form-input label="Nomor HP / WhatsApp" name="no_hp" placeholder="08123456789"
@@ -221,7 +223,7 @@
                                     PRESTASI</button>
                             </div>
                             <div
-                                class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-dashed border-slate-200 dark:border-slate-700">
+                                class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-lg border border-dashed border-slate-200 dark:border-slate-700">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <x-form-select label="Jenis Prestasi" name="prestasi_jenis" :options="[
                                         'Sains' => 'Sains',
@@ -297,7 +299,7 @@
 
                         <div class="pt-10 border-t border-slate-100 dark:border-slate-800">
                             <div
-                                class="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800 p-6 rounded-2xl flex gap-4">
+                                class="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800 p-6 rounded-lg flex gap-4">
                                 <iconify-icon icon="lucide:info" class="text-amber-500 text-2xl shrink-0"></iconify-icon>
                                 <div>
                                     <h4 class="font-bold text-amber-900 dark:text-amber-200">Konfirmasi Final</h4>
@@ -321,15 +323,15 @@
                         <div x-show="step === 1"></div> <!-- Spacer for first step -->
 
                         <button type="button" x-show="step < 5" @click="step++"
-                            class="px-8 py-2.5 bg-primary text-white rounded-lg font-bold shadow-lg shadow-primary/20 hover:bg-emerald-600 transition-all flex items-center gap-2">
-                            Lanjut
-                            <iconify-icon icon="lucide:arrow-right" class="text-xl"></iconify-icon>
+                            class="px-10 py-3 bg-green-900 text-white rounded-lg font-black text-lg shadow-xl shadow-green-900/20 hover:bg-green-800 transition-all flex items-center gap-3">
+                            LANJUT
+                            <iconify-icon icon="lucide:arrow-right" class="text-2xl"></iconify-icon>
                         </button>
 
                         <button type="submit" x-show="step === 5"
-                            class="px-8 py-2.5 bg-accent text-white rounded-lg font-bold shadow-lg shadow-accent/20 hover:bg-amber-600 transition-all flex items-center gap-2">
-                            Submit Pendaftaran
-                            <iconify-icon icon="lucide:rocket" class="text-xl"></iconify-icon>
+                            class="px-10 py-3 bg-yellow-500 text-green-950 rounded-lg font-black text-lg shadow-xl shadow-yellow-500/20 hover:bg-yellow-400 transition-all flex items-center gap-3">
+                            SUBMIT PENDAFTARAN
+                            <iconify-icon icon="lucide:rocket" class="text-2xl"></iconify-icon>
                         </button>
                     </div>
                 </form>

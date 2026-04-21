@@ -2,125 +2,174 @@
     {{-- =====================================================
          PUBLIC NAVBAR (halaman beranda)
          ===================================================== --}}
-    <nav id="public-navbar"
-        class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200/60 dark:border-slate-800/60 sticky top-0 z-50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <a href="/" class="flex items-center gap-3 shrink-0">
-                    <img src="{{ asset('LOGO-PPDB.png') }}" alt="Logo PPDB" class="h-10 w-auto">
-                </a>
+    <nav class="shadow-sm border-b border-gray-200 sticky top-0 z-50">
 
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-1">
-                    <a href="/#beranda"
-                        class="px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium text-sm flex items-center gap-2 transition-colors">
-                        <iconify-icon icon="lucide:home" class="text-lg"></iconify-icon> Beranda
-                    </a>
-                    <a href="/#profile"
-                        class="px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium text-sm flex items-center gap-2 transition-colors">
-                        <iconify-icon icon="lucide:school" class="text-lg"></iconify-icon> Profile
-                    </a>
-                    <a href="/register"
-                        class="px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium text-sm flex items-center gap-2 transition-colors">
-                        <iconify-icon icon="lucide:clipboard-list" class="text-lg"></iconify-icon> Pendaftaran
-                    </a>
-                    <a href="/#kontak"
-                        class="px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium text-sm flex items-center gap-2 transition-colors">
-                        <iconify-icon icon="lucide:phone" class="text-lg"></iconify-icon> Kontak
-                    </a>
+        <!-- Top Header -->
+        <div class="bg-white relative overflow-hidden">
+
+            <!-- Background Pattern Repeat -->
+            <div class="absolute inset-0 opacity-5 pointer-events-none mix-blend-multiply top-0 left-0 w-full h-full"
+                style="background-image: url('{{ asset('batik-pattern.png') }}'); background-size: 400px; background-repeat: repeat; background-position: center center;">
+            </div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+
+                <!-- Logo + Title -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <img src="{{ asset('logo-amt.webp') }}" alt="Logo" class="h-9 sm:h-10 md:h-12 w-auto">
+
+                    <div class="leading-tight">
+                        <h1 class="text-sm sm:text-base md:text-lg font-bold text-green-900">
+                            PPDB SMK AL-MUJTAMA'
+                        </h1>
+
+                        <p class="text-[10px] sm:text-xs md:text-sm text-gray-500">
+                            Penerimaan Peserta Didik Baru Tahun Ajaran 2026
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Desktop CTA -->
-                <div class="hidden md:flex items-center gap-3">
-                    <a href="/login"
-                        class="px-4 py-2 rounded-lg border border-primary text-primary font-semibold text-sm hover:bg-primary hover:text-white transition-all duration-200">
-                        Masuk
-                    </a>
-                    <a href="/register"
-                        class="px-4 py-2 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-all duration-200 shadow-sm shadow-primary/20">
-                        Daftar Sekarang
-                    </a>
+                <!-- Right Small Text Desktop -->
+                <div class="hidden md:block">
+                    <p class="text-sm text-gray-500 font-medium">
+                        Sistem Informasi PPDB Online
+                    </p>
                 </div>
+            </div>
+        </div>
 
-                <!-- Mobile Hamburger -->
-                <button id="public-hamburger-btn"
-                    class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
-                    aria-label="Buka menu">
-                    <iconify-icon icon="lucide:menu" class="text-2xl"></iconify-icon>
-                </button>
+        <!-- Main Navigation -->
+        <div class="bg-green-900 border-t border-green-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+                <div class="flex items-center justify-between h-14">
+
+                    <!-- Mobile Hamburger (Left) -->
+                    <button id="hamburger-btn-mobile"
+                        class="md:hidden text-white p-2 rounded-lg hover:bg-green-800 transition-all">
+                        <iconify-icon icon="lucide:menu" class="text-2xl"></iconify-icon>
+                    </button>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center gap-1">
+
+                        <a href="/#beranda"
+                            class="px-4 py-2 text-sm font-semibold rounded-lg text-white/90 hover:bg-green-800 hover:text-white transition-all">
+                            Beranda
+                        </a>
+
+                        <a href="/#profile"
+                            class="px-4 py-2 text-sm font-semibold rounded-lg text-white/90 hover:bg-green-800 hover:text-white transition-all">
+                            Profile Sekolah
+                        </a>
+
+                        <a href="/register"
+                            class="px-4 py-2 text-sm font-semibold rounded-lg text-white/90 hover:bg-green-800 hover:text-white transition-all">
+                            Pendaftaran
+                        </a>
+
+                        <a href="/#kontak"
+                            class="px-4 py-2 text-sm font-semibold rounded-lg text-white/90 hover:bg-green-800 hover:text-white transition-all">
+                            Kontak
+                        </a>
+
+                        <a href="#"
+                            class="px-4 py-2 text-sm font-semibold rounded-lg text-white/90 hover:bg-green-800 hover:text-white transition-all">
+                            Informasi
+                        </a>
+                    </div>
+
+                    <!-- Mobile Center Title -->
+                    <div class="md:hidden absolute left-1/2 -translate-x-1/2">
+                        <h2 class="text-white font-bold text-sm tracking-wide">
+                            PPDB AMT
+                        </h2>
+                    </div>
+
+                    <!-- Right Buttons -->
+                    <div class="flex items-center gap-3">
+                        <a href="/login"
+                            class="hidden md:flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-green-950 font-bold text-sm px-5 py-2 rounded-lg transition-all shadow-sm">
+                            MASUK
+                        </a>
+                        <a href="/register"
+                            class="bg-white hover:bg-gray-100 text-green-900 font-bold text-sm px-5 py-2 rounded-lg transition-all shadow-sm">
+                            DAFTAR
+                        </a>
+                    </div>
+
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Overlay -->
-    <div id="public-sidebar-overlay"
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay"
         class="fixed inset-0 bg-black/50 backdrop-blur-sm z-60 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden">
     </div>
 
     <!-- Mobile Sidebar -->
-    <aside id="public-mobile-sidebar"
-        class="fixed top-0 left-0 h-full w-72 bg-white dark:bg-slate-900 z-70 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col">
-        <!-- Header -->
-        <div class="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-800">
+    <aside id="mobile-sidebar"
+        class="fixed top-0 left-0 h-full w-72 bg-white z-70 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col">
+
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between p-5 border-b border-slate-100">
             <img src="{{ asset('LOGO-PPDB.png') }}" alt="Logo" class="h-10 w-auto">
-            <button id="public-sidebar-close"
-                class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
-                aria-label="Tutup menu">
+
+            <button id="sidebar-close-btn" class="p-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors">
                 <iconify-icon icon="lucide:x" class="text-xl"></iconify-icon>
             </button>
         </div>
 
         <!-- Navigation Links -->
         <nav class="flex-1 overflow-y-auto py-4 px-3">
-            <p class="px-2 mb-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Navigasi</p>
-            <a href="/#beranda"
-                class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors mb-1">
-                <iconify-icon icon="lucide:home" class="text-xl shrink-0 text-primary"></iconify-icon>
+            <p class="px-2 mb-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Navigasi</p>
+
+            <a href="/#beranda" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1">
+                <iconify-icon icon="lucide:home" class="text-xl shrink-0 text-green-700"></iconify-icon>
                 <span class="text-sm font-medium">Beranda</span>
             </a>
-            <a href="/#profile"
-                class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors mb-1">
-                <iconify-icon icon="lucide:school" class="text-xl shrink-0 text-primary"></iconify-icon>
+
+            <a href="/#profile" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1">
+                <iconify-icon icon="lucide:school" class="text-xl shrink-0 text-green-700"></iconify-icon>
                 <span class="text-sm font-medium">Profile Sekolah</span>
             </a>
-            <a href="/register"
-                class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors mb-1">
-                <iconify-icon icon="lucide:clipboard-list" class="text-xl shrink-0 text-primary"></iconify-icon>
+
+            <a href="/register" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1">
+                <iconify-icon icon="lucide:clipboard-list" class="text-xl shrink-0 text-green-700"></iconify-icon>
                 <span class="text-sm font-medium">Pendaftaran</span>
             </a>
-            <a href="/#kontak"
-                class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors mb-1">
-                <iconify-icon icon="lucide:phone" class="text-xl shrink-0 text-primary"></iconify-icon>
+
+            <a href="/#kontak" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1">
+                <iconify-icon icon="lucide:phone" class="text-xl shrink-0 text-green-700"></iconify-icon>
                 <span class="text-sm font-medium">Kontak</span>
             </a>
         </nav>
 
-        <!-- CTA Buttons -->
-        <div class="p-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+        <!-- CTA Mobile -->
+        <div class="p-4 border-t border-slate-100 space-y-2">
             <a href="/login"
-                class="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-primary text-primary font-semibold text-sm hover:bg-primary hover:text-white transition-all">
-                <iconify-icon icon="lucide:lock" class="text-base"></iconify-icon> Masuk
+                class="flex items-center justify-center w-full py-3 rounded-lg bg-green-50 text-green-900 font-bold text-sm border border-green-100 transition-all">
+                Masuk
             </a>
             <a href="/register"
-                class="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-all shadow-sm shadow-primary/20">
-                <iconify-icon icon="lucide:user-plus" class="text-base"></iconify-icon> Daftar Sekarang
+                class="flex items-center justify-center w-full py-3 rounded-lg bg-green-900 text-white font-bold text-sm transition-all">
+                Daftar Sekarang
             </a>
         </div>
     </aside>
 
     <script>
         (function() {
-            const btn = document.getElementById('public-hamburger-btn');
-            const closeBtn = document.getElementById('public-sidebar-close');
-            const sidebar = document.getElementById('public-mobile-sidebar');
-            const overlay = document.getElementById('public-sidebar-overlay');
+            const hamburgerBtn = document.getElementById('hamburger-btn-mobile');
+            const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+            const sidebar = document.getElementById('mobile-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
 
             function openSidebar() {
                 sidebar.classList.remove('-translate-x-full');
                 overlay.classList.remove('opacity-0', 'pointer-events-none');
                 overlay.classList.add('opacity-100');
-                overlay.classList.add('overflow-x-hidden');
                 document.body.style.overflow = 'hidden';
             }
 
@@ -131,290 +180,264 @@
                 document.body.style.overflow = '';
             }
 
-            if (btn) btn.addEventListener('click', openSidebar);
-            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+            if (hamburgerBtn) hamburgerBtn.addEventListener('click', openSidebar);
+            if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
             if (overlay) overlay.addEventListener('click', closeSidebar);
         })();
     </script>
-
     {{-- =====================================================
-         HERO SECTION
+         HERO SECTION (Premium Redesign)
          ===================================================== --}}
-    <section id="beranda" class="relative min-h-[600px] md:min-h-[650px] flex items-center overflow-hidden">
-        {{-- Background Image --}}
+    <section id="beranda" class="relative min-h-screen md:min-h-[800px] flex items-center overflow-hidden bg-slate-50">
+        
+        {{-- Sophisticated Background Overlay --}}
         <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-linear-to-r from-white/95 via-white/80 to-white/30 z-10"></div>
-            <img alt="Kampus UIM" class="w-full h-full object-cover" src="{{ asset('bg-amt.jpg') }}" />
+            {{-- Primary Background Image --}}
+            <img alt="SMK AL-MUJTAMA'" class="w-full h-full object-cover scale-105" src="{{ asset('bg-amt.jpg') }}" />
+            
+            {{-- Gradient Overlays --}}
+            <div class="absolute inset-0 bg-linear-to-b from-white/40 via-white/80 to-white z-10"></div>
+            <div class="absolute inset-0 bg-linear-to-r from-white via-white/60 to-transparent z-10 hidden md:block"></div>
+            
+            {{-- Decorative Mesh Gradient (Subtle) --}}
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-green-400/20 rounded-lg blur-3xl -translate-y-1/2 translate-x-1/2 z-10"></div>
+            <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-yellow-400/10 rounded-lg blur-3xl translate-y-1/2 -translate-x-1/2 z-10"></div>
         </div>
 
-        {{-- Content --}}
-        <div class="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-            <div class="max-w-2xl">
-                {{-- Small Heading --}}
-                <p class="text-2xl md:text-3xl font-extrabold text-slate-700 italic mb-1">
-                    Selamat Datang di
-                </p>
+        <div class="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                {{-- Left Content --}}
+                <div class="lg:col-span-7 xl:col-span-7" data-aos="fade-right">
+                    {{-- Status Badge --}}
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/80 backdrop-blur-md text-green-800 text-xs md:text-sm font-black mb-8 border border-green-200 shadow-sm animate-bounce-slow">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-lg bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-lg h-2.5 w-2.5 bg-green-600"></span>
+                        </span>
+                        PENDAFTARAN TA 2026/2027 DIBUKA
+                    </div>
 
-                {{-- Main Title --}}
-                <h1 class="text-3xl md:text-5xl font-black text-primary leading-tight mb-5">
-                    Website Penerimaan Peserta Didik Baru (PPDB)
-                </h1>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-green-950 leading-[1.1] mb-8">
+                        Langkah <span class="text-yellow-600 italic">Emas</span> <br class="hidden sm:block">
+                        Menuju Masa Depan <br class="hidden sm:block">
+                        <span class="text-transparent bg-clip-text bg-linear-to-r from-green-700 to-green-900">
+                            Cerdas Berakhlak
+                        </span>
+                    </h1>
 
-                {{-- Period Badge --}}
-                <div class="flex items-center gap-3 mb-5">
-                    <span
-                        class="inline-flex items-center px-5 py-2 rounded-full border-2 border-red-500 text-red-500 font-black text-xl md:text-2xl tracking-wide">
-                        2026 / 2027 Ganjil
-                    </span>
+                    <p class="text-base md:text-lg text-slate-600 leading-relaxed mb-10 max-w-2xl border-l-4 border-yellow-500 pl-6">
+                        SMK AL-MUJTAMA' Pamekasan menghadirkan pendidikan vokasi berbasis nilai pesantren. Kami mencetak lulusan siap kerja, kompetitif, dan berkarakter mulia di era digital.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <a href="/register"
+                            class="group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 rounded-lg bg-green-900 text-white font-black text-lg hover:bg-green-800 transition-all shadow-2xl shadow-green-900/40 active:scale-95">
+                            DAFTAR SEKARANG
+                            <iconify-icon icon="lucide:arrow-right" class="text-xl group-hover:translate-x-2 transition-transform"></iconify-icon>
+                        </a>
+                        <a href="/#profile"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 rounded-lg bg-white/50 backdrop-blur-md text-green-950 font-bold text-lg border-2 border-green-900/10 hover:bg-white hover:border-green-900/30 transition-all active:scale-95">
+                            PROFIL SEKOLAH
+                        </a>
+                    </div>
+
+                    {{-- Stats Summary --}}
+                    <div class="mt-16 grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-10 border-t border-slate-200 pt-10">
+                        <div class="group">
+                            <p class="text-3xl md:text-4xl font-black text-green-950 group-hover:text-yellow-600 transition-colors">1.5K+</p>
+                            <p class="text-xs md:text-sm text-slate-500 font-black uppercase tracking-widest mt-1">Siswa Aktif</p>
+                        </div>
+                        <div class="group">
+                            <p class="text-3xl md:text-4xl font-black text-green-950 group-hover:text-yellow-600 transition-colors">120+</p>
+                            <p class="text-xs md:text-sm text-slate-500 font-black uppercase tracking-widest mt-1">Tenaga Ahli</p>
+                        </div>
+                        <div class="group col-span-2 sm:col-span-1">
+                            <p class="text-3xl md:text-4xl font-black text-green-950 group-hover:text-yellow-600 transition-colors">45+</p>
+                            <p class="text-xs md:text-sm text-slate-500 font-black uppercase tracking-widest mt-1">Fasilitas Modern</p>
+                        </div>
+                    </div>
                 </div>
 
-                {{-- University Name --}}
-                <h2 class="text-2xl md:text-3xl font-black text-primary mb-4">
-                    SMK AL-MUJTAMA'
-                </h2>
+                {{-- Right Decorative Card (Desktop Only) --}}
+                <div class="hidden lg:block lg:col-span-5 relative" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="relative z-10 p-8 rounded-lg bg-white/40 backdrop-blur-xl border border-white/40 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] overflow-hidden">
+                        
+                        {{-- Image Placeholder with overlay --}}
+                        <div class="relative h-[450px] w-full bg-slate-200 rounded-lg overflow-hidden mb-6">
+                            <img src="{{ asset('bg-amt.jpg') }}" class="w-full h-full object-cover" alt="Student">
+                            <div class="absolute inset-0 bg-linear-to-t from-green-950/80 to-transparent"></div>
+                            
+                            <div class="absolute bottom-6 left-6 right-6">
+                                <h3 class="text-white text-2xl font-black mb-2 leading-tight">Membangun Karakter Melalui Pendidikan</h3>
+                                <p class="text-white/80 text-sm">Bergabunglah dengan komunitas pembelajar kami.</p>
+                            </div>
+                        </div>
 
-                {{-- Description --}}
-                <p class="text-sm md:text-base text-slate-600 leading-relaxed mb-8 max-w-xl">
-                    SMK AL-MUJTAMA' Pamekasan, adalah sekolah yang berada dibawah naungan Pondok Pesantren
-                    yang beralamatkan di Jl. Raya Pegantenan KM 09 Pamekasan
+                        {{-- Floating Mini Cards --}}
+                        <div class="absolute -top-4 -right-4 p-4 bg-yellow-500 text-green-950 font-black rounded-lg shadow-xl rotate-3">
+                            PPDB 2026
+                        </div>
+                        
+                        <div class="absolute -bottom-2 -left-4 p-5 bg-green-900 text-white rounded-lg shadow-2xl flex items-center gap-3 -rotate-3 border border-white/20">
+                            <div class="size-10 bg-white/20 rounded-lg flex items-center justify-center">
+                                <iconify-icon icon="lucide:check-circle" class="text-2xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-white/70 uppercase">Akreditasi</p>
+                                <p class="text-lg font-black leading-tight">Grade A+</p>
+                            </div>
+                        </div>
+
+                        {{-- Card Background Pattern --}}
+                        <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-green-600/10 rounded-lg blur-3xl"></div>
+                    </div>
+                    
+                    {{-- Background Decorative Rings --}}
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-green-900/5 rounded-lg -z-10 pointer-events-none"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] border border-green-900/5 rounded-lg -z-10 pointer-events-none rotate-12"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {{-- =====================================================
+         FEATURES / WHY US (id=profile)
+         ===================================================== --}}
+    <section id="profile" class="py-24 relative overflow-hidden bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="text-sm font-black text-yellow-600 uppercase tracking-[0.3em] mb-4">Keunggulan Kami</h2>
+                <h3 class="text-3xl md:text-5xl font-black text-green-950 mb-6">
+                    Pendidikan Berkualitas untuk <br> Generasi Masa Depan
+                </h3>
+                <p class="text-slate-600 text-lg">
+                    Kami memadukan nilai-nilai luhur pesantren dengan kemajuan teknologi modern untuk menciptakan lingkungan belajar yang inspiratif.
                 </p>
+            </div>
 
-                {{-- CTA Buttons --}}
-                <div class="flex flex-col sm:flex-row items-start gap-4">
-                    <a href="/login"
-                        class="inline-flex items-center gap-2 px-8 py-3 rounded-lg border-2 border-primary text-primary font-bold text-base hover:bg-primary hover:text-white transition-all duration-300 shadow-sm">
-                        <iconify-icon icon="lucide:lock" class="text-xl"></iconify-icon>
-                        Login
-                    </a>
-                    <a href="/pendaftaran"
-                        class="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-primary text-white font-bold text-base hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/25">
-                        <iconify-icon icon="lucide:user-plus" class="text-xl"></iconify-icon>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {{-- Feature 1 --}}
+                <div class="group p-10 rounded-lg bg-slate-50 border border-slate-100 hover:bg-white hover:border-green-200 transition-all duration-500 hover:shadow-2xl hover:shadow-green-900/5">
+                    <div class="size-16 rounded-lg bg-green-900 flex items-center justify-center mb-8 text-white shadow-lg shadow-green-900/20 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:book-open" class="text-3xl"></iconify-icon>
+                    </div>
+                    <h4 class="text-2xl font-bold text-green-950 mb-4">Kurikulum Terintegrasi</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        Perpaduan kurikulum nasional dan kurikulum pesantren yang membentuk kecerdasan intelektual dan spiritual.
+                    </p>
+                </div>
+
+                {{-- Feature 2 --}}
+                <div class="group p-10 rounded-lg bg-slate-50 border border-slate-100 hover:bg-white hover:border-green-200 transition-all duration-500 hover:shadow-2xl hover:shadow-green-900/5">
+                    <div class="size-16 rounded-lg bg-yellow-500 flex items-center justify-center mb-8 text-white shadow-lg shadow-yellow-500/20 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:users" class="text-3xl"></iconify-icon>
+                    </div>
+                    <h4 class="text-2xl font-bold text-green-950 mb-4">Pengajar Berdedikasi</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        Tenaga pendidik profesional yang tidak hanya mengajar, tetapi juga menjadi mentor dan teladan bagi siswa.
+                    </p>
+                </div>
+
+                {{-- Feature 3 --}}
+                <div class="group p-10 rounded-lg bg-slate-50 border border-slate-100 hover:bg-white hover:border-green-200 transition-all duration-500 hover:shadow-2xl hover:shadow-green-900/5">
+                    <div class="size-16 rounded-lg bg-green-700 flex items-center justify-center mb-8 text-white shadow-lg shadow-green-700/20 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:laptop" class="text-3xl"></iconify-icon>
+                    </div>
+                    <h4 class="text-2xl font-bold text-green-950 mb-4">Fasilitas Modern</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        Laboratorium komputer, workshop, dan area olahraga yang lengkap untuk mendukung proses eksplorasi siswa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- =====================================================
+         MAJORS / PROGRAM KEAHLIAN
+         ===================================================== --}}
+    <section class="py-24 bg-green-950 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div class="max-w-2xl">
+                    <h2 class="text-sm font-black text-yellow-500 uppercase tracking-[0.3em] mb-4">Program Keahlian</h2>
+                    <h3 class="text-3xl md:text-5xl font-black text-white">
+                        Pilih Jalur Kesuksesanmu
+                    </h3>
+                </div>
+                <div class="flex gap-4">
+                    <a href="/register" class="px-8 py-3 rounded-lg bg-yellow-500 hover:bg-yellow-400 text-green-950 font-black transition-all shadow-lg shadow-yellow-500/20">
                         Daftar Sekarang
                     </a>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Stats Section -->
-    <section class="relative z-30 -mt-16 px-4">
-        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div
-                class="bg-white dark:bg-emerald-dark p-6 rounded-2xl shadow-xl flex flex-col items-center text-center border border-primary/10">
-                <iconify-icon icon="lucide:users" class="text-primary text-4xl mb-2"></iconify-icon>
-                <span class="text-2xl font-black text-slate-900 dark:text-white">1500+</span>
-                <span
-                    class="text-sm text-slate-500 dark:text-emerald-100/70 uppercase tracking-widest font-bold">Siswa</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {{-- Major 1 --}}
+                <div class="group bg-white/5 backdrop-blur-md rounded-lg overflow-hidden border border-white/10 hover:border-yellow-500/50 transition-all duration-500">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-linear-to-t from-green-950 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-6 left-6">
+                            <span class="px-3 py-1 rounded-lg bg-yellow-500 text-green-950 text-[10px] font-black uppercase">Unggulan</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-bold text-white mb-3">Rekayasa Perangkat Lunak</h4>
+                        <p class="text-white/60 mb-6 leading-relaxed">
+                            Kuasai dunia teknologi melalui pengembangan aplikasi web, mobile, dan sistem cerdas masa depan.
+                        </p>
+                        <a href="#" class="inline-flex items-center gap-2 text-yellow-500 font-bold hover:gap-4 transition-all">
+                            Lihat Detail <iconify-icon icon="lucide:chevron-right"></iconify-icon>
+                        </a>
+                    </div>
+                </div>
+
+                {{-- Major 2 --}}
+                <div class="group bg-white/5 backdrop-blur-md rounded-lg overflow-hidden border border-white/10 hover:border-yellow-500/50 transition-all duration-500">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://smkn2magetan.sch.id/wp-content/uploads/2023/05/IMG_76661-scaled.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-linear-to-t from-green-950 via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-bold text-white mb-3">Tata Busana</h4>
+                        <p class="text-white/60 mb-6 leading-relaxed">
+                            Eksplorasi kreativitas dalam desain busana, teknik menjahit modern, dan kewirausahaan fashion.
+                        </p>
+                        <a href="#" class="inline-flex items-center gap-2 text-yellow-500 font-bold hover:gap-4 transition-all">
+                            Lihat Detail <iconify-icon icon="lucide:chevron-right"></iconify-icon>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div
-                class="bg-white dark:bg-emerald-dark p-6 rounded-2xl shadow-xl flex flex-col items-center text-center border border-primary/10">
-                <iconify-icon icon="lucide:user-check" class="text-primary text-4xl mb-2"></iconify-icon>
-                <span class="text-2xl font-black text-slate-900 dark:text-white">120+</span>
-                <span
-                    class="text-sm text-slate-500 dark:text-emerald-100/70 uppercase tracking-widest font-bold">Guru</span>
-            </div>
-            <div
-                class="bg-white dark:bg-emerald-dark p-6 rounded-2xl shadow-xl flex flex-col items-center text-center border border-primary/10">
-                <iconify-icon icon="lucide:building-2" class="text-primary text-4xl mb-2"></iconify-icon>
-                <span class="text-2xl font-black text-slate-900 dark:text-white">45</span>
-                <span
-                    class="text-sm text-slate-500 dark:text-emerald-100/70 uppercase tracking-widest font-bold">Fasilitas</span>
-            </div>
-            <div
-                class="bg-white dark:bg-emerald-dark p-6 rounded-2xl shadow-xl flex flex-col items-center text-center border border-primary/10">
-                <iconify-icon icon="lucide:award" class="text-primary text-4xl mb-2"></iconify-icon>
-                <span class="text-2xl font-black text-slate-900 dark:text-white">200+</span>
-                <span
-                    class="text-sm text-slate-500 dark:text-emerald-100/70 uppercase tracking-widest font-bold">Prestasi</span>
             </div>
         </div>
     </section>
 
     {{-- =====================================================
-         WHY US SECTION (id=profile)
+         CTA SECTION
          ===================================================== --}}
-    <section id="profile" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-16">
-            <h2 class="text-3xl md:text-4xl font-black text-emerald-dark dark:text-primary mb-4">
-                Mengapa Bersekolah di Sini?
-            </h2>
-            <div class="h-1.5 w-24 bg-accent rounded-full"></div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div
-                class="group p-8 rounded-2xl bg-white dark:bg-background-dark border border-primary/10 hover:border-primary transition-all shadow-sm hover:shadow-xl">
-                <div
-                    class="size-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all text-primary">
-                    <iconify-icon icon="lucide:globe" class="text-3xl"></iconify-icon>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-emerald-dark dark:text-white">
-                    Kurikulum Internasional
-                </h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Standar global dalam setiap mata pelajaran untuk mempersiapkan siswa
-                    di kancah dunia.
-                </p>
-            </div>
-            <div
-                class="group p-8 rounded-2xl bg-white dark:bg-background-dark border border-primary/10 hover:border-primary transition-all shadow-sm hover:shadow-xl">
-                <div
-                    class="size-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all text-primary">
-                    <iconify-icon icon="lucide:brain-circuit" class="text-3xl"></iconify-icon>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-emerald-dark dark:text-white">
-                    Pengajar Ahli
-                </h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Didukung oleh tenaga pendidik profesional yang berpengalaman di
-                    bidang masing-masing.
-                </p>
-            </div>
-            <div
-                class="group p-8 rounded-2xl bg-white dark:bg-background-dark border border-primary/10 hover:border-primary transition-all shadow-sm hover:shadow-xl">
-                <div
-                    class="size-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all text-primary">
-                    <iconify-icon icon="lucide:microscope" class="text-3xl"></iconify-icon>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-emerald-dark dark:text-white">
-                    Lab &amp; Fasilitas Modern
-                </h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Laboratorium lengkap dengan teknologi terbaru untuk mendukung
-                    praktek dan riset.
-                </p>
-            </div>
-            <div
-                class="group p-8 rounded-2xl bg-white dark:bg-background-dark border border-primary/10 hover:border-primary transition-all shadow-sm hover:shadow-xl">
-                <div
-                    class="size-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all text-primary">
-                    <iconify-icon icon="lucide:trophy" class="text-3xl"></iconify-icon>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-emerald-dark dark:text-white">
-                    Ekstrakurikuler Luas
-                </h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Beragam pilihan pengembangan bakat mulai dari seni, olahraga, hingga
-                    teknologi robotic.
-                </p>
-            </div>
-            <div
-                class="group p-8 rounded-2xl bg-white dark:bg-background-dark border border-primary/10 hover:border-primary transition-all shadow-sm hover:shadow-xl">
-                <div
-                    class="size-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all text-primary">
-                    <iconify-icon icon="lucide:shield-check" class="text-3xl"></iconify-icon>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-emerald-dark dark:text-white">
-                    Lingkungan Aman
-                </h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Sistem keamanan 24 jam dan lingkungan belajar yang kondusif bagi
-                    perkembangan anak.
-                </p>
-            </div>
-            <div
-                class="group p-8 rounded-2xl bg-white dark:bg-background-dark border border-primary/10 hover:border-primary transition-all shadow-sm hover:shadow-xl">
-                <div
-                    class="size-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all text-primary">
-                    <iconify-icon icon="lucide:star" class="text-3xl"></iconify-icon>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-emerald-dark dark:text-white">
-                    Beasiswa Unggulan
-                </h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Program dukungan biaya pendidikan bagi siswa berprestasi di bidang
-                    akademik maupun non-akademik.
-                </p>
-            </div>
-        </div>
-    </section>
+    <section class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="relative rounded-lg bg-linear-to-br from-green-900 to-green-950 p-12 md:p-20 overflow-hidden shadow-2xl">
 
-    <!-- Horizontal Scroll Majors -->
-    <section class="py-24 bg-primary/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 flex justify-between items-end">
-            <div>
-                <h2 class="text-3xl md:text-4xl font-black text-emerald-dark dark:text-primary mb-4">
-                    Pilihan Jalur &amp; Jurusan
-                </h2>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Temukan minat dan bakatmu melalui program keahlian kami.
-                </p>
-            </div>
-            <div class="hidden md:flex gap-2">
-                <button
-                    class="size-10 rounded-full border border-primary flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
-                    <iconify-icon icon="lucide:chevron-left" class="text-2xl"></iconify-icon>
-                </button>
-                <button
-                    class="size-10 rounded-full border border-primary flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
-                    <iconify-icon icon="lucide:chevron-right" class="text-2xl"></iconify-icon>
-                </button>
-            </div>
-        </div>
-        <div class="flex overflow-x-auto no-scrollbar gap-6 px-4 sm:px-6 lg:px-8 pb-10">
-            <!-- Card 1 -->
-            <div
-                class="min-w-[300px] md:min-w-[350px] bg-white dark:bg-background-dark rounded-2xl overflow-hidden border border-primary/10 shadow-lg hover:-translate-y-2 transition-transform">
-                <img alt="IT Major" class="w-full h-48 object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO-w0Q56FqGbdSHfq-UVeOH3VIRXHQ8c_TI_LbpKZa8UPlEd25utD1BSqcebVJkkHTiFUlketzoGGZPMTvUA_Gh-Vz4Uh_HgwSu3A3iW-y-HrtgLtoHTZvkPFVFfEBauv6-8EonShiEbbvHMkKLDldIb5cdA4JPm9nySNR80D6KLCr1mYMYo6tBGsR5rmUQdgFjufBN5Jd5D2oLNGTJlFa1AROCScHONblWJwqqiOzJBgQVaFIDGjUhUHUQsvHl_MGjFBVWqVBPWB9" />
-                <div class="p-6">
-                    <span
-                        class="px-3 py-1 bg-primary/20 text-emerald-dark dark:text-primary text-xs font-bold rounded-full uppercase mb-3 inline-block">Teknologi</span>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white">
-                        Rekayasa Perangkat Lunak
-                    </h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                        Mempelajari desain web, mobile apps, dan pengembangan sistem
-                        perangkat lunak modern.
+                <div class="relative z-10 max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl md:text-5xl font-black text-white mb-8 leading-tight">
+                        Siap Menjadi Bagian dari <br> Keluarga Besar Kami?
+                    </h2>
+                    <p class="text-white/70 text-lg md:text-xl mb-12 max-w-2xl mx-auto">
+                        Jangan lewatkan kesempatan untuk mendapatkan pendidikan terbaik. Proses pendaftaran mudah dan cepat melalui sistem online kami.
                     </p>
-                    <a class="text-primary font-bold text-sm flex items-center gap-1 group" href="#">
-                        Detail Jurusan
-                        <iconify-icon icon="lucide:arrow-right"
-                            class="text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
-                    </a>
-                </div>
-            </div>
-            <!-- Card 2 -->
-            <div
-                class="min-w-[300px] md:min-w-[350px] bg-white dark:bg-background-dark rounded-2xl overflow-hidden border border-primary/10 shadow-lg hover:-translate-y-2 transition-transform">
-                <img alt="Business Major" class="w-full h-48 object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCLOQurDcHwuojd0jkANNlKaUC-DxzslUZXf1s0OE60AgLHRtOb1eRDKs5v99PHvxtxY2lJq-z2w9KtbTwDLo6YYRMQzn8FdpUEWcTmYr7QQjn_tm_HPBhqUwJAQXVIE_mInK8K_lag_lHJw-CT0Ki7aPUtjFTA7CNNvrqS1n0wQFgzo2ow07KElS8ae4GmLKjP-lQREzViYTqjDLFRFQcPKfPuUw95z5QNVxjkw-GL4vjRxyswG_08lwHN3nKi8qi3IHEMtLGiRSf" />
-                <div class="p-6">
-                    <span
-                        class="px-3 py-1 bg-accent/20 text-accent text-xs font-bold rounded-full uppercase mb-3 inline-block">Manajemen</span>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white">
-                        Bisnis &amp; Pemasaran Digital
-                    </h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                        Menguasai strategi pasar, branding, dan teknik jualan di era
-                        digital yang dinamis.
-                    </p>
-                    <a class="text-primary font-bold text-sm flex items-center gap-1 group" href="#">
-                        Detail Jurusan
-                        <iconify-icon icon="lucide:arrow-right"
-                            class="text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
-                    </a>
-                </div>
-            </div>
-            <!-- Card 3 -->
-            <div
-                class="min-w-[300px] md:min-w-[350px] bg-white dark:bg-background-dark rounded-2xl overflow-hidden border border-primary/10 shadow-lg hover:-translate-y-2 transition-transform">
-                <img alt="Industrial Major" class="w-full h-48 object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBduO_KG3GCVa4BDWkWgb26qoNyFXuO_oy1_ZbltsUXWf-7VqnppZR9wyoht5vP6lCx2ySiYTEJXLepU49m779xrfh6tDwaWAWVRcGvYANBgQ5si0JL-i6_MQKuNhGUw3SgG1c-4_-GRxhDsAslPcGPWCowa2RYf7oVWddAKre3-V6rX0F1R2i1m512uJ3tqaFyXuK_TD8ea8oAt3hptTixeoxWbxEPvn5Dpd4A8IR4bXA_lnKvokomXzYwHAI2ADnRPHyMrXyrlNPl" />
-                <div class="p-6">
-                    <span
-                        class="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-bold rounded-full uppercase mb-3 inline-block">Industri</span>
-                    <h3 class="text-xl font-bold mb-2 dark:text-white">
-                        Teknik Mekatronika
-                    </h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                        Gabungan teknik mesin dan elektronika untuk sistem otomasi
-                        industri masa depan.
-                    </p>
-                    <a class="text-primary font-bold text-sm flex items-center gap-1 group" href="#">
-                        Detail Jurusan
-                        <iconify-icon icon="lucide:arrow-right"
-                            class="text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
-                    </a>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <a href="/register" class="w-full sm:w-auto px-12 py-5 rounded-lg bg-yellow-500 hover:bg-yellow-400 text-green-950 font-black text-xl transition-all shadow-xl shadow-yellow-500/30 hover:-translate-y-1">
+                            Daftar Sekarang
+                        </a>
+                        <a href="/#kontak" class="w-full sm:w-auto px-12 py-5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-xl backdrop-blur-sm transition-all border border-white/20">
+                            Hubungi Kami
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -423,93 +446,59 @@
     {{-- =====================================================
          MAP / KONTAK SECTION (id=kontak)
          ===================================================== --}}
-    <section id="kontak" class="relative bg-slate-50 dark:bg-background-dark py-16 md:py-24">
-        {{-- Section Header --}}
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                    <iconify-icon icon="lucide:map-pin" class="text-2xl"></iconify-icon>
-                </div>
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-black text-emerald-dark dark:text-primary">
-                        Lokasi Kampus
-                    </h2>
-                </div>
-            </div>
-            <div class="h-1.5 w-24 bg-accent rounded-full"></div>
-        </div>
-
-        {{-- Map + Info Card Container --}}
+    <section id="kontak" class="py-24 bg-slate-50 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-primary/10">
-                {{-- Google Maps Embed --}}
-                <div class="w-full h-[450px] md:h-[500px]">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.123456789!2d113.4747!3d-7.1627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd77f5f5f5f5f5f%3A0x5f5f5f5f5f5f5f5f!2sUniversitas%20Islam%20Madura!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
-                        class="w-full h-full border-0" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-
-                {{-- Info Card Overlay --}}
-                <div
-                    class="absolute z-20 left-4 md:left-8 bottom-4 md:bottom-8 right-4 md:right-auto md:w-[420px] bg-white/95 dark:bg-emerald-dark/95 backdrop-blur-lg p-6 md:p-8 rounded-2xl shadow-2xl border border-white/20">
-                    {{-- Card Header --}}
-                    <div class="flex items-center gap-3 mb-5">
-                        <div
-                            class="size-10 rounded-full bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30">
-                            <iconify-icon icon="lucide:graduation-cap" class="text-xl"></iconify-icon>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <div>
+                    <h2 class="text-sm font-black text-yellow-600 uppercase tracking-[0.3em] mb-4">Lokasi & Kontak</h2>
+                    <h3 class="text-3xl md:text-5xl font-black text-green-950 mb-8">
+                        Kunjungi Sekolah Kami
+                    </h3>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-6">
+                            <div class="size-14 rounded-lg bg-green-900/10 flex items-center justify-center text-green-900 shrink-0">
+                                <iconify-icon icon="lucide:map-pin" class="text-2xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-green-950 mb-1">Alamat Utama</h4>
+                                <p class="text-slate-600">Jl. Raya Pegantenan KM 09, Bettet, Pamekasan, Madura, Jawa Timur 69351</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="text-xl font-black text-emerald-dark dark:text-white leading-tight">
-                                Universitas Islam Madura
-                            </h4>
-                            <p class="text-xs text-primary font-semibold">Kampus Utama — Pamekasan</p>
+
+                        <div class="flex gap-6">
+                            <div class="size-14 rounded-lg bg-green-900/10 flex items-center justify-center text-green-900 shrink-0">
+                                <iconify-icon icon="lucide:phone" class="text-2xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-green-950 mb-1">Telepon & WhatsApp</h4>
+                                <p class="text-slate-600">(0324) 322551 / +62 812-3456-7890</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6">
+                            <div class="size-14 rounded-lg bg-green-900/10 flex items-center justify-center text-green-900 shrink-0">
+                                <iconify-icon icon="lucide:mail" class="text-2xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-green-950 mb-1">Email Resmi</h4>
+                                <p class="text-slate-600">smkalmujtama@gmail.com</p>
+                            </div>
                         </div>
                     </div>
-
-                    {{-- Divider --}}
-                    <div class="h-px bg-linear-to-r from-primary/30 via-primary/10 to-transparent mb-5"></div>
-
-                    {{-- Contact Info --}}
-                    <div class="space-y-3">
-                        <div class="flex items-start gap-3 group">
-                            <iconify-icon icon="lucide:map-pin"
-                                class="text-primary text-xl mt-0.5 group-hover:scale-110 transition-transform"></iconify-icon>
-                            <p class="text-slate-600 dark:text-emerald-50/80 text-sm leading-relaxed">
-                                Jl. PP. Miftahul Ulum Bettet, Pamekasan, Madura, Jawa Timur 69351
-                            </p>
-                        </div>
-                        <div class="flex items-start gap-3 group">
-                            <iconify-icon icon="lucide:phone"
-                                class="text-primary text-xl mt-0.5 group-hover:scale-110 transition-transform"></iconify-icon>
-                            <p class="text-slate-600 dark:text-emerald-50/80 text-sm">
-                                (0324) 322551
-                            </p>
-                        </div>
-                        <div class="flex items-start gap-3 group">
-                            <iconify-icon icon="lucide:mail"
-                                class="text-primary text-xl mt-0.5 group-hover:scale-110 transition-transform"></iconify-icon>
-                            <p class="text-slate-600 dark:text-emerald-50/80 text-sm">
-                                info@uim.ac.id
-                            </p>
-                        </div>
-                        <div class="flex items-start gap-3 group">
-                            <iconify-icon icon="lucide:clock"
-                                class="text-primary text-xl mt-0.5 group-hover:scale-110 transition-transform"></iconify-icon>
-                            <p class="text-slate-600 dark:text-emerald-50/80 text-sm">
-                                Senin – Sabtu: 08.00 – 16.00 WIB
-                            </p>
-                        </div>
-                    </div>
-
-                    {{-- Action Button --}}
-                    <a href="https://maps.google.com/?q=Universitas+Islam+Madura+Pamekasan" target="_blank"
-                        rel="noopener noreferrer"
-                        class="mt-6 w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30">
-                        <iconify-icon icon="lucide:navigation" class="text-xl"></iconify-icon>
-                        Buka di Google Maps
-                    </a>
                 </div>
+
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-linear-to-br from-green-900 to-yellow-500 opacity-20 rounded-lg blur-2xl group-hover:opacity-30 transition-opacity"></div>
+                    <div class="relative rounded-lg overflow-hidden shadow-2xl border-4 border-white aspect-video lg:aspect-square">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.123456789!2d113.4747!3d-7.1627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd77f5f5f5f5f5f%3A0x5f5f5f5f5f5f5f5f!2sSMK%20AL-MUJTAMA!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                            class="w-full h-full border-0" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

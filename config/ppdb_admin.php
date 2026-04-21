@@ -112,7 +112,7 @@ return [
                     'id' => 'nav_registrations',
                     'route' => 'admin.registrations.index',
                     'icon' => 'clipboard-list',
-                    'label' => 'Aplikasi pendaftaran',
+                    'label' => 'Data Pendaftar Siswa',
                     'entity_keys' => ['registration_application', 'registration_personal_contact', 'registration_guardian', 'registration_periodic_school', 'registration_achievement', 'registration_welfare'],
                 ],
                 [
@@ -120,21 +120,21 @@ return [
                     'route' => 'admin.documents.index',
                     'icon' => 'files',
                     'entity_keys' => ['registration_document'],
-                    'label' => 'Antrian dokumen',
+                    'label' => 'Verifikasi Berkas',
                 ],
                 [
                     'id' => 'nav_pipeline',
                     'route' => 'admin.pipeline.index',
                     'icon' => 'git-branch',
                     'entity_keys' => ['registration_pipeline'],
-                    'label' => 'Tahap & alur seleksi',
+                    'label' => 'Manajemen Kelulusan',
                 ],
                 [
                     'id' => 'nav_portal_users',
                     'route' => 'admin.portal-users.index',
                     'icon' => 'users',
                     'entity_keys' => ['portal_user'],
-                    'label' => 'Pengguna portal',
+                    'label' => 'Akun Siswa',
                 ],
             ],
         ],
@@ -147,14 +147,14 @@ return [
                     'route' => 'admin.content.index',
                     'icon' => 'megaphone',
                     'entity_keys' => ['portal_content'],
-                    'label' => 'Konten & pengumuman',
+                    'label' => 'Informasi & Pengumuman',
                 ],
                 [
                     'id' => 'nav_schedule',
                     'route' => 'admin.schedule.index',
                     'icon' => 'calendar-clock',
                     'entity_keys' => ['ppdb_schedule'],
-                    'label' => 'Gelombang & jadwal',
+                    'label' => 'Jadwal Gelombang',
                 ],
             ],
         ],
@@ -180,7 +180,7 @@ return [
                     'route' => 'admin.activity.index',
                     'icon' => 'scroll-text',
                     'entity_keys' => ['audit_log'],
-                    'label' => 'Log aktivitas',
+                    'label' => 'Riwayat Sistem',
                 ],
                 [
                     'id' => 'nav_settings',
@@ -203,6 +203,7 @@ return [
             'entity_key' => 'registration_application',
             'metric' => 'count_all',
             'label' => 'Total aplikasi aktif',
+            'icon' => 'clipboard-list',
             'tone' => 'emerald',
         ],
         [
@@ -210,6 +211,7 @@ return [
             'entity_key' => 'registration_document',
             'metric' => 'count_verified',
             'label' => 'Dokumen terverifikasi',
+            'icon' => 'check-circle',
             'tone' => 'blue',
         ],
         [
@@ -217,6 +219,7 @@ return [
             'entity_key' => 'registration_document',
             'metric' => 'count_pending',
             'label' => 'Menunggu tinjauan',
+            'icon' => 'clock',
             'tone' => 'amber',
         ],
         [
@@ -224,6 +227,7 @@ return [
             'entity_key' => 'registration_application',
             'metric' => 'count_rejected',
             'label' => 'Ditolak / perbaikan',
+            'icon' => 'alert-circle',
             'tone' => 'red',
         ],
     ],
@@ -253,7 +257,7 @@ return [
     ],
 
     'activity_feed_demo' => [
-        ['actor' => 'Budi Santoso', 'action' => 'mengirim formulir pendaftaran', 'time' => '10 menit lalu'],
+        ['actor' => 'Alfiansyah', 'action' => 'mengirim formulir pendaftaran', 'time' => '10 menit lalu'],
         ['actor' => 'Siti Aminah', 'action' => 'mengunggah dokumen rapor', 'time' => '25 menit lalu'],
         ['actor' => 'Andi Wijaya', 'action' => 'memperbarui data orang tua', 'time' => '1 jam lalu'],
         ['actor' => 'Sistem', 'action' => 'memverifikasi batch 10 berkas', 'time' => '2 jam lalu'],
@@ -289,7 +293,7 @@ return [
                 ['key' => 'jalur', 'label' => 'Jalur', 'options' => ['semua' => 'Semua', 'umum' => 'Umum', 'prestasi' => 'Prestasi']],
             ],
             'demo_rows' => [
-                ['id' => '1', 'ref' => 'PPDB-2026-00421', 'nama' => 'Budi Santoso', 'tahap' => 'Verifikasi', 'kelengkapan' => '72%', 'diperbarui' => '2 jam lalu'],
+                ['id' => '1', 'ref' => 'PPDB-2026-00421', 'nama' => 'Alfiansyah', 'tahap' => 'Verifikasi', 'kelengkapan' => '72%', 'diperbarui' => '2 jam lalu'],
                 ['id' => '2', 'ref' => 'PPDB-2026-00418', 'nama' => 'Siti Aminah', 'tahap' => 'Seleksi', 'kelengkapan' => '100%', 'diperbarui' => '1 hari lalu'],
                 ['id' => '3', 'ref' => 'PPDB-2026-00402', 'nama' => 'Andi Wijaya', 'tahap' => 'Draf', 'kelengkapan' => '35%', 'diperbarui' => '3 hari lalu'],
             ],
@@ -310,7 +314,7 @@ return [
                 ['key' => 'status', 'label' => 'Status', 'options' => ['semua' => 'Semua', 'pending' => 'Menunggu', 'verified' => 'Terverifikasi', 'rejected' => 'Ditolak']],
             ],
             'demo_rows' => [
-                ['id' => 'd1', 'pemohon' => 'Budi Santoso', 'jenis' => 'Ijazah', 'status' => 'Menunggu', 'unggah' => 'Hari ini'],
+                ['id' => 'd1', 'pemohon' => 'Alfiansyah', 'jenis' => 'Ijazah', 'status' => 'Menunggu', 'unggah' => 'Hari ini'],
                 ['id' => 'd2', 'pemohon' => 'Siti Aminah', 'jenis' => 'Kartu Keluarga', 'status' => 'Terverifikasi', 'unggah' => 'Kemarin'],
             ],
         ],
@@ -330,7 +334,7 @@ return [
                 ['key' => 'status', 'label' => 'Status', 'options' => ['semua' => 'Semua', 'aktif' => 'Aktif', 'suspend' => 'Suspen']],
             ],
             'demo_rows' => [
-                ['id' => 'u1', 'nama' => 'Budi Santoso', 'email' => 'budi@mail.test', 'terakhir_login' => '10 menit lalu', 'status' => 'Aktif'],
+                ['id' => 'u1', 'nama' => 'Alfiansyah', 'email' => 'budi@mail.test', 'terakhir_login' => '10 menit lalu', 'status' => 'Aktif'],
             ],
         ],
         'content' => [

@@ -17,8 +17,8 @@
 @endphp
 
 <div
-    class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex gap-4 items-start transition-shadow hover:shadow-md">
-    <div class="w-12 h-12 rounded-xl {{ $t['bg'] }} {{ $t['text'] }} flex items-center justify-center flex-shrink-0">
+    class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex gap-4 items-start transition-shadow hover:shadow-md">
+    <div class="w-12 h-12 rounded-lg {{ $t['bg'] }} {{ $t['text'] }} flex items-center justify-center flex-shrink-0">
         @if ($slot->isEmpty())
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

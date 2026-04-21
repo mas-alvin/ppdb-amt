@@ -25,24 +25,24 @@
                 </svg>
             </span>
             <input type="text"
-                   class="w-64 py-2 pl-10 pr-4 text-sm bg-gray-100 border-transparent rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all"
+                   class="w-64 py-2 pl-10 pr-4 text-sm bg-gray-100 border-transparent rounded-lg focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all"
                    placeholder="Cari data...">
         </div>
 
         {{-- Bell --}}
-        <button class="relative p-2 rounded-xl text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 transition-colors">
+        <button class="relative p-2 rounded-lg text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
             </svg>
-            <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+            <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-lg ring-2 ring-white"></span>
         </button>
 
         <div class="h-8 w-px bg-gray-200 mx-1 hidden md:block"></div>
 
         {{-- Avatar --}}
         <div class="flex items-center gap-2 pl-1 cursor-pointer group">
-            <img class="w-9 h-9 rounded-xl border-2 border-transparent group-hover:border-emerald-500 transition-all"
+            <img class="w-9 h-9 rounded-lg border-2 border-transparent group-hover:border-emerald-500 transition-all"
                  src="https://ui-avatars.com/api/?name=Admin+User&background=d1fae5&color=065f46&size=64" alt="Avatar">
             <div class="hidden md:block">
                 <p class="text-sm font-bold text-gray-700 group-hover:text-emerald-700">Admin</p>

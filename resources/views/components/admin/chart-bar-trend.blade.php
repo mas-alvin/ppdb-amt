@@ -1,5 +1,5 @@
 @props([
-    'title',
+    'title' => null,
     'points' => [],
     'valueKey' => 'value',
     'labelKey' => 'label',
@@ -10,8 +10,10 @@
     $max = $vals->max() ?: 1;
 @endphp
 
-<div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
-    <h3 class="text-sm font-semibold text-gray-800 mb-4">{{ $title }}</h3>
+<div class="bg-white rounded-lg p-2">
+    @if($title)
+        <h3 class="text-sm font-semibold text-gray-800 mb-4">{{ $title }}</h3>
+    @endif
     <div class="flex items-end gap-2 h-40 pl-1">
         @forelse ($points as $p)
             @php $h = round(((float) ($p[$valueKey] ?? 0) / $max) * 100); @endphp

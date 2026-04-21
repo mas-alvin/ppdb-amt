@@ -7,15 +7,20 @@
     ];
 @endphp
 
-<x-admin-layout title="Konfigurasi sistem" :breadcrumbs="[['label' => 'Pengaturan']]">
-    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden" x-data="{ tab: 'general' }">
-        <div class="border-b border-gray-100 flex overflow-x-auto">
+<x-admin-layout title="Konfigurasi Sistem" :breadcrumbs="[['label' => 'Pengaturan']]">
+    <div class="mb-8" data-aos="fade-down">
+        <h2 class="text-2xl font-black text-green-950 uppercase tracking-tight">Konfigurasi Sistem PPDB</h2>
+        <p class="text-sm text-slate-500 mt-1 max-w-2xl">Atur identitas lembaga, parameter dokumen, kanal notifikasi, dan kebijakan keamanan aplikasi secara terpusat.</p>
+    </div>
+
+    <div class="bg-white rounded-lg border border-slate-100 shadow-sm overflow-hidden" x-data="{ tab: 'general' }" data-aos="fade-up">
+        <div class="border-b border-slate-100 flex overflow-x-auto bg-slate-50/50">
             @foreach ($tabs as $t)
                 <button type="button" @click="tab = '{{ $t['id'] }}'"
                     :class="tab === '{{ $t['id'] }}'
-                        ? 'border-b-2 border-emerald-600 text-emerald-700 bg-emerald-50/50'
-                        : 'text-gray-500 hover:text-gray-800'"
-                    class="px-4 py-3 text-sm font-semibold whitespace-nowrap transition-colors border-b-2 border-transparent">
+                        ? 'border-b-2 border-green-900 text-green-900 bg-white'
+                        : 'text-slate-400 hover:text-slate-600'"
+                    class="px-8 py-4 text-xs font-black uppercase tracking-widest whitespace-nowrap transition-all border-b-2 border-transparent">
                     {{ $t['label'] }}
                 </button>
             @endforeach
@@ -27,29 +32,28 @@
                 <form class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl"
                     onsubmit="event.preventDefault(); showToast('Pengaturan umum disimpan.', 'success');">
                     <div class="md:col-span-2">
-                        <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Nama lembaga</label>
-                        <input type="text" value="PPDB SMA Contoh"
-                            class="w-full text-sm border-gray-200 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Nama Lembaga</label>
+                        <input type="text" value="SMK AL-MUJTAMA'"
+                            class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Zona waktu</label>
+                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Zona Waktu</label>
                         <select
-                            class="w-full text-sm border-gray-200 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                            class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
                             <option>WIB</option>
                             <option>WITA</option>
                             <option>WIT</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Ukuran unggah maks
-                            (MB)</label>
+                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Ukuran Unggah Maks (MB)</label>
                         <input type="number" value="2" min="1"
-                            class="w-full text-sm border-gray-200 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                            class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
                     </div>
-                    <div class="md:col-span-2">
+                    <div class="md:col-span-2 pt-4">
                         <button type="submit"
-                            class="px-4 py-2 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700">
-                            Simpan
+                            class="px-8 py-3 rounded-lg bg-green-900 text-white text-xs font-black uppercase tracking-widest hover:bg-green-800 transition-all shadow-xl shadow-green-900/20">
+                            SIMPAN KONFIGURASI
                         </button>
                     </div>
                 </form>
@@ -67,7 +71,7 @@
                     @endforeach
                 </ul>
                 <button type="button" onclick="showToast('Daftar dokumen diperbarui.', 'success')"
-                    class="mt-4 px-4 py-2 rounded-lg bg-emerald-600 text-white text-sm font-semibold">Simpan daftar</button>
+                    class="mt-6 px-8 py-3 rounded-lg bg-green-900 text-white text-xs font-black uppercase tracking-widest hover:bg-green-800 shadow-xl shadow-green-900/20 transition-all">SIMPAN DAFTAR</button>
             </div>
 
             <div x-show="tab === 'notifications'" x-transition style="display: none;">
@@ -83,7 +87,7 @@
                         eksternal)
                     </label>
                     <button type="submit"
-                        class="px-4 py-2 rounded-lg bg-emerald-600 text-white text-sm font-semibold">Simpan</button>
+                        class="px-8 py-3 rounded-lg bg-green-900 text-white text-xs font-black uppercase tracking-widest hover:bg-green-800 shadow-xl shadow-green-900/20 transition-all">SIMPAN PREFERENSI</button>
                 </form>
             </div>
 

@@ -1,12 +1,14 @@
 @props([
-    'title' => 'Aktivitas terbaru',
+    'title' => null,
     'items' => [],
 ])
 
-<div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-    <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
-        <h3 class="text-sm font-semibold text-gray-800">{{ $title }}</h3>
-    </div>
+<div class="bg-white rounded-lg">
+    @if($title)
+        <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-gray-800">{{ $title }}</h3>
+        </div>
+    @endif
     <ul class="divide-y divide-gray-50 max-h-80 overflow-y-auto">
         @forelse ($items as $row)
             <li class="px-6 py-3 hover:bg-gray-50/80 transition-colors">

@@ -12,7 +12,7 @@
     $cls = $styles[$variant] ?? $styles['error'];
 @endphp
 
-<div role="alert" {{ $attributes->merge(['class' => "rounded-xl border p-4 text-sm {$cls}"]) }}>
+<div role="alert" {{ $attributes->merge(['class' => "rounded-lg border p-4 text-sm {$cls}"]) }}>
     @if ($title)
         <p class="font-semibold">{{ $title }}</p>
     @endif

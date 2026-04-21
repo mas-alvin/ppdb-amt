@@ -1,9 +1,9 @@
 <x-layout title="Dashboard - Portal PPDB">
     <div class="min-h-screen bg-background-light dark:bg-background-dark">
         <!-- Main Content -->
-        <main class="max-w-7xl mx-auto w-full p-8">
+        <main class="max-w-auto mx-auto w-full p-8">
             <div class="mb-8">
-                <h2 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Halo, Budi Santoso!</h2>
+                <h2 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Halo, Alfiansyah!</h2>
                 <p class="text-slate-500 mt-1">Selamat datang di portal pendaftaran sekolah kami.</p>
             </div>
 
