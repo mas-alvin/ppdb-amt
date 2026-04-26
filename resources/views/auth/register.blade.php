@@ -33,8 +33,8 @@
             class="relative z-10 w-full max-w-md bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-primary/5 overflow-hidden">
             <div class="p-8">
                 <div class="flex flex-col items-center gap-2 mb-6 text-center">
-                    <div class="size-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                        <iconify-icon icon="lucide:user-plus" class="text-3xl"></iconify-icon>
+                    <div class="text-primary flex items-center justify-center">
+                        <img class="w-20 h-20 object-contain" src="{{ asset('logo-amt.webp') }}" alt="Logo AMT">
                     </div>
                 </div>
                 <div class="text-center mb-8">
@@ -59,11 +59,11 @@
                         {{-- <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="nisn">NISN
                             / Username</label> --}}
                         <div class="relative">
-                            <iconify-icon icon="lucide:hash"
+                            <iconify-icon icon="lucide:user"
                                 class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></iconify-icon>
                             <input
                                 class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg text-sm transition-all shadow-sm"
-                                id="nisn" placeholder="Masukkan NISN" type="text" />
+                                id="username" placeholder="Masukkan Username" type="text" />
                         </div>
                     </div>
                     <!-- Email -->

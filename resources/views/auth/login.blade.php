@@ -35,24 +35,23 @@
             <!-- Login Form Content -->
             <div class="p-8">
                 <div class="flex flex-col items-center gap-2 mb-6">
-                    <div class="rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                        <img class="w-24 h-24 object-contain" src="{{ asset('logo-amt.webp') }}" alt="Logo AMT">
+                    <div class="rtext-primary flex items-center justify-center">
+                        <img class="w-20 h-20 object-contain" src="{{ asset('logo-amt.webp') }}" alt="Logo AMT">
                     </div>
-                    <div class="text-center">
+                    <!-- <div class="text-center">
                         <h1 class="text-xl font-bold leading-tight tracking-tight">PPDB <span
                                 class="text-primary">Unggul</span></h1>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="text-center mb-8">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Selamat Datang</h2>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Silakan masuk menggunakan akun NISN Anda
-                    </p>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Login</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Silakan masuk menggunakan akun Anda</p>
                 </div>
                 <form class="space-y-5" onsubmit="return false;">
                     <!-- Username/NISN Field -->
                     <div class="space-y-2">
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="nisn">NISN
-                            / Username</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="nisn">Email
+                            /Username</label>
                         <div class="relative">
                             <iconify-icon icon="lucide:user"
                                 class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></iconify-icon>
