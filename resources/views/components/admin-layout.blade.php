@@ -26,9 +26,12 @@
             #sidebar.collapsed { width: 5rem; }
             #sidebar.collapsed .sidebar-text,
             #sidebar.collapsed .sidebar-label { opacity: 0; display: none; }
-            #sidebar.collapsed .sidebar-item { justify-content: center; padding-left: 0; padding-right: 0; }
+            #sidebar.collapsed .sidebar-item { justify-content: center; padding-left: 0; padding-right: 0; gap: 0; }
             #sidebar.collapsed .brand-text { display: none; }
+            #sidebar.collapsed .brand-container { justify-content: center; padding-left: 0; padding-right: 0; gap: 0; }
             #sidebar.collapsed .user-info { display: none; }
+            #sidebar.collapsed .user-profile-container { padding-left: 0; padding-right: 0; }
+            #sidebar.collapsed .user-profile-container > div { justify-content: center; gap: 0; }
         }
     </style>
 </head>
@@ -52,7 +55,7 @@
 
         {{-- Content --}}
         <main class="flex-1 overflow-x-hidden overflow-y-auto">
-            <div class="p-4 md:p-8 max-w-7xl mx-auto">
+            <div class="p-4 md:p-8 max-w-auto mx-auto">
                 <nav class="mb-6 flex flex-wrap items-center text-xs text-gray-400 gap-2" aria-label="Breadcrumb">
                     <a href="{{ route('admin.dashboard') }}" class="hover:text-emerald-600">Admin</a>
                     @foreach ($breadcrumbs as $crumb)
