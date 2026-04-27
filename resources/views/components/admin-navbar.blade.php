@@ -43,9 +43,9 @@
         {{-- Avatar --}}
         <div class="flex items-center gap-2 pl-1 cursor-pointer group">
             <img class="w-9 h-9 rounded-lg border-2 border-transparent group-hover:border-emerald-500 transition-all"
-                 src="https://ui-avatars.com/api/?name=Admin+User&background=d1fae5&color=065f46&size=64" alt="Avatar">
+                 src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=d1fae5&color=065f46&size=64" alt="Avatar">
             <div class="hidden md:block">
-                <p class="text-sm font-bold text-gray-700 group-hover:text-emerald-700">Admin</p>
+                <p class="text-sm font-bold text-gray-700 group-hover:text-emerald-700">{{ auth()->user()->name }}</p>
             </div>
         </div>
     </div>

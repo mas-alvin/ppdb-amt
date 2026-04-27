@@ -1,6 +1,6 @@
 <x-layout title="Dokumen Pendaftaran">
     <div class="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
+        <div class="relative max-w-full sm:mx-auto md:mx-28">
             
             {{-- Header --}}
             <div class="mb-10" data-aos="fade-down">
@@ -121,4 +121,5 @@
             </div>
         </div>
     </div>
+    <x-footer></x-footer>
 </x-layout>

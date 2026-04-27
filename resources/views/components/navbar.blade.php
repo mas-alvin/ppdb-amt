@@ -9,7 +9,7 @@
         </div>
 
         <div
-            class="relative max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            class="relative max-w-full px-4 sm:px-6 sm:mx-auto md:mx-28 py-3 sm:py-4 flex items-center justify-between">
 
             <!-- Logo + Title -->
             <div class="flex items-center gap-3 sm:gap-4">
@@ -38,7 +38,7 @@
 
     <!-- Main Navigation -->
     <div class="bg-green-900 border-t border-green-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="max-w-full px-4 sm:px-6 sm:mx-auto md:mx-28">
 
             <div class="flex items-center justify-between h-14">
 
@@ -113,23 +113,29 @@
                         <!-- User Info -->
                         <div class="leading-tight">
                             <p class="text-sm font-semibold text-white">
-                                Alfiansyah
+                                {{ auth()->user()->name }}
                             </p>
-                            <p class="text-xs text-white/70">
-                                Siswa
+                            <p class="text-xs text-white/70 uppercase tracking-widest font-bold">
+                                {{ auth()->user()->role }}
                             </p>
                         </div>
 
                         <!-- Logout Icon -->
-                        <button
+                        <button type="button"
+                            onclick="confirmLogout()"
                             class="ml-2 text-white/80 hover:text-white transition-all">
                             <iconify-icon icon="lucide:log-out"
                                 class="text-xl"></iconify-icon>
                         </button>
+                        
+                        <form action="{{ route('logout') }}" method="POST" id="logout-form" class="hidden">
+                            @csrf
+                        </form>
                     </div>
 
                     <!-- Mobile Logout Icon -->
-                    <button
+                    <button type="button"
+                        onclick="confirmLogout()"
                         class="md:hidden text-white p-2 rounded-lg hover:bg-green-800 transition-all">
                         <iconify-icon icon="lucide:log-out"
                             class="text-2xl"></iconify-icon>

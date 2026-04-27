@@ -12,7 +12,7 @@
                 style="background-image: url('{{ asset('batik-pattern.png') }}'); background-size: 400px; background-repeat: repeat; background-position: center center;">
             </div>
 
-            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <div class="relative max-w-full px-4 sm:px-6 sm:mx-auto md:mx-28 py-3 sm:py-4 flex items-center justify-between">
 
                 <!-- Logo + Title -->
                 <div class="flex items-center gap-3 sm:gap-4">

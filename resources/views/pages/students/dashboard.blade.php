@@ -1,6 +1,6 @@
 <x-layout title="Dashboard - Portal PPDB">
     <div class="min-h-screen bg-slate-50">
-        <main class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <main class="relative max-w-auto px-4 sm:mx-auto md:mx-28 sm:px-6 lg:px-8 py-6 sm:py-8">
 
             <!-- Header -->
             <div class="mb-8 sm:mb-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
@@ -16,7 +16,7 @@
                         <br class="sm:hidden">
                         <span
                             class="text-transparent bg-clip-text bg-linear-to-r from-green-700 to-green-900">
-                            Alfiansyah!
+                            {{ auth()->user()->name }}!
                         </span>
                     </h2>
 
@@ -25,19 +25,25 @@
                     </p>
                 </div>
 
-                <div class="flex items-center gap-3" data-aos="fade-left">
-                    <div
-                        class="size-12 rounded-lg bg-yellow-500 flex items-center justify-center text-green-950 shadow-lg shadow-yellow-500/20">
-                        <iconify-icon icon="lucide:user" class="text-2xl"></iconify-icon>
+                <div class="flex items-center gap-4" data-aos="fade-left">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="size-12 rounded-lg bg-yellow-500 flex items-center justify-center text-green-950 shadow-lg shadow-yellow-500/20">
+                            <iconify-icon icon="lucide:user" class="text-2xl"></iconify-icon>
+                        </div>
+                        <div class="text-right sm:block">
+                            <p class="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-widest">
+                                No. Registrasi
+                            </p>
+                            <p class="text-base sm:text-lg font-bold text-green-900">
+                                #2026-000124
+                            </p>
+                        </div>
                     </div>
-                    <div class="text-right sm:block">
-                        <p class="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-widest">
-                            No. Registrasi
-                        </p>
-                        <p class="text-base sm:text-lg font-bold text-green-900">
-                            #2026-000124
-                        </p>
-                    </div>
+
+                    <!-- <div class="h-10 w-px bg-slate-200 mx-1 hidden sm:block"></div> -->
+
+                    
                 </div>
             </div>
 
@@ -244,6 +250,25 @@
             </div>
         </main>
     </div>
+
+    <script>
+        function confirmLogout() {
+            Swal.fire({
+                title: 'Logout?',
+                text: "Anda akan keluar dari portal pendaftaran.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#064e3b',
+                cancelButtonColor: '#ef4444',
+                confirmButtonText: 'YA, KELUAR',
+                cancelButtonText: 'BATAL'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('logout-form').submit();
+                }
+            })
+        }
+    </script>
 
     <x-footer></x-footer>
 </x-layout>

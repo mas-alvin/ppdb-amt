@@ -1,6 +1,7 @@
 <x-layout title="Pendaftaran Siswa Baru">
     <div class="min-h-screen bg-slate-50 dark:bg-background-dark py-12 px-4 sm:px-6 lg:px-8" x-data="{ step: 1 }">
-        <div class="max-w-4xl mx-auto">
+        <div class="relative max-w-full sm:mx-auto md:mx-28">
+            
             <!-- Header Section -->
             <div class="text-center mb-12" data-aos="fade-down">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-green-100 text-green-800 text-xs font-black mb-4 border border-green-200 uppercase tracking-widest">
@@ -39,6 +40,12 @@
                                     required icon="hash" maxlength="10" />
                                 <x-form-input label="NIK (16 Digit)" name="nik"
                                     placeholder="Contoh: 3201234567890123" required icon="id-card" maxlength="16" />
+                                <x-form-input label="No Kartu Keluarga (16 Digit)" name="no_kk"
+                                    placeholder="Contoh: 3201234567890123" required icon="id-card" maxlength="16" />
+                                <x-form-input label="Tempat Lahir" name="tempat_lahir" placeholder="Contoh: Jakarta"
+                                    required icon="map-pin" />
+                                <x-form-input type="date" label="Tanggal Lahir" name="tanggal_lahir" placeholder="Contoh: 2009-01-01"
+                                    required icon="calendar" />
                                 <x-form-input label="No. Akta Lahir" name="no_akta"
                                     placeholder="Masukkan nomor akta lahir" required icon="file-text" />
                                 <x-form-select label="Agama" name="agama" :options="[
@@ -219,8 +226,8 @@
                                     </span>
                                     Data Prestasi (Opsional)
                                 </h3>
-                                <button type="button" class="text-xs font-bold text-primary hover:underline">+ TAMBAH
-                                    PRESTASI</button>
+                                <!-- <button type="button" class="text-xs font-bold text-primary hover:underline">+ TAMBAH
+                                    PRESTASI</button> -->
                             </div>
                             <div
                                 class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-lg border border-dashed border-slate-200 dark:border-slate-700">
@@ -338,6 +345,7 @@
             </div>
         </div>
     </div>
+    <x-footer></x-footer>
 
     <!-- Alpine.js is included in layout -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>

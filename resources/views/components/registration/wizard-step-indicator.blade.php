@@ -1,6 +1,6 @@
 @props(['activeStep' => 1])
 
-<div class="w-full max-w-4xl mx-auto mb-16">
+<div class="w-full max-w-screen mx-auto mb-16">
     <div class="flex items-center justify-between relative px-4">
         <!-- Progress Line Background (Connecting the circles) -->
         <div class="absolute top-6 left-12 right-12 h-0.5 bg-slate-200 -z-10"></div>

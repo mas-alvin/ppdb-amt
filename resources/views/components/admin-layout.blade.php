@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body class="h-full bg-gray-50 text-gray-800 antialiased">
+<body class="h-full bg-gray-50 text-gray-800 antialiased overflow-hidden">
 
 <div class="flex h-screen overflow-hidden">
 
@@ -55,7 +55,7 @@
 
         {{-- Content --}}
         <main class="flex-1 overflow-x-hidden overflow-y-auto">
-            <div class="p-4 md:p-8 max-w-auto mx-auto">
+            <div class="p-4 md:p-8 max-w-none">
                 <nav class="mb-6 flex flex-wrap items-center text-xs text-gray-400 gap-2" aria-label="Breadcrumb">
                     <a href="{{ route('admin.dashboard') }}" class="hover:text-emerald-600">Admin</a>
                     @foreach ($breadcrumbs as $crumb)

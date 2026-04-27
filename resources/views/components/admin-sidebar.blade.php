@@ -62,10 +62,34 @@
                 <p class="text-sm font-black text-white truncate">Administrator</p>
                 <p class="text-[10px] font-bold text-yellow-500 uppercase tracking-widest">Main Office</p>
             </div>
-            <a href="/login" class="ml-auto text-emerald-500 hover:text-red-400 transition-all hover:scale-110 user-info"
+            <button type="button" 
+                onclick="confirmAdminLogout()"
+                class="ml-auto text-emerald-500 hover:text-red-400 transition-all hover:scale-110 user-info"
                 title="Keluar">
                 <iconify-icon icon="lucide:log-out" class="text-xl"></iconify-icon>
-            </a>
+            </button>
+            <form id="admin-logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                @csrf
+            </form>
         </div>
     </div>
+
+    <script>
+        function confirmAdminLogout() {
+            Swal.fire({
+                title: 'Logout Admin?',
+                text: "Anda akan keluar dari panel kontrol.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#065f46',
+                cancelButtonColor: '#ef4444',
+                confirmButtonText: 'YA, KELUAR',
+                cancelButtonText: 'BATAL'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('admin-logout-form').submit();
+                }
+            })
+        }
+    </script>
 </aside>
