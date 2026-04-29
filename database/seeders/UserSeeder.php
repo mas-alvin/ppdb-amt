@@ -15,10 +15,10 @@ class UserSeeder extends Seeder
     {
         // Admin account
         User::create([
-            'name' => 'Admin AMT',
+            'name' => 'Administrator',
             'username' => 'admin',
-            'email' => 'admin@amt.test',
-            'password' => Hash::make('password'),
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('admin123'),
             'role' => 'admin',
             'status' => 'active',
             'email_verified_at' => now(),
@@ -26,10 +26,10 @@ class UserSeeder extends Seeder
 
         // Student account
         User::create([
-            'name' => 'Alfiansyah Student',
+            'name' => 'Alfiansyah',
             'username' => 'alfiansyah',
-            'email' => 'alfiansyah@amt.test',
-            'password' => Hash::make('password'),
+            'email' => 'alfin@gmail.com',
+            'password' => Hash::make('alfin123'),
             'role' => 'student',
             'status' => 'active',
             'email_verified_at' => now(),

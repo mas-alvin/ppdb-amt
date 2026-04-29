@@ -32,6 +32,7 @@
 
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     <script>
+        // Logout Confirmation
         function confirmLogout() {
             Swal.fire({
                 title: 'Keluar Portal?',
@@ -48,6 +49,36 @@
                 }
             })
         }
+
+        // Global SweetAlert2 for Session Flashes and Validation Errors
+        document.addEventListener('DOMContentLoaded', function() {
+            @if(session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    confirmButtonColor: '#064e3b',
+                });
+            @endif
+
+            @if(session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '{{ session('error') }}',
+                    confirmButtonColor: '#ef4444',
+                });
+            @endif
+
+            @if($errors->any())
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validasi Gagal!',
+                    text: 'Silakan periksa kembali formulir Anda. Beberapa kolom mungkin belum diisi dengan benar.',
+                    confirmButtonColor: '#ef4444',
+                });
+            @endif
+        });
     </script>
 </body>
 

@@ -27,10 +27,11 @@
                 'w-full py-3 bg-slate-50 dark:bg-slate-800 border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg text-sm transition-all shadow-sm appearance-none',
                 'pl-10' => $icon,
                 'px-4' => !$icon,
+                'border-red-500 ring-1 ring-red-500' => $errors->has($name),
             ]) {{ $attributes }}>
             <option value="" disabled {{ $selected == '' ? 'selected' : '' }}>{{ $placeholder }}</option>
             @foreach ($options as $key => $value)
-                <option value="{{ $key }}" {{ $selected == $key ? 'selected' : '' }}>{{ $value }}
+                <option value="{{ $key }}" {{ $selected == (string) $key ? 'selected' : '' }}>{{ $value }}
                 </option>
             @endforeach
         </select>
@@ -38,4 +39,7 @@
             <iconify-icon icon="lucide:chevron-down" class="text-xl"></iconify-icon>
         </div>
     </div>
+    @error($name)
+        <p class="text-xs font-bold text-red-500 uppercase tracking-widest mt-1">{{ $message }}</p>
+    @enderror
 </div>

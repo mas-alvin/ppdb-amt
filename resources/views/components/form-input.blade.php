@@ -27,7 +27,11 @@
                 'w-full py-3 bg-slate-50 dark:bg-slate-800 border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg text-sm transition-all shadow-sm',
                 'pl-10' => $icon,
                 'px-4' => !$icon,
+                'border-red-500 ring-1 ring-red-500' => $errors->has($name),
             ])
             {{ $attributes }} />
     </div>
+    @error($name)
+        <p class="text-xs font-bold text-red-500 uppercase tracking-widest mt-1">{{ $message }}</p>
+    @enderror
 </div>

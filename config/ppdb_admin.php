@@ -130,6 +130,12 @@ return [
                     'label' => 'Manajemen Kelulusan',
                 ],
                 [
+                    'id' => 'nav_jurusans',
+                    'route' => 'admin.jurusan.index',
+                    'icon' => 'book-open',
+                    'label' => 'Manajemen Jurusan',
+                ],
+                [
                     'id' => 'nav_portal_users',
                     'route' => 'admin.portal-users.index',
                     'icon' => 'users',

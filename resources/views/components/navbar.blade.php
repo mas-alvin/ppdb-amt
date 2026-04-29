@@ -51,33 +51,33 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-1">
 
-                    <a href="/dashboard"
+                    <a href="{{ route('student.dashboard') }}"
                         class="px-4 py-2 text-sm font-semibold rounded-lg transition-all
-                        {{ Request::is('dashboard') 
+                        {{ Request::routeIs('student.dashboard') 
                             ? 'bg-green-700 text-white' 
                             : 'text-white/90 hover:bg-green-800 hover:text-white' }}">
                         Dashboard
                     </a>
 
-                    <a href="/pendaftaran"
+                    <a href="{{ route('student.pendaftaran.wizard') }}"
                         class="px-4 py-2 text-sm font-semibold rounded-lg transition-all
-                        {{ Request::is('pendaftaran') 
+                        {{ Request::routeIs('student.pendaftaran.wizard') 
                             ? 'bg-green-700 text-white' 
                             : 'text-white/90 hover:bg-green-800 hover:text-white' }}">
                         Pendaftaran
                     </a>
 
-                    <a href="/pendaftaran/dokumen"
+                    <a href="{{ route('student.documents.index') }}"
                         class="px-4 py-2 text-sm font-semibold rounded-lg transition-all
-                        {{ Request::is('pendaftaran/dokumen') 
+                        {{ Request::routeIs('student.documents.index') 
                             ? 'bg-green-700 text-white' 
                             : 'text-white/90 hover:bg-green-800 hover:text-white' }}">
                         Dokumen
                     </a>
 
-                    <a href="/pendaftaran/status"
+                    <a href="{{ route('student.status') }}"
                         class="px-4 py-2 text-sm font-semibold rounded-lg transition-all
-                        {{ Request::is('pendaftaran/status') 
+                        {{ Request::routeIs('student.status') 
                             ? 'bg-green-700 text-white' 
                             : 'text-white/90 hover:bg-green-800 hover:text-white' }}">
                         Status
@@ -194,29 +194,29 @@
             Menu Utama
         </p>
 
-        <a href="/dashboard"
-            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1">
+        <a href="{{ route('student.dashboard') }}"
+            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1 {{ Request::routeIs('student.dashboard') ? 'bg-green-100 text-green-900' : 'text-slate-600' }}">
             <iconify-icon icon="lucide:layout-dashboard"
                 class="text-xl shrink-0"></iconify-icon>
             <span class="text-sm font-medium">Dashboard</span>
         </a>
 
-        <a href="/pendaftaran"
-            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1">
+        <a href="{{ route('student.pendaftaran.wizard') }}"
+            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1 {{ Request::routeIs('student.pendaftaran.wizard') ? 'bg-green-100 text-green-900' : 'text-slate-600' }}">
             <iconify-icon icon="lucide:clipboard-list"
                 class="text-xl shrink-0"></iconify-icon>
             <span class="text-sm font-medium">Pendaftaran</span>
         </a>
 
-        <a href="/pendaftaran/dokumen"
-            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1">
+        <a href="{{ route('student.documents.index') }}"
+            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1 {{ Request::routeIs('student.documents.index') ? 'bg-green-100 text-green-900' : 'text-slate-600' }}">
             <iconify-icon icon="lucide:file-text"
                 class="text-xl shrink-0"></iconify-icon>
             <span class="text-sm font-medium">Dokumen</span>
         </a>
 
-        <a href="/pendaftaran/status"
-            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1">
+        <a href="{{ route('student.status') }}"
+            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1 {{ Request::routeIs('student.status') ? 'bg-green-100 text-green-900' : 'text-slate-600' }}">
             <iconify-icon icon="lucide:bar-chart-3"
                 class="text-xl shrink-0"></iconify-icon>
             <span class="text-sm font-medium">Status</span>

@@ -36,14 +36,10 @@
                                 No. Registrasi
                             </p>
                             <p class="text-base sm:text-lg font-bold text-green-900">
-                                #2026-000124
+                                {{ $registration ? '#' . str_pad($registration->id, 6, '0', STR_PAD_LEFT) : 'Belum Terdaftar' }}
                             </p>
                         </div>
                     </div>
-
-                    <!-- <div class="h-10 w-px bg-slate-200 mx-1 hidden sm:block"></div> -->
-
-                    
                 </div>
             </div>
 
@@ -60,20 +56,20 @@
                         <div class="flex flex-col xl:flex-row justify-between gap-8 mb-10">
                             <div class="max-w-xl">
                                 <h3 class="text-2xl sm:text-3xl font-black mb-4">
-                                    Selesaikan Pendaftaran Anda
+                                    {{ $progress == 100 ? 'Pendaftaran Selesai' : 'Selesaikan Pendaftaran Anda' }}
                                 </h3>
 
                                 <p class="text-green-100/80 leading-relaxed mb-6 text-sm sm:text-base">
-                                    Dokumen pendaftaran Anda baru mencapai 45%.
-                                    Segera lengkapi persyaratan untuk melanjutkan
-                                    ke tahap verifikasi.
+                                    {{ $progress == 100 ? 'Terima kasih, berkas Anda sedang dalam proses verifikasi oleh tim pendaftaran.' : 'Dokumen pendaftaran Anda baru mencapai ' . $progress . '%. Segera lengkapi persyaratan untuk melanjutkan ke tahap verifikasi.' }}
                                 </p>
 
-                                <a href="/pendaftaran"
+                                @if($progress < 100)
+                                <a href="{{ $registration ? route('student.documents.index') : route('student.pendaftaran.wizard') }}"
                                     class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-yellow-500 text-green-950 font-black hover:bg-yellow-400 transition-all shadow-xl shadow-yellow-500/20">
                                     LENGKAPI SEKARANG
                                     <iconify-icon icon="lucide:chevron-right"></iconify-icon>
                                 </a>
+                                @endif
                             </div>
 
                             <div class="flex items-center justify-center">
@@ -83,15 +79,15 @@
                                         <circle cx="50%" cy="50%" r="45%"
                                             class="fill-none stroke-white/10 stroke-[10]"></circle>
                                         <circle cx="50%" cy="50%" r="45%"
-                                            class="fill-none stroke-yellow-500 stroke-[10]"
-                                            style="stroke-dasharray: 283; stroke-dashoffset: 155.65;">
+                                            class="fill-none stroke-yellow-500 stroke-[10] transition-all duration-1000"
+                                            style="stroke-dasharray: 283; stroke-dashoffset: {{ 283 - (283 * $progress / 100) }};">
                                         </circle>
                                     </svg>
 
                                     <div
                                         class="absolute inset-0 flex flex-col items-center justify-center">
                                         <span class="text-3xl sm:text-4xl font-black">
-                                            45%
+                                            {{ $progress }}%
                                         </span>
                                         <span
                                             class="text-[10px] font-black uppercase tracking-widest text-yellow-500">
@@ -105,35 +101,35 @@
                         <div
                             class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 pt-8 border-t border-white/10">
 
-                            <div class="flex items-center gap-3">
-                                <iconify-icon icon="lucide:check-circle"
-                                    class="text-yellow-500 text-xl"></iconify-icon>
+                            <div class="flex items-center gap-3 {{ $registration ? '' : 'text-white/50' }}">
+                                <iconify-icon icon="{{ $registration ? 'lucide:check-circle' : 'lucide:circle' }}"
+                                    class="{{ $registration ? 'text-yellow-500' : '' }} text-xl"></iconify-icon>
                                 <span class="text-sm font-medium">
                                     Biodata Diri
                                 </span>
                             </div>
 
-                            <div class="flex items-center gap-3 text-white/50">
-                                <iconify-icon icon="lucide:circle"
-                                    class="text-xl"></iconify-icon>
+                            <div class="flex items-center gap-3 {{ $progress > 50 ? '' : 'text-white/50' }}">
+                                <iconify-icon icon="{{ $progress > 50 ? 'lucide:check-circle' : 'lucide:circle' }}"
+                                    class="{{ $progress > 50 ? 'text-yellow-500' : '' }} text-xl"></iconify-icon>
                                 <span class="text-sm font-medium">
-                                    Dokumen Akta
+                                    Dokumen Wajib
                                 </span>
                             </div>
 
-                            <div class="flex items-center gap-3 text-white/50">
-                                <iconify-icon icon="lucide:circle"
-                                    class="text-xl"></iconify-icon>
+                            <div class="flex items-center gap-3 {{ $progress == 100 ? '' : 'text-white/50' }}">
+                                <iconify-icon icon="{{ $progress == 100 ? 'lucide:check-circle' : 'lucide:circle' }}"
+                                    class="{{ $progress == 100 ? 'text-yellow-500' : '' }} text-xl"></iconify-icon>
                                 <span class="text-sm font-medium">
-                                    Ijazah / SKL
+                                    Selesai
                                 </span>
                             </div>
 
-                            <div class="flex items-center gap-3 text-white/50">
-                                <iconify-icon icon="lucide:circle"
-                                    class="text-xl"></iconify-icon>
+                            <div class="flex items-center gap-3 {{ $registration && $registration->status == 'verified' ? '' : 'text-white/50' }}">
+                                <iconify-icon icon="{{ $registration && $registration->status == 'verified' ? 'lucide:check-circle' : 'lucide:circle' }}"
+                                    class="{{ $registration && $registration->status == 'verified' ? 'text-yellow-500' : '' }} text-xl"></iconify-icon>
                                 <span class="text-sm font-medium">
-                                    Rapor Terakhir
+                                    Terverifikasi
                                 </span>
                             </div>
                         </div>
@@ -195,55 +191,47 @@
                     </div>
 
                     <div class="space-y-6">
+                        @forelse($announcements as $announcement)
+                            <div class="flex gap-4">
+                                <div
+                                    @class([
+                                        'size-10 rounded-lg flex items-center justify-center shrink-0',
+                                        'bg-blue-50 text-blue-600' => $announcement->type == 'info',
+                                        'bg-amber-50 text-amber-600' => $announcement->type == 'warning',
+                                        'bg-red-50 text-red-600' => $announcement->type == 'danger',
+                                    ])>
+                                    <iconify-icon icon="lucide:{{ $announcement->type == 'info' ? 'megaphone' : ($announcement->type == 'warning' ? 'alert-triangle' : 'alert-circle') }}"
+                                        class="text-xl"></iconify-icon>
+                                </div>
 
-                        <div class="flex gap-4">
-                            <div
-                                class="size-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                                <iconify-icon icon="lucide:megaphone"
-                                    class="text-xl"></iconify-icon>
+                                <div>
+                                    <h5 class="font-bold text-green-950">
+                                        {{ $announcement->title }}
+                                    </h5>
+
+                                    <p class="text-sm text-slate-500 mt-1 leading-relaxed">
+                                        {{ $announcement->content }}
+                                    </p>
+
+                                    <div class="flex items-center gap-4 mt-2">
+                                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                                            {{ $announcement->created_at->diffForHumans() }}
+                                        </p>
+                                        @if($announcement->document_path)
+                                        <a href="{{ Storage::url($announcement->document_path) }}" target="_blank" class="flex items-center gap-1.5 text-[10px] font-black text-green-700 uppercase tracking-widest hover:text-green-900">
+                                            <iconify-icon icon="lucide:file-text"></iconify-icon>
+                                            LIHAT DOKUMEN PDF
+                                        </a>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
-
-                            <div>
-                                <h5 class="font-bold text-green-950">
-                                    Tata Tertib Ujian Seleksi Online
-                                </h5>
-
-                                <p class="text-sm text-slate-500 mt-1 leading-relaxed">
-                                    Harap membaca tata tertib sebelum mengikuti
-                                    ujian seleksi pada tanggal yang ditentukan.
-                                </p>
-
-                                <p
-                                    class="text-[10px] text-slate-400 mt-2 font-bold uppercase tracking-wider">
-                                    2 Jam yang lalu
-                                </p>
+                        @empty
+                            <div class="py-8 text-center bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
+                                <iconify-icon icon="lucide:bell-off" class="text-3xl text-slate-300 mb-2"></iconify-icon>
+                                <p class="text-sm font-bold text-slate-400">Belum ada pengumuman baru</p>
                             </div>
-                        </div>
-
-                        <div class="flex gap-4">
-                            <div
-                                class="size-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                                <iconify-icon icon="lucide:info"
-                                    class="text-xl"></iconify-icon>
-                            </div>
-
-                            <div>
-                                <h5 class="font-bold text-green-950">
-                                    Perpanjangan Masa Unggah Berkas
-                                </h5>
-
-                                <p class="text-sm text-slate-500 mt-1 leading-relaxed">
-                                    Batas waktu unggah berkas diperpanjang hingga
-                                    akhir minggu ini untuk memudahkan calon siswa.
-                                </p>
-
-                                <p
-                                    class="text-[10px] text-slate-400 mt-2 font-bold uppercase tracking-wider">
-                                    Kemarin
-                                </p>
-                            </div>
-                        </div>
-
+                        @endforelse
                     </div>
                 </div>
 

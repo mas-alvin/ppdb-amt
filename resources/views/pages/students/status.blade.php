@@ -19,22 +19,26 @@
                     <div class="relative size-40 md:size-48 flex items-center justify-center shrink-0">
                         <svg class="size-full -rotate-90">
                             <circle cx="50%" cy="50%" r="45%" class="fill-none stroke-slate-100 stroke-[12]"></circle>
-                            <circle cx="50%" cy="50%" r="45%" class="fill-none stroke-green-600 stroke-[12]" style="stroke-dasharray: 283; stroke-dashoffset: 155.65;"></circle>
+                            <circle cx="50%" cy="50%" r="45%" class="fill-none stroke-green-600 stroke-[12] transition-all duration-1000" style="stroke-dasharray: 283; stroke-dashoffset: {{ 283 - (283 * $progress / 100) }};"></circle>
                         </svg>
                         <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <span class="text-4xl font-black text-green-950">45%</span>
-                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Verified</span>
+                            <span class="text-4xl font-black text-green-950">{{ $progress }}%</span>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Progres</span>
                         </div>
                     </div>
 
                     <div class="text-center md:text-left flex-1">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-yellow-500 text-green-950 rounded-lg text-[10px] font-black uppercase tracking-widest mb-6">
-                            <span class="size-2 bg-green-950 rounded-lg animate-ping"></span>
-                            Tahap Verifikasi Dokumen
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 {{ $registration && $registration->status == 'verified' ? 'bg-emerald-100 text-emerald-800' : 'bg-yellow-500 text-green-950' }} rounded-lg text-[10px] font-black uppercase tracking-widest mb-6">
+                            @if(!$registration || $registration->status != 'verified')
+                                <span class="size-2 bg-green-950 rounded-lg animate-ping"></span>
+                            @endif
+                            {{ $registration ? ($registration->status == 'verified' ? 'Pendaftaran Diterima' : 'Tahap Verifikasi Dokumen') : 'Belum Mendaftar' }}
                         </div>
-                        <h2 class="text-3xl font-black text-green-950 leading-tight mb-4">Berkas Sedang Ditinjau</h2>
+                        <h2 class="text-3xl font-black text-green-950 leading-tight mb-4">
+                            {{ $registration ? ($registration->status == 'verified' ? 'Selamat! Anda Diterima' : 'Berkas Sedang Ditinjau') : 'Ayo Mulai Mendaftar' }}
+                        </h2>
                         <p class="text-slate-600 leading-relaxed max-w-md">
-                            Panitia sedang memeriksa keabsahan dokumen yang Anda unggah. Proses ini biasanya memakan waktu 1-3 hari kerja. Harap periksa portal atau email Anda secara berkala.
+                            {{ $registration ? ($registration->status == 'verified' ? 'Proses verifikasi dokumen Anda telah selesai. Silakan tunggu pengumuman jadwal ujian seleksi.' : 'Panitia sedang memeriksa keabsahan dokumen yang Anda unggah. Proses ini biasanya memakan waktu 1-3 hari kerja. Harap periksa portal atau email Anda secara berkala.') : 'Silakan isi formulir pendaftaran dan unggah dokumen pendukung untuk memulai proses seleksi.' }}
                         </p>
                     </div>
                 </div>
@@ -43,15 +47,15 @@
                 <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 border-t border-slate-100">
                     <div>
                         <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">ID Pendaftaran</p>
-                        <p class="font-bold text-green-950">#REG-2026-000124</p>
+                        <p class="font-bold text-green-950">{{ $registration ? '#REG-'.date('Y').'-'.str_pad($registration->id, 6, '0', STR_PAD_LEFT) : '-' }}</p>
                     </div>
                     <div>
                         <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Jurusan Utama</p>
-                        <p class="font-bold text-green-950">Rekayasa Perangkat Lunak</p>
+                        <p class="font-bold text-green-950">{{ $registration && $registration->jurusan ? $registration->jurusan->nama_jurusan : '-' }}</p>
                     </div>
                     <div>
                         <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Tanggal Update</p>
-                        <p class="font-bold text-green-950">20 April 2026, 09:12 WIB</p>
+                        <p class="font-bold text-green-950">{{ $registration ? \Carbon\Carbon::parse($registration->updated_at)->format('d F Y, H:i') . ' WIB' : '-' }}</p>
                     </div>
                 </div>
             </div>
@@ -61,57 +65,74 @@
                 <h3 class="font-black text-2xl text-green-950 mb-10">Riwayat Perjalanan</h3>
                 
                 <div class="relative space-y-12 before:absolute before:left-5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-100">
-                    
-                    {{-- Step 1 (Completed) --}}
-                    <div class="relative pl-14">
-                        <div class="absolute left-0 top-0 size-10 rounded-lg bg-green-900 text-white flex items-center justify-center shadow-lg shadow-green-900/20 z-10 border-4 border-white">
-                            <iconify-icon icon="lucide:check" class="text-xl"></iconify-icon>
-                        </div>
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
-                            <h4 class="text-lg font-black text-green-950">Pembuatan Akun Portal</h4>
-                            <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg uppercase">Selesai</span>
-                        </div>
-                        <p class="text-slate-500 text-sm">Akun berhasil diverifikasi melalui email.</p>
-                        <time class="text-[10px] font-black text-slate-300 uppercase mt-2 block">12 Mei 2026, 14:20</time>
-                    </div>
+                    @foreach($stages as $i => $stage)
+                        @php
+                            $isCompleted = false;
+                            $isActive = false;
+                            
+                            switch($stage->key) {
+                                case 'account':
+                                    $isCompleted = true;
+                                    break;
+                                case 'form':
+                                    $isCompleted = $registration != null;
+                                    $isActive = !$isCompleted;
+                                    break;
+                                case 'verify':
+                                    $isCompleted = $registration && $registration->status == 'verified';
+                                    $isActive = $registration && $registration->status != 'verified' && $registration->status != 'rejected';
+                                    break;
+                                case 'selection':
+                                    $isCompleted = $registration && $registration->status == 'selection_passed';
+                                    $isActive = $registration && $registration->status == 'verified';
+                                    break;
+                                case 'announce':
+                                    $isCompleted = $registration && $registration->status == 'accepted';
+                                    $isActive = $registration && $registration->status == 'selection_passed';
+                                    break;
+                            }
+                        @endphp
 
-                    {{-- Step 2 (Completed) --}}
-                    <div class="relative pl-14">
-                        <div class="absolute left-0 top-0 size-10 rounded-lg bg-green-900 text-white flex items-center justify-center shadow-lg shadow-green-900/20 z-10 border-4 border-white">
-                            <iconify-icon icon="lucide:user-plus" class="text-xl"></iconify-icon>
+                        <div class="relative pl-14 {{ !$isCompleted && !$isActive ? 'opacity-40' : '' }}">
+                            <div @class([
+                                'absolute left-0 top-0 size-10 rounded-lg flex items-center justify-center shadow-lg z-10 border-4 border-white',
+                                'bg-green-900 text-white shadow-green-900/20' => $isCompleted,
+                                'bg-yellow-500 text-green-950 shadow-yellow-500/20' => $isActive,
+                                'bg-slate-100 text-slate-400' => !$isCompleted && !$isActive,
+                            ])>
+                                <iconify-icon icon="{{ $isCompleted ? 'lucide:check' : ($isActive ? 'lucide:loader-2' : 'lucide:circle') }}" 
+                                    @class(['text-xl', 'animate-spin' => $isActive])></iconify-icon>
+                            </div>
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
+                                <h4 @class([
+                                    'text-lg font-black',
+                                    'text-green-950' => $isCompleted || $isActive,
+                                    'text-slate-400' => !$isCompleted && !$isActive,
+                                ])>{{ $stage->label }}</h4>
+                                
+                                @if($isCompleted)
+                                    <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg uppercase tracking-wider">Selesai</span>
+                                @elseif($isActive)
+                                    <span class="text-xs font-bold text-yellow-600 bg-yellow-50 px-2 py-1 rounded-lg uppercase tracking-wider italic animate-pulse">Sedang Berjalan</span>
+                                @else
+                                    <span class="text-xs font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded-lg uppercase tracking-wider">Belum</span>
+                                @endif
+                            </div>
+                            <p @class([
+                                'text-sm mb-2',
+                                'text-slate-500' => $isCompleted || $isActive,
+                                'text-slate-400 italic' => !$isCompleted && !$isActive,
+                            ])>
+                                {{ $stage->description }}
+                            </p>
+                            @if($stage->start_date && $stage->end_date)
+                            <div class="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 w-fit px-2 py-1 rounded">
+                                <iconify-icon icon="lucide:calendar"></iconify-icon>
+                                <span>{{ \Carbon\Carbon::parse($stage->start_date)->format('d M Y') }} - {{ \Carbon\Carbon::parse($stage->end_date)->format('d M Y') }}</span>
+                            </div>
+                            @endif
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
-                            <h4 class="text-lg font-black text-green-950">Pengisian Formulir Pendaftaran</h4>
-                            <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg uppercase">Selesai</span>
-                        </div>
-                        <p class="text-slate-500 text-sm">Data pribadi, orang tua, dan dokumen pendukung berhasil dikirim.</p>
-                        <time class="text-[10px] font-black text-slate-300 uppercase mt-2 block">13 Mei 2026, 09:45</time>
-                    </div>
-
-                    {{-- Step 3 (Active) --}}
-                    <div class="relative pl-14">
-                        <div class="absolute left-0 top-0 size-10 rounded-lg bg-yellow-500 text-green-950 flex items-center justify-center shadow-lg shadow-yellow-500/20 z-10 border-4 border-white">
-                            <iconify-icon icon="lucide:loader-2" class="text-xl animate-spin"></iconify-icon>
-                        </div>
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
-                            <h4 class="text-lg font-black text-green-950">Verifikasi Berkas Kolektif</h4>
-                            <span class="text-xs font-bold text-yellow-600 bg-yellow-50 px-2 py-1 rounded-lg uppercase italic">Sedang Berjalan</span>
-                        </div>
-                        <p class="text-slate-500 text-sm italic">Menunggu validasi oleh tim panitia PPDB SMK AL-MUJTAMA'.</p>
-                    </div>
-
-                    {{-- Step 4 (Future) --}}
-                    <div class="relative pl-14 opacity-40">
-                        <div class="absolute left-0 top-0 size-10 rounded-lg bg-slate-100 text-slate-400 flex items-center justify-center z-10 border-4 border-white">
-                            <iconify-icon icon="lucide:star" class="text-xl"></iconify-icon>
-                        </div>
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
-                            <h4 class="text-lg font-black text-slate-400">Pengumuman Kelulusan</h4>
-                            <span class="text-xs font-bold text-slate-300 bg-slate-50 px-2 py-1 rounded-lg uppercase">Mendatang</span>
-                        </div>
-                        <p class="text-slate-400 text-sm italic">Hasil seleksi akan diumumkan pada bulan Juli 2026.</p>
-                    </div>
-
+                    @endforeach
                 </div>
             </div>
 
