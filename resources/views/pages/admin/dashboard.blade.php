@@ -54,8 +54,23 @@
             {{-- Charts --}}
             <div class="lg:col-span-8 space-y-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="bg-white p-8 rounded-lg border border-slate-100 shadow-sm">
-                    <h3 class="text-lg font-black text-green-950 mb-8 uppercase tracking-wide">Tren Pendaftaran Mingguan</h3>
-                    <x-admin.chart-bar-trend :points="$trend" />
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                        <div>
+                            <h3 class="text-lg font-black text-green-950 uppercase tracking-wide">Tren Pendaftaran</h3>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">Statistik pendaftar baru</p>
+                        </div>
+                        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg">
+                            <a href="{{ route('admin.dashboard', ['period' => 'weekly']) }}" 
+                                @class(['px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-md transition-all', 'bg-white text-green-900 shadow-sm' => request('period', 'weekly') == 'weekly', 'text-slate-500 hover:text-slate-700' => request('period') != 'weekly'])>Mingguan</a>
+                            <a href="{{ route('admin.dashboard', ['period' => 'monthly']) }}" 
+                                @class(['px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-md transition-all', 'bg-white text-green-900 shadow-sm' => request('period') == 'monthly', 'text-slate-500 hover:text-slate-700' => request('period') != 'monthly'])>Bulanan</a>
+                            <a href="{{ route('admin.dashboard', ['period' => 'yearly']) }}" 
+                                @class(['px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-md transition-all', 'bg-white text-green-900 shadow-sm' => request('period') == 'yearly', 'text-slate-500 hover:text-slate-700' => request('period') != 'yearly'])>Tahunan</a>
+                        </div>
+                    </div>
+                    <div class="pt-4">
+                        <x-admin.chart-line-trend :points="$trend" />
+                    </div>
                 </div>
                 
                 <div class="bg-white p-8 rounded-lg border border-slate-100 shadow-sm">

@@ -199,7 +199,7 @@ return [
             'id' => 'kpi_rejected',
             'entity_key' => 'registration_application',
             'metric' => 'count_rejected',
-            'label' => 'Ditolak / perbaikan',
+            'label' => 'Dokumen ditolak / perbaikan',
             'icon' => 'alert-circle',
             'tone' => 'red',
         ],

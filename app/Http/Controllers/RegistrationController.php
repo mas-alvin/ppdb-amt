@@ -140,9 +140,11 @@ class RegistrationController extends Controller
                 $request->catatan_admin
             );
 
-            return back()->with('success', 'Status pendaftaran berhasil diperbarui.');
+            return back()->with('success', 'Status pendaftaran berhasil diperbarui.')
+                ->with('active_tab', 'identitas');
         } catch (Exception $e) {
-            return back()->with('error', 'Gagal memperbarui status: ' . $e->getMessage());
+            return back()->with('error', 'Gagal memperbarui status: ' . $e->getMessage())
+                ->with('active_tab', 'identitas');
         }
     }
 
@@ -163,9 +165,11 @@ class RegistrationController extends Controller
                 $request->admin_note
             );
 
-            return back()->with('success', 'Status dokumen berhasil diperbarui.');
+            return back()->with('success', 'Status dokumen berhasil diperbarui.')
+                ->with('active_tab', 'dokumen');
         } catch (Exception $e) {
-            return back()->with('error', 'Gagal memperbarui dokumen: ' . $e->getMessage());
+            return back()->with('error', 'Gagal memperbarui dokumen: ' . $e->getMessage())
+                ->with('active_tab', 'dokumen');
         }
     }
 }

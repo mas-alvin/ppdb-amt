@@ -12,35 +12,58 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
+        $period = $request->query('period', 'weekly');
+
         // KPI Values
         $kpiValues = [
             'kpi_total_apps' => Registration::count(),
             'kpi_verified_docs' => StudentDocument::where('status', 'verified')->count(),
             'kpi_pending_review' => StudentDocument::where('status', 'pending')->count(),
-            'kpi_rejected' => Registration::where('status', 'rejected')->count(),
+            'kpi_rejected' => StudentDocument::where('status', 'rejected')->count(), // Updated to documents
         ];
 
-        // Trend Pendaftaran Mingguan (Last 4 weeks)
-        $trend = Registration::select(
-            DB::raw("to_char(created_at, 'WW') as week"),
-            DB::raw('count(*) as value')
-        )
-        ->where('created_at', '>=', now()->subWeeks(4))
-        ->groupBy('week')
-        ->orderBy('week')
-        ->get()
-        ->map(function ($item, $index) {
-            return [
-                'label' => 'Minggu ' . ($index + 1),
-                'value' => $item->value
-            ];
-        })->toArray();
+        // Trend calculation
+        if ($period === 'weekly') {
+            $trend = Registration::select(
+                DB::raw("to_char(created_at, 'ID') as label_index"),
+                DB::raw("to_char(created_at, 'Dy') as label"),
+                DB::raw('count(*) as value')
+            )
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('label_index', 'label')
+            ->orderBy('label_index')
+            ->get();
+        } elseif ($period === 'monthly') {
+            $trend = Registration::select(
+                DB::raw("to_char(created_at, 'MM') as label_index"),
+                DB::raw("to_char(created_at, 'Mon') as label"),
+                DB::raw('count(*) as value')
+            )
+            ->where('created_at', '>=', now()->subMonths(6))
+            ->groupBy('label_index', 'label')
+            ->orderBy('label_index')
+            ->get();
+        } else { // yearly
+            $trend = Registration::select(
+                DB::raw("to_char(created_at, 'YYYY') as label"),
+                DB::raw('count(*) as value')
+            )
+            ->where('created_at', '>=', now()->subYears(5))
+            ->groupBy('label')
+            ->orderBy('label')
+            ->get();
+        }
+
+        $trend = $trend->map(fn($item) => [
+            'label' => $item->label,
+            'value' => (int) $item->value
+        ])->toArray();
 
         // Fallback if trend is empty
         if (empty($trend)) {
-            $trend = [['label' => 'Minggu 1', 'value' => 0]];
+            $trend = [['label' => 'No Data', 'value' => 0]];
         }
 
         // Distribusi Tahapan Siswa

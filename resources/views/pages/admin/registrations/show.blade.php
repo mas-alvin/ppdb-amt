@@ -2,7 +2,7 @@
     ['label' => 'Pendaftaran', 'url' => route('admin.registrations.index')],
     ['label' => 'Detail Siswa']
 ]">
-    <div class="space-y-6" x-data="{ tab: 'identitas' }">
+    <div class="space-y-6" x-data="{ tab: '{{ session('active_tab', 'identitas') }}' }">
         {{-- Header Detail --}}
         <div class="bg-emerald-900 rounded-sm p-8 text-white relative overflow-hidden shadow-sm">
             <div class="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay"
