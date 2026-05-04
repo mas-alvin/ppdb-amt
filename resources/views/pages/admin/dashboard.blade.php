@@ -1,17 +1,12 @@
 @php
     $kpis = config('ppdb_admin.dashboard_kpis', []);
-    $kpiValues = config('ppdb_admin.dashboard_kpi_demo_values', []);
-    $trend = config('ppdb_admin.charts_demo.trend_registrations_by_week', []);
-    $distribution = config('ppdb_admin.charts_demo.distribution_by_stage', []);
-    $activity = config('ppdb_admin.activity_feed_demo', []);
-    $logs = config('ppdb_admin.system_log_demo', []);
 @endphp
 
 <x-admin-layout title="Ringkasan Operasional" :breadcrumbs="[['label' => 'Dashboard']]">
     <div class="space-y-8">
         
         {{-- Welcome Header --}}
-        <div class="bg-emerald-950 rounded-lg p-8 text-white relative overflow-hidden shadow-2xl shadow-emerald-950/20" data-aos="fade-down">
+        {{-- <div class="bg-emerald-950 rounded-lg p-8 text-white relative overflow-hidden shadow-2xl shadow-emerald-950/20" data-aos="fade-down">
             
             <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
                 <div>
@@ -31,7 +26,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         {{-- KPI Cards --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6" data-aos="fade-up">

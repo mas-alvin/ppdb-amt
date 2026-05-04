@@ -18,4 +18,10 @@ class Stage extends Model
         'is_active',
         'order',
     ];
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'is_active' => 'boolean',
+    ];
 }

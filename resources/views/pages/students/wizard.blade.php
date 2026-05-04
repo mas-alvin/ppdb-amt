@@ -2,24 +2,64 @@
     <div class="min-h-screen bg-slate-50 dark:bg-background-dark py-12 px-4 sm:px-6 lg:px-8" x-data="{ step: 1 }">
         <div class="relative max-w-full sm:mx-auto md:mx-28">
             
-            <!-- Header Section -->
-            <div class="text-center mb-12" data-aos="fade-down">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-green-100 text-green-800 text-xs font-black mb-4 border border-green-200 uppercase tracking-widest">
-                    Registration Wizard
+            @if(!$registration)
+                <!-- Header Section -->
+                <div class="text-center mb-12" data-aos="fade-down">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-green-100 text-green-800 text-xs font-black mb-4 border border-green-200 uppercase tracking-widest">
+                        Registration Wizard
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-black text-green-950 tracking-tight leading-tight">Formulir Pendaftaran</h1>
+                    <p class="mt-2 text-slate-500 text-lg">Lengkapi data Anda dengan teliti sesuai dokumen asli.</p>
                 </div>
-                <h1 class="text-4xl md:text-5xl font-black text-green-950 tracking-tight leading-tight">Formulir Pendaftaran</h1>
-                <p class="mt-2 text-slate-500 text-lg">Lengkapi data Anda dengan teliti sesuai dokumen asli.</p>
-            </div>
 
-            <!-- Step Indicator -->
-            <x-registration.wizard-step-indicator ::active-step="step" />
+                <!-- Step Indicator -->
+                <x-registration.wizard-step-indicator ::active-step="step" />
+            @endif
 
             @if(!$registration)
-                <!-- Wizard Form -->
-                <div
-                    class="bg-white dark:bg-slate-900 rounded-lg shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 overflow-hidden">
-                    <form action="{{ route('student.pendaftaran.store') }}" method="POST" id="registrationForm">
-                        @csrf
+                @if(!$activeWave)
+                    <!-- Registration Closed Notice -->
+                    <div class="bg-white dark:bg-slate-900 rounded-lg shadow-xl border border-slate-100 dark:border-slate-800 p-12 text-center" data-aos="zoom-in">
+                        <div class="size-24 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center mx-auto mb-6">
+                            <iconify-icon icon="lucide:calendar-off" class="text-5xl"></iconify-icon>
+                        </div>
+                        <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-2">Pendaftaran Belum Dibuka</h2>
+                        <p class="text-slate-500 max-w-md mx-auto mb-8">Mohon maaf, saat ini belum ada gelombang pendaftaran yang dibuka atau jadwal pendaftaran telah berakhir. Silakan cek kembali secara berkala.</p>
+                        <a href="{{ route('student.dashboard') }}" class="inline-flex items-center gap-2 px-8 py-3 bg-green-900 text-white rounded-lg font-black uppercase tracking-widest hover:bg-green-800 transition-all shadow-xl shadow-green-900/20">
+                            <iconify-icon icon="lucide:arrow-left"></iconify-icon> Kembali ke Dashboard
+                        </a>
+                    </div>
+                @elseif($activeWave->isFull())
+                    <!-- Quota Full Notice -->
+                    <div class="bg-white dark:bg-slate-900 rounded-lg shadow-xl border border-slate-100 dark:border-slate-800 p-12 text-center" data-aos="zoom-in">
+                        <div class="size-24 rounded-full bg-red-50 dark:bg-red-950/20 text-red-500 flex items-center justify-center mx-auto mb-6">
+                            <iconify-icon icon="lucide:users-2" class="text-5xl"></iconify-icon>
+                        </div>
+                        <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-2">Kuota Sudah Penuh</h2>
+                        <p class="text-slate-500 max-w-md mx-auto mb-2">Mohon maaf, kuota pendaftaran untuk <strong>{{ $activeWave->name }}</strong> telah terpenuhi.</p>
+                        <p class="text-slate-400 text-sm mb-8 italic">Silakan hubungi panitia PPDB untuk informasi lebih lanjut.</p>
+                        <a href="{{ route('student.dashboard') }}" class="inline-flex items-center gap-2 px-8 py-3 bg-green-900 text-white rounded-lg font-black uppercase tracking-widest hover:bg-green-800 transition-all shadow-xl shadow-green-900/20">
+                            <iconify-icon icon="lucide:arrow-left"></iconify-icon> Kembali ke Dashboard
+                        </a>
+                    </div>
+                @else
+                    <!-- Wizard Form -->
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-lg shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 overflow-hidden">
+                        
+                        <!-- Wave Status Badge -->
+                        <div class="bg-green-900/5 px-8 py-3 border-b border-green-900/10 flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-green-900 font-bold text-sm">
+                                <iconify-icon icon="lucide:info" class="text-lg"></iconify-icon>
+                                <span>Pendaftaran: {{ $activeWave->name }}</span>
+                            </div>
+                            <div class="text-xs text-slate-500">
+                                Berakhir dalam: <span class="font-bold text-green-900">{{ $activeWave->end_date->endOfDay()->diffForHumans() }}</span>
+                            </div>
+                        </div>
+
+                        <form action="{{ route('student.pendaftaran.store') }}" method="POST" id="registrationForm">
+                            @csrf
      
                         <!-- Step 1: Data Pribadi & Kontak -->
                         <div x-show="step === 1" x-transition class="p-8 space-y-8">
@@ -340,6 +380,7 @@
                         </div>
                     </form>
                 </div>
+                @endif
             @else
                 <!-- Show Submitted Data Summary -->
                 <div class="bg-white rounded-lg shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
@@ -550,10 +591,12 @@
                             </div>
                         </div>
 
-                        <!-- Action Buttons -->
                         <div class="p-8 border-t border-slate-100 bg-slate-50/30 flex flex-wrap gap-4">
                             <a href="{{ route('student.dashboard') }}" class="px-6 py-3 bg-emerald-900 text-white font-black rounded-lg transition-all shadow-lg shadow-emerald-900/20 flex items-center gap-2">
                                 <iconify-icon icon="lucide:layout-dashboard"></iconify-icon> Ke Dashboard
+                            </a>
+                            <a href="{{ route('student.pendaftaran.download') }}" class="px-6 py-3 bg-yellow-500 hover:bg-yellow-400 text-green-950 font-black rounded-lg transition-all shadow-lg flex items-center gap-2">
+                                <iconify-icon icon="lucide:file-down"></iconify-icon> Unduh Bukti (PDF)
                             </a>
                             <button onclick="window.print()" class="px-6 py-3 bg-white border-2 border-slate-200 hover:border-emerald-900 hover:text-emerald-900 text-slate-600 font-black rounded-lg transition-all flex items-center gap-2">
                                 <iconify-icon icon="lucide:printer"></iconify-icon> Cetak Bukti

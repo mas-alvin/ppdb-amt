@@ -1,11 +1,18 @@
 <x-auth-layout title="Daftar">
-    <div class="mb-6">
+    {{-- <div class="mb-6">
         <h2 class="text-xl font-black text-green-950 uppercase tracking-tight">Pendaftaran Akun</h2>
         <p class="text-slate-500 text-sm">Buat akun portal pendaftaran untuk memulai proses aplikasi Anda.</p>
-    </div>
+    </div> --}}
 
     <form action="{{ route('register') }}" method="POST" class="space-y-4">
         @csrf
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center size-18 mb-4">
+                <img src="{{ asset('logo-amt.webp') }}" alt="Logo" class="size-18">
+            </div>
+            <h1 class="text-lg font-black text-green-950 uppercase tracking-tighter">Daftar Akun</h1>
+            <p class="text-slate-500 text-sm mt-1">Daftarkan akun anda untuk melakukan pendaftaran</p>
+        </div>
         <div>
             <label for="name" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Nama Lengkap</label>
             <div class="relative">
@@ -79,14 +86,14 @@
             </div>
         </div>
 
-        <div class="flex items-center gap-3 py-2">
+        {{-- <div class="flex items-center gap-3 py-2">
             <input type="checkbox" required class="rounded-sm border-slate-300 text-green-900 focus:ring-green-900 size-4">
             <span class="text-[10px] text-slate-500 uppercase tracking-wide">Saya setuju dengan <a href="#" class="font-bold text-green-900 border-b border-green-900/30">Syarat & Ketentuan</a> pendaftaran.</span>
-        </div>
+        </div> --}}
 
         <button type="submit" 
             class="w-full bg-green-900 text-white py-4 rounded-sm font-black uppercase tracking-[0.2em] text-xs hover:bg-green-800 transition-all shadow-xl shadow-green-900/20 active:scale-[0.98]">
-            DAFTAR SEKARANG
+            Buat Akun
         </button>
     </form>
 

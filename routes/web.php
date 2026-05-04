@@ -19,19 +19,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 // Student Routes
 Route::middleware(['auth', 'role:student'])->group(function () {
-    Route::get('/dashboard', function () {
-        $user = auth()->user();
-        $registration = \App\Models\Registration::where('user_id', $user->id)->first();
-        $progress = $user->calculateProgress();
-        $announcements = \App\Models\Announcement::where('is_active', true)->latest()->take(5)->get();
-
-        return view('pages.students.dashboard', compact('registration', 'progress', 'announcements'));
-    })->name('student.dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Student\DashboardController::class, 'index'])->name('student.dashboard');
 
     Route::prefix('pendaftaran')->name('student.pendaftaran.')->group(function () {
         Route::get('/', [\App\Http\Controllers\RegistrationController::class, 'create'])->name('wizard');
-        
         Route::post('/store', [\App\Http\Controllers\RegistrationController::class, 'store'])->name('store');
+        Route::get('/download-bukti', [\App\Http\Controllers\RegistrationController::class, 'downloadProof'])->name('download');
     });
 
     Route::get('/dokumen', [\App\Http\Controllers\Student\DocumentController::class, 'index'])->name('student.documents.index');
@@ -49,11 +42,13 @@ Route::middleware(['auth', 'role:student'])->group(function () {
 
 // Admin Routes
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::view('/dashboard', 'pages.admin.dashboard')->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     
     // Registrations
+    Route::get('/registrations/export-pdf', [\App\Http\Controllers\RegistrationController::class, 'exportPdf'])->name('registrations.export-pdf');
     Route::get('/registrations', [\App\Http\Controllers\RegistrationController::class, 'index'])->name('registrations.index');
     Route::get('/registrations/{id}', [\App\Http\Controllers\RegistrationController::class, 'show'])->name('registrations.show');
+    
     Route::patch('/registrations/{id}/status', [\App\Http\Controllers\RegistrationController::class, 'updateStatus'])->name('registrations.update-status');
     
     // Documents Verification
@@ -65,7 +60,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::view('/documents', 'pages.admin.documents.index')->name('documents.index');
     // Wave / Schedule
     Route::resource('schedule', \App\Http\Controllers\Admin\WaveController::class);
-    Route::view('/portal-users', 'pages.admin.portal-users.index')->name('portal-users.index');
+    Route::resource('portal-users', \App\Http\Controllers\Admin\PortalUserController::class);
     Route::resource('content', \App\Http\Controllers\Admin\AnnouncementController::class);
     Route::patch('/content/{announcement}/toggle', [\App\Http\Controllers\Admin\AnnouncementController::class, 'toggleStatus'])->name('content.toggle');
     Route::view('/reporting', 'pages.admin.reporting.index')->name('reporting.index');

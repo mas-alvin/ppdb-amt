@@ -23,12 +23,6 @@ class DocumentController extends Controller
     {
         $user = auth()->user();
         
-        // Cek apakah siswa sudah menyelesaikan wizard
-        if (!$user->registration) {
-            return redirect()->route('student.pendaftaran.wizard')
-                ->with('warning', 'Anda harus menyelesaikan pengisian formulir pendaftaran terlebih dahulu sebelum dapat mengunggah dokumen.');
-        }
-
         $documents = $user->documents()->get()->keyBy('document_type');
         
         return view('pages.students.documents', compact('documents'));

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('label');
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->integer('order')->default(0);
             $table->timestamps();
         });

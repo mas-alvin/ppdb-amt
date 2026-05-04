@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Registration;
+use App\Models\Wave;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -21,6 +22,21 @@ class RegistrationService
     {
         return DB::transaction(function () use ($data, $userId) {
             try {
+                // Find Active Wave
+                $activeWave = Wave::where('status', 'open')
+                    ->whereDate('start_date', '<=', today())
+                    ->whereDate('end_date', '>=', today())
+                    ->first();
+
+                if (!$activeWave) {
+                    throw new Exception('Pendaftaran saat ini sedang ditutup atau belum dibuka untuk tanggal hari ini.');
+                }
+
+                // Check Quota
+                if ($activeWave->isFull()) {
+                    throw new Exception('Maaf, kuota untuk gelombang ' . $activeWave->name . ' sudah penuh.');
+                }
+
                 // Check if user already has a registration
                 $existing = Registration::where('user_id', $userId)->first();
                 if ($existing) {
@@ -28,6 +44,7 @@ class RegistrationService
                 }
 
                 $data['user_id'] = $userId;
+                $data['wave_id'] = $activeWave->id;
                 $data['status'] = 'pending';
 
                 return Registration::create($data);

@@ -18,13 +18,13 @@
 
     <div class="w-full max-w-md">
         {{-- Logo & Brand --}}
-        <div class="text-center mb-8">
+        {{-- <div class="text-center mb-8">
             <div class="inline-flex items-center justify-center size-16 bg-green-900 rounded-sm shadow-2xl shadow-green-900/20 mb-4">
                 <img src="{{ asset('logo-amt.webp') }}" alt="Logo" class="size-10">
             </div>
             <h1 class="text-2xl font-black text-green-950 uppercase tracking-tighter">PPDB SMK AL-MUJTAMA'</h1>
             <p class="text-slate-500 text-sm mt-1">Sistem Informasi Penerimaan Siswa Baru</p>
-        </div>
+        </div> --}}
 
         {{-- Main Card --}}
         <div class="bg-white rounded-sm border border-slate-100 shadow-2xl overflow-hidden">

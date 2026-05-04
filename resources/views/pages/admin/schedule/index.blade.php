@@ -35,7 +35,17 @@
                                 </td>
                                 <td class="px-6 py-4 text-slate-500 text-sm tabular-nums">{{ $w->start_date->format('d M Y') }}</td>
                                 <td class="px-6 py-4 text-slate-500 text-sm tabular-nums">{{ $w->end_date->format('d M Y') }}</td>
-                                <td class="px-6 py-4 text-right tabular-nums font-bold text-green-900">{{ $w->quota }}</td>
+                                <td class="px-6 py-4 text-right tabular-nums">
+                                    <div class="flex flex-col items-end">
+                                        <div class="text-sm font-black {{ $w->registrations_count >= $w->quota ? 'text-red-600' : 'text-green-900' }}">
+                                            {{ $w->registrations_count }} / {{ $w->quota }}
+                                        </div>
+                                        <div class="text-[9px] text-slate-400 uppercase tracking-widest mt-0.5">Terisi / Total</div>
+                                        @if($w->registrations_count >= $w->quota)
+                                            <span class="mt-1 px-1.5 py-0.5 bg-red-100 text-red-700 text-[8px] font-black rounded uppercase">Penuh</span>
+                                        @endif
+                                    </div>
+                                </td>
                                 <td class="px-6 py-4">
                                     <span
                                         @class([

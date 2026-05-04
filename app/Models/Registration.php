@@ -71,6 +71,7 @@ class Registration extends Model
         'status',
         'catatan_admin',
         'jurusan_id',
+        'wave_id',
     ];
 
     /**
@@ -87,5 +88,13 @@ class Registration extends Model
     public function jurusan(): BelongsTo
     {
         return $this->belongsTo(Jurusan::class);
+    }
+
+    /**
+     * Get the wave for this registration.
+     */
+    public function wave(): BelongsTo
+    {
+        return $this->belongsTo(Wave::class);
     }
 }

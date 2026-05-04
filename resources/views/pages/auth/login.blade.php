@@ -1,11 +1,13 @@
 <x-auth-layout title="Masuk">
-    <div class="mb-6">
-        <h2 class="text-xl font-black text-green-950 uppercase tracking-tight">Selamat Datang</h2>
-        <p class="text-slate-500 text-sm">Silakan masuk ke akun Anda untuk melanjutkan pendaftaran.</p>
-    </div>
-
     <form action="{{ route('login') }}" method="POST" class="space-y-4">
         @csrf
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center size-18 mb-4">
+                <img src="{{ asset('logo-amt.webp') }}" alt="Logo" class="size-18">
+            </div>
+            <h1 class="text-lg font-black text-green-950 uppercase tracking-tighter">Masuk Akun</h1>
+            <p class="text-slate-500 text-sm mt-1">Masuk dengan akun anda untuk melakukan pendaftaran</p>
+        </div>
         <div>
             <label for="email" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Email atau Username</label>
             <div class="relative">

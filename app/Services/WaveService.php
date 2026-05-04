@@ -10,7 +10,7 @@ class WaveService
 {
     public function getAllWaves()
     {
-        return Wave::latest()->get();
+        return Wave::withCount('registrations')->latest()->get();
     }
 
     public function storeWave(array $data)

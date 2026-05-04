@@ -29,3 +29,5 @@ Setiap response dari Controller harus menyertakan feedback untuk SweetAlert2:
 - DRY & Clean Code: Gunakan Early Return (hindari if-else bertumpuk).
 - Error Handling: try-catch wajib ada di Service. Log error menggunakan Log::error() dan kembalikan pesan user-friendly ke UI.
 - Reusable Logic: Logika yang dipakaiulang wajib masuk ke Trait atau BaseService.
+
+Untuk menjalankan artisan gunakan perintah seperti ini "sudo docker exex -it ppdb-app php artisan %command%". contohnya "sudo docker exex -it ppdb-app php artisan migrate".

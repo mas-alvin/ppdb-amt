@@ -2,7 +2,7 @@
     ['label' => 'Pendaftaran', 'url' => route('admin.registrations.index')],
     ['label' => 'Detail Siswa']
 ]">
-    <div class="space-y-6">
+    <div class="space-y-6" x-data="{ tab: 'identitas' }">
         {{-- Header Detail --}}
         <div class="bg-emerald-900 rounded-sm p-8 text-white relative overflow-hidden shadow-sm">
             <div class="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay"
@@ -42,76 +42,123 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-            {{-- Bagian Kiri: Data Pendaftaran --}}
-            <div class="xl:col-span-2 space-y-6">
-                {{-- Data Pribadi --}}
-                <div class="bg-white p-6 rounded-sm border border-slate-100 shadow-sm">
-                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2 border-b border-slate-100 pb-3">
-                        <iconify-icon icon="lucide:user" class="text-lg"></iconify-icon> Informasi Pribadi
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
-                        <div class="md:col-span-2">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jurusan Pilihan</p>
-                            <p class="text-sm font-bold text-emerald-700 mt-1 uppercase">{{ $registration->jurusan ? $registration->jurusan->nama_jurusan : 'Belum Memilih' }}</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jenis Kelamin</p>
-                            <p class="text-sm font-bold text-slate-800 mt-1">{{ $registration->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">NIK</p>
-                            <p class="text-sm font-bold text-slate-800 mt-1">{{ $registration->nik }}</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tempat, Tanggal Lahir</p>
-                            <p class="text-sm font-bold text-slate-800 mt-1">{{ $registration->tempat_lahir }}, {{ \Carbon\Carbon::parse($registration->tanggal_lahir)->format('d F Y') }}</p>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Agama</p>
-                            <p class="text-sm font-bold text-slate-800 mt-1">{{ $registration->agama }}</p>
-                        </div>
-                        <div class="md:col-span-2 mt-2">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Alamat Lengkap</p>
-                            <p class="text-sm font-bold text-slate-800 mt-1">{{ $registration->alamat }} RT {{ $registration->rt }}/RW {{ $registration->rw }}, Kel. {{ $registration->kelurahan }}, Kec. {{ $registration->kecamatan }}, {{ $registration->kode_pos }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Data Fisik & Jarak --}}
-                <div class="bg-white p-6 rounded-sm border border-slate-100 shadow-sm">
-                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2 border-b border-slate-100 pb-3">
-                        <iconify-icon icon="lucide:ruler" class="text-lg"></iconify-icon> Fisik & Jarak Tempuh
-                    </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-slate-50 p-4 rounded-sm border border-slate-100 text-center">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tinggi</p>
-                            <p class="text-xl font-black text-green-950 mt-1">{{ $registration->tinggi_badan }} <span class="text-xs text-slate-400 font-bold">cm</span></p>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-sm border border-slate-100 text-center">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Berat</p>
-                            <p class="text-xl font-black text-green-950 mt-1">{{ $registration->berat_badan }} <span class="text-xs text-slate-400 font-bold">kg</span></p>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-sm border border-slate-100 text-center">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jarak</p>
-                            <p class="text-xl font-black text-green-950 mt-1">{{ $registration->jarak_sekolah }} <span class="text-xs text-slate-400 font-bold">km</span></p>
-                        </div>
-                        <div class="bg-slate-50 p-4 rounded-sm border border-slate-100 text-center">
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Waktu</p>
-                            <p class="text-xl font-black text-green-950 mt-1">{{ $registration->waktu_jam }}h {{ $registration->waktu_menit }}m</p>
-                        </div>
-                    </div>
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+            {{-- Tabs Navigation --}}
+            <div class="xl:col-span-12">
+                <div class="flex flex-wrap gap-2 p-1 bg-slate-100 rounded-sm border border-slate-200">
+                    <button @click="tab = 'identitas'" :class="tab === 'identitas' ? 'bg-white text-green-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all rounded-sm">IDENTITAS</button>
+                    <button @click="tab = 'orangtua'" :class="tab === 'orangtua' ? 'bg-white text-green-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all rounded-sm">ORANG TUA</button>
+                    <button @click="tab = 'periodik'" :class="tab === 'periodik' ? 'bg-white text-green-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all rounded-sm">PERIODIK</button>
+                    <button @click="tab = 'prestasi'" :class="tab === 'prestasi' ? 'bg-white text-green-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all rounded-sm">PRESTASI</button>
+                    <button @click="tab = 'sekolah'" :class="tab === 'sekolah' ? 'bg-white text-green-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all rounded-sm">SEKOLAH</button>
+                    <button @click="tab = 'dokumen'" :class="tab === 'dokumen' ? 'bg-white text-green-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all rounded-sm">DOKUMEN</button>
                 </div>
             </div>
 
-            {{-- Bagian Kanan: Dokumen Unggahan --}}
-            <div class="space-y-6">
-                <div class="bg-white p-6 rounded-sm border border-slate-100 shadow-sm sticky top-6">
-                    <h3 class="text-sm font-black text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2 border-b border-slate-100 pb-3">
-                        <iconify-icon icon="lucide:folder-check" class="text-lg"></iconify-icon> Verifikasi Dokumen
-                    </h3>
+            {{-- Tab Content --}}
+            <div class="xl:col-span-12">
+                {{-- IDENTITAS --}}
+                <div x-show="tab === 'identitas'" class="bg-white p-8 rounded-sm border border-slate-100 shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Nama Lengkap</p>
+                            <p class="text-sm font-black text-slate-800 mt-1 uppercase">{{ $registration->nama_lengkap }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">NISN</p>
+                            <p class="text-sm font-black text-slate-800 mt-1">{{ $registration->nisn }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">NIK</p>
+                            <p class="text-sm font-black text-slate-800 mt-1">{{ $registration->nik }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tempat, Tgl Lahir</p>
+                            <p class="text-sm font-black text-slate-800 mt-1 uppercase">{{ $registration->tempat_lahir }}, {{ $registration->tanggal_lahir }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jenis Kelamin</p>
+                            <p class="text-sm font-black text-slate-800 mt-1 uppercase">{{ $registration->jenis_kelamin == 'L' ? 'LAKI-LAKI' : 'PEREMPUAN' }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Agama</p>
+                            <p class="text-sm font-black text-slate-800 mt-1 uppercase">{{ $registration->agama }}</p>
+                        </div>
+                        <div class="md:col-span-3">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Alamat</p>
+                            <p class="text-sm font-black text-slate-800 mt-1 uppercase">{{ $registration->alamat }} RT {{ $registration->rt }} RW {{ $registration->rw }}, Kel. {{ $registration->kelurahan }}, Kec. {{ $registration->kecamatan }}, {{ $registration->kode_pos }}</p>
+                        </div>
+                    </div>
+                </div>
 
-                    <div class="space-y-4">
+                {{-- ORANG TUA --}}
+                <div x-show="tab === 'orangtua'" class="bg-white p-8 rounded-sm border border-slate-100 shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="space-y-6">
+                            <h4 class="text-xs font-black text-green-900 uppercase tracking-[0.2em] border-b border-slate-100 pb-2">Data Ayah</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Nama</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->ayah_nama }}</p></div>
+                                <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">NIK</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->ayah_nik }}</p></div>
+                                <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pendidikan</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->ayah_pendidikan }}</p></div>
+                                <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pekerjaan</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->ayah_pekerjaan }}</p></div>
+                                <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Penghasilan</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->ayah_penghasilan }}</p></div>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <h4 class="text-xs font-black text-green-900 uppercase tracking-[0.2em] border-b border-slate-100 pb-2">Data Ibu</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Nama</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->ibu_nama }}</p></div>
+                                <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">NIK</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->ibu_nik }}</p></div>
+                                <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pendidikan</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->ibu_pendidikan }}</p></div>
+                                <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pekerjaan</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->ibu_pekerjaan }}</p></div>
+                                <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Penghasilan</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->ibu_penghasilan }}</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- PERIODIK --}}
+                <div x-show="tab === 'periodik'" class="bg-white p-8 rounded-sm border border-slate-100 shadow-sm">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tinggi Badan</p><p class="text-xl font-black text-slate-800">{{ $registration->tinggi_badan }} cm</p></div>
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Berat Badan</p><p class="text-xl font-black text-slate-800">{{ $registration->berat_badan }} kg</p></div>
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Lingkar Kepala</p><p class="text-xl font-black text-slate-800">{{ $registration->lingkar_kepala }} cm</p></div>
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jumlah Saudara</p><p class="text-xl font-black text-slate-800">{{ $registration->jumlah_saudara }}</p></div>
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jarak ke Sekolah</p><p class="text-sm font-black text-slate-800">{{ $registration->jarak_sekolah }} KM</p></div>
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Waktu Tempuh</p><p class="text-sm font-black text-slate-800">{{ $registration->waktu_jam }} jam {{ $registration->waktu_menit }} menit</p></div>
+                    </div>
+                </div>
+
+                {{-- PRESTASI --}}
+                <div x-show="tab === 'prestasi'" class="bg-white p-8 rounded-sm border border-slate-100 shadow-sm">
+                    @if($registration->prestasi_nama)
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Nama Prestasi</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->prestasi_nama }}</p></div>
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jenis</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->prestasi_jenis }}</p></div>
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tingkat</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->prestasi_tingkat }}</p></div>
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tahun</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->prestasi_tahun }}</p></div>
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Penyelenggara</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->prestasi_penyelenggara }}</p></div>
+                    </div>
+                    @else
+                    <div class="text-center py-12 text-slate-400 italic">Tidak ada data prestasi yang diunggah.</div>
+                    @endif
+                </div>
+
+                {{-- SEKOLAH --}}
+                <div x-show="tab === 'sekolah'" class="bg-white p-8 rounded-sm border border-slate-100 shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Asal Sekolah</p><p class="text-xl font-black text-slate-800 uppercase">{{ $registration->asal_sekolah }}</p></div>
+                        <div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">No UN / Ijazah</p><p class="text-sm font-black text-slate-800 uppercase">{{ $registration->no_un ?? '-' }} / {{ $registration->no_ijazah ?? '-' }}</p></div>
+                        <div class="md:col-span-2">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jurusan Pilihan</p>
+                            <p class="text-2xl font-black text-green-900 uppercase mt-2">{{ $registration->jurusan->nama_jurusan ?? 'BELUM MEMILIH' }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- DOKUMEN --}}
+                <div x-show="tab === 'dokumen'" class="bg-white p-8 rounded-sm border border-slate-100 shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         @foreach($documentTypes as $type => $label)
                             @php
                                 $doc = $registration->user->documents->where('document_type', $type)->first();

@@ -83,10 +83,6 @@
                         Status
                     </a>
 
-                    <a href="#"
-                        class="px-4 py-2 text-sm font-semibold rounded-lg text-white/90 hover:bg-green-800 hover:text-white transition-all">
-                        Informasi
-                    </a>
                 </div>
 
                 <!-- Mobile Center Title -->

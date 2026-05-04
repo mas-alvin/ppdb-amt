@@ -6,6 +6,7 @@ use App\Http\Requests\Students\StoreRegistrationRequest;
 use App\Services\RegistrationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 
 class RegistrationController extends Controller
@@ -18,6 +19,25 @@ class RegistrationController extends Controller
     }
 
     /**
+     * Download registration proof as PDF.
+     */
+    public function downloadProof()
+    {
+        $user = auth()->user();
+        $registration = $this->registrationService->getRegistrationByUserId($user->id);
+
+        if (!$registration) {
+            return back()->with('error', 'Data pendaftaran tidak ditemukan.');
+        }
+
+        $registration->load(['jurusan', 'wave']);
+
+        $pdf = Pdf::loadView('pages.students.registration-proof', compact('registration'));
+        
+        return $pdf->download('Bukti-Pendaftaran-' . $registration->nisn . '.pdf');
+    }
+
+    /**
      * Show the form for creating a new registration or display existing data.
      */
     public function create()
@@ -25,10 +45,16 @@ class RegistrationController extends Controller
         $user = auth()->user();
         $registration = $this->registrationService->getRegistrationByUserId($user->id);
         
+        // Find Active Wave
+        $activeWave = \App\Models\Wave::where('status', 'open')
+            ->whereDate('start_date', '<=', today())
+            ->whereDate('end_date', '>=', today())
+            ->first();
+
         // Fetch active majors
         $jurusans = \App\Models\Jurusan::where('is_active', true)->get();
 
-        return view('pages.students.wizard', compact('registration', 'jurusans'));
+        return view('pages.students.wizard', compact('registration', 'jurusans', 'activeWave'));
     }
 
     /**
@@ -56,6 +82,15 @@ class RegistrationController extends Controller
     {
         $registrations = $this->registrationService->getAllRegistrations();
         return view('pages.admin.registrations.index', compact('registrations'));
+    }
+
+    public function exportPdf()
+    {
+        $registrations = $this->registrationService->getAllRegistrations();
+        $pdf = Pdf::loadView('pages.admin.registrations.export-pdf', compact('registrations'))
+            ->setPaper('a4', 'landscape');
+            
+        return $pdf->download('Daftar-Pendaftar-PPDB-' . now()->format('Y-m-d') . '.pdf');
     }
 
     /**

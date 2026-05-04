@@ -7,10 +7,10 @@
                 <p class="text-xs text-slate-500 mt-1 font-medium">Total {{ $registrations->count() }} pendaftar masuk ke dalam sistem.</p>
             </div>
             <div class="flex items-center gap-3">
-                <button class="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-sm font-bold text-xs hover:bg-slate-200 transition-all">
-                    <iconify-icon icon="lucide:download"></iconify-icon>
-                    EKSPOR DATA
-                </button>
+                <a href="{{ route('admin.registrations.export-pdf') }}" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-sm font-bold text-xs hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20">
+                    <iconify-icon icon="lucide:file-text"></iconify-icon>
+                    EKSPOR PDF
+                </a>
             </div>
         </div>
 

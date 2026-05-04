@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('content');
             $table->string('type')->default('info'); // info, warning, danger
             $table->boolean('is_active')->default(true);
+            $table->string('document_path')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });

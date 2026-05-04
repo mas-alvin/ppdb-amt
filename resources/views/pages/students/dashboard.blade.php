@@ -23,6 +23,19 @@
                     <p class="text-slate-500 mt-3 text-sm sm:text-base lg:text-lg">
                         Kelola pendaftaran dan pantau status Anda di sini.
                     </p>
+
+                    @if($registration)
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <a href="{{ route('student.pendaftaran.download') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-green-900 text-white text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-green-800 transition-all shadow-xl shadow-green-900/10 border border-green-800">
+                            <iconify-icon icon="lucide:file-down" class="text-base"></iconify-icon> 
+                            UNDUH BUKTI PENDAFTARAN (PDF)
+                        </a>
+                        <a href="{{ route('student.status') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-green-900 text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-all border border-slate-200">
+                            <iconify-icon icon="lucide:eye" class="text-base"></iconify-icon> 
+                            LIHAT STATUS
+                        </a>
+                    </div>
+                    @endif
                 </div>
 
                 <div class="flex items-center gap-4" data-aos="fade-left">
@@ -136,38 +149,50 @@
                     </div>
                 </div>
 
-                <!-- Jadwal Ujian -->
+                <!-- Sisa Kuota -->
                 <div
-                    class="lg:col-span-4 bg-yellow-500 rounded-lg p-6 sm:p-8 shadow-xl shadow-yellow-500/20 flex flex-col justify-between"
+                    class="lg:col-span-4 bg-white rounded-lg p-6 sm:p-8 border border-slate-100 shadow-sm flex flex-col justify-between"
                     data-aos="fade-up"
                     data-aos-delay="100">
 
                     <div>
                         <div
-                            class="size-12 bg-green-950 text-white rounded-lg flex items-center justify-center mb-6">
-                            <iconify-icon icon="lucide:calendar"
+                            class="size-12 bg-green-900 text-white rounded-lg flex items-center justify-center mb-6 shadow-lg shadow-green-900/20">
+                            <iconify-icon icon="lucide:users"
                                 class="text-2xl"></iconify-icon>
                         </div>
 
                         <h4 class="text-xl sm:text-2xl font-black text-green-950 mb-2">
-                            Ujian Seleksi
+                            Sisa Kuota
                         </h4>
 
-                        <p class="text-green-950/70 text-sm leading-relaxed">
-                            Jadwal ujian seleksi Anda dijadwalkan pada:
-                        </p>
+                        @if($activeWave)
+                            <p class="text-slate-500 text-sm leading-relaxed mb-4">
+                                Kesempatan pendaftaran untuk <span class="font-bold text-green-900 uppercase">{{ $activeWave->name }}</span>:
+                            </p>
 
-                        <p class="text-2xl sm:text-3xl font-black text-green-950 mt-3">
-                            15 Mei 2026
-                        </p>
+                            <div class="flex items-baseline gap-2">
+                                <p class="text-4xl sm:text-5xl font-black text-green-900 mt-3">
+                                    {{ $remainingQuota }}
+                                </p>
+                                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">
+                                    / {{ $activeWave->quota }} Kursi
+                                </p>
+                            </div>
+                        @else
+                            <div class="py-4 px-6 bg-red-50 border border-red-100 rounded-lg">
+                                <p class="text-sm font-bold text-red-600">Pendaftaran ditutup</p>
+                                <p class="text-[10px] text-red-400 uppercase mt-1">Nantikan gelombang berikutnya</p>
+                            </div>
+                        @endif
                     </div>
 
-                    <div class="mt-8 pt-6 border-t border-green-950/10">
-                        <p class="text-xs font-black text-green-950/60 uppercase">
-                            Lokasi
+                    <div class="mt-8 pt-6 border-t border-slate-100">
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest">
+                            Periode Aktif
                         </p>
-                        <p class="font-bold text-green-950 mt-1">
-                            Lab Komputer SMK AL-MUJTAMA'
+                        <p class="font-bold text-green-950 mt-1 uppercase text-sm">
+                            {{ $activeWave ? $activeWave->start_date->format('d M') . ' - ' . $activeWave->end_date->format('d M Y') : 'Tidak Ada' }}
                         </p>
                     </div>
                 </div>
@@ -181,18 +206,17 @@
                     <div
                         class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                         <h3 class="text-lg sm:text-xl font-black text-green-950">
-                            Pengumuman Terbaru
+                            Pengumuman Pendaftaran
                         </h3>
 
-                        <a href="#"
-                            class="text-sm font-bold text-green-700">
-                            Lihat Semua
-                        </a>
+                        <div class="px-3 py-1 bg-slate-50 rounded-lg border border-slate-100 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                            TOTAL {{ $announcements->count() }} PENGUMUMAN
+                        </div>
                     </div>
 
-                    <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[500px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-200">
                         @forelse($announcements as $announcement)
-                            <div class="flex gap-4">
+                            <div class="flex gap-4 p-4 rounded-xl border border-slate-50 hover:border-green-100 hover:bg-green-50/30 transition-all">
                                 <div
                                     @class([
                                         'size-10 rounded-lg flex items-center justify-center shrink-0',
@@ -205,29 +229,29 @@
                                 </div>
 
                                 <div>
-                                    <h5 class="font-bold text-green-950">
+                                    <h5 class="font-bold text-green-950 uppercase tracking-tight text-sm">
                                         {{ $announcement->title }}
                                     </h5>
 
-                                    <p class="text-sm text-slate-500 mt-1 leading-relaxed">
+                                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">
                                         {{ $announcement->content }}
                                     </p>
 
-                                    <div class="flex items-center gap-4 mt-2">
+                                    <div class="flex items-center gap-4 mt-3">
                                         <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
                                             {{ $announcement->created_at->diffForHumans() }}
                                         </p>
                                         @if($announcement->document_path)
-                                        <a href="{{ Storage::url($announcement->document_path) }}" target="_blank" class="flex items-center gap-1.5 text-[10px] font-black text-green-700 uppercase tracking-widest hover:text-green-900">
+                                        <a href="{{ Storage::url($announcement->document_path) }}" target="_blank" class="flex items-center gap-1.5 text-[10px] font-black text-green-700 uppercase tracking-widest hover:text-green-900 bg-white px-2 py-1 rounded border border-green-100 shadow-sm">
                                             <iconify-icon icon="lucide:file-text"></iconify-icon>
-                                            LIHAT DOKUMEN PDF
+                                            PDF
                                         </a>
                                         @endif
                                     </div>
                                 </div>
                             </div>
                         @empty
-                            <div class="py-8 text-center bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
+                            <div class="col-span-2 py-12 text-center bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
                                 <iconify-icon icon="lucide:bell-off" class="text-3xl text-slate-300 mb-2"></iconify-icon>
                                 <p class="text-sm font-bold text-slate-400">Belum ada pengumuman baru</p>
                             </div>

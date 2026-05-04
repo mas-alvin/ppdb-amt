@@ -100,7 +100,7 @@ return [
                     'id' => 'nav_dashboard',
                     'route' => 'admin.dashboard',
                     'icon' => 'layout-dashboard',
-                    'label' => 'Ringkasan operasional',
+                    'label' => 'Ringkasan Operasional',
                 ],
             ],
         ],
@@ -114,20 +114,6 @@ return [
                     'icon' => 'clipboard-list',
                     'label' => 'Data Pendaftar Siswa',
                     'entity_keys' => ['registration_application', 'registration_personal_contact', 'registration_guardian', 'registration_periodic_school', 'registration_achievement', 'registration_welfare'],
-                ],
-                [
-                    'id' => 'nav_documents',
-                    'route' => 'admin.documents.index',
-                    'icon' => 'files',
-                    'entity_keys' => ['registration_document'],
-                    'label' => 'Verifikasi Berkas',
-                ],
-                [
-                    'id' => 'nav_pipeline',
-                    'route' => 'admin.pipeline.index',
-                    'icon' => 'git-branch',
-                    'entity_keys' => ['registration_pipeline'],
-                    'label' => 'Manajemen Kelulusan',
                 ],
                 [
                     'id' => 'nav_jurusans',
@@ -165,29 +151,10 @@ return [
             ],
         ],
         [
-            'id' => 'grp_analytics',
-            'section_label' => 'Analitik',
-            'items' => [
-                [
-                    'id' => 'nav_reporting',
-                    'route' => 'admin.reporting.index',
-                    'icon' => 'chart-bar',
-                    'label' => 'Analitik & ekspor',
-                    'entity_keys' => ['registration_application', 'registration_document', 'audit_log'],
-                ],
-            ],
-        ],
-        [
             'id' => 'grp_system',
             'section_label' => 'Sistem',
             'items' => [
-                [
-                    'id' => 'nav_activity',
-                    'route' => 'admin.activity.index',
-                    'icon' => 'scroll-text',
-                    'entity_keys' => ['audit_log'],
-                    'label' => 'Riwayat Sistem',
-                ],
+
                 [
                     'id' => 'nav_settings',
                     'route' => 'admin.settings.index',

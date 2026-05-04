@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('jurusan_id')->nullable()->constrained('jurusans')->onDelete('set null');
+            $table->foreignId('wave_id')->nullable()->constrained('waves')->onDelete('set null');
             
             // Step 1: Data Pribadi
             $table->string('nama_lengkap');

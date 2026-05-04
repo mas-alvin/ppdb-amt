@@ -66,6 +66,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get announcements created by this user (admin).
+     */
+    public function announcements()
+    {
+        return $this->hasMany(Announcement::class);
+    }
+
+    /**
      * Calculate student registration progress.
      */
     public function calculateProgress(): int
