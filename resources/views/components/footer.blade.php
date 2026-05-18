@@ -48,7 +48,7 @@
 
             <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-white/40 text-sm text-center md:text-left">
-                    &copy; 2026 PPDB SMK AL-MUJTAMA' Pamekasan. Hak Cipta Dilindungi Undang-Undang.
+                    &copy; {{ now()->year }} PPDB SMK AL-MUJTAMA' Pamekasan. Hak Cipta Dilindungi Undang-Undang.
                 </p>
                 <p class="text-white/40 text-sm flex items-center gap-1">
                     Made with <iconify-icon icon="lucide:heart" class="text-red-500"></iconify-icon> for better education

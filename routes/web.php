@@ -7,6 +7,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/profile', function () {
+    return view('profile');
+});
+
+Route::get('/kontak', function () {
+    return view('contact');
+});
+
+Route::get('/informasi', function () {
+    $waves = \App\Models\Wave::orderBy('start_date')->get();
+    return view('information', compact('waves'));
+});
+
 // Auth Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

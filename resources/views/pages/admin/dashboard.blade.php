@@ -4,29 +4,6 @@
 
 <x-admin-layout title="Ringkasan Operasional" :breadcrumbs="[['label' => 'Dashboard']]">
     <div class="space-y-8">
-        
-        {{-- Welcome Header --}}
-        {{-- <div class="bg-emerald-950 rounded-lg p-8 text-white relative overflow-hidden shadow-2xl shadow-emerald-950/20" data-aos="fade-down">
-            
-            <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
-                <div>
-                    <h1 class="text-3xl md:text-4xl font-black mb-2 tracking-tight">Halo, Administrator!</h1>
-                    <p class="text-emerald-100/60 max-w-xl text-lg">
-                        Selamat datang di pusat kendali PPDB SMK AL-MUJTAMA'. Pantau seluruh aplikasi dan verifikasi berkas pendaftar di sini.
-                    </p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="text-center px-6 py-3 bg-white/10 rounded-lg border border-white/10 backdrop-blur-md">
-                        <p class="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-1">Status Sistem</p>
-                        <p class="font-bold">AKTIF</p>
-                    </div>
-                    <div class="text-center px-6 py-3 bg-white/10 rounded-lg border border-white/10 backdrop-blur-md">
-                        <p class="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-1">Tahun Ajaran</p>
-                        <p class="font-bold">2026/2027</p>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
 
         {{-- KPI Cards --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6" data-aos="fade-up">

@@ -22,7 +22,7 @@
                     </h1>
 
                     <p class="text-[10px] sm:text-xs md:text-sm text-gray-500">
-                        Penerimaan Peserta Didik Baru Tahun Ajaran 2026
+                        Penerimaan Peserta Didik Baru Tahun Ajaran {{ now()->year }}
                     </p>
                 </div>
             </div>
