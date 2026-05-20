@@ -9,7 +9,7 @@
         </div>
 
         <div
-            class="relative max-w-full mx-10 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            class="relative max-w-full px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
 
             <!-- Logo + Title -->
             <div class="flex items-center gap-3 sm:gap-4">
@@ -37,7 +37,7 @@
 
     <!-- Main Navigation -->
     <div class="bg-green-900 border-t border-green-800">
-        <div class="max-w-auto mx-10 px-4 sm:px-6">
+        <div class="max-w-auto px-4 sm:px-6">
 
             <div class="flex items-center justify-between h-14">
 
@@ -68,6 +68,11 @@
                     <a href="/informasi"
                         class="px-4 py-2 text-sm font-semibold rounded-lg text-white/90 hover:bg-green-800 hover:text-white transition-all">
                         Informasi
+                    </a>
+                    
+                    <a href="/brosur"
+                        class="px-4 py-2 text-sm font-semibold rounded-lg text-white/90 hover:bg-green-800 hover:text-white transition-all">
+                        Brosur
                     </a>
                 </div>
 
@@ -140,6 +145,11 @@
         <a href="/informasi" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1">
             <iconify-icon icon="lucide:info" class="text-xl shrink-0 text-green-700"></iconify-icon>
             <span class="text-sm font-medium">Informasi</span>
+        </a>
+
+        <a href="/brosur" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1">
+            <iconify-icon icon="lucide:book-open" class="text-xl shrink-0 text-green-700"></iconify-icon>
+            <span class="text-sm font-medium">Brosur</span>
         </a>
     </nav>
 

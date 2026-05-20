@@ -31,7 +31,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-green-950">Visi</h4>
-                                <p class="text-slate-600 text-sm">Menjadi SMK Pusat Keunggulan yang menghasilkan lulusan berkarakter Islami, kompeten, dan berdaya saing global.</p>
+                                <p class="text-slate-600 text-sm">Mewujudkan sumber daya manusia beriman dan bertaqwa, beretos kerja tinggi, dan berkemandirian melalui pendidikan berbasis pondok pesantren yang berakar pada masyarakat madani.</p>
                             </div>
                         </div>
                         <div class="flex gap-4">
@@ -40,9 +40,9 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-green-950">Misi</h4>
-                                <p class="text-slate-600 text-sm">1. Menyelenggarakan pendidikan kejuruan yang bermutu dan relevan dengan kebutuhan DUDI (Dunia Usaha Dunia Industri).</p>
-                                <p class="text-slate-600 text-sm">2. Menanamkan nilai-nilai karakter bangsa dan akhlakul karimah melalui pembiasaan kehidupan islami.</p>
-                                <p class="text-slate-600 text-sm">3. Mengembangkan potensi peserta didik melalui kegiatan ekstrakurikuler dan literasi.</p>
+                                <p class="text-slate-600 text-sm">1. Mensinergikan potensi pondok pesantren dengan stake-holder sehingga memiliki dukungan yang maksimal terhadap pembentukan SDM  yang berkualitas;</p>
+                                <p class="text-slate-600 text-sm">2. Membekali siswa dengan keterampilan kecakapan hidup (lifeskill) yang dilandasi moralitas dan kejujuran yang tinggi;</p>
+                                <p class="text-slate-600 text-sm">3. Menguatkan pola manajerial sekolah yang berbasis pada keterampilan, inovatif dan kreatif, guna mempercepat peningkatan mutu.</p>
                             </div>
                         </div>
                     </div>

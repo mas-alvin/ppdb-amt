@@ -107,26 +107,26 @@
                         <div class="md:col-span-2">
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Nama Gelombang</label>
                             <input type="text" name="name" x-model="activeWave.name" placeholder="Contoh: Gelombang III" required
-                                   class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
+                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
                         </div>
                         <div>
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tanggal Buka</label>
                             <input type="date" name="start_date" x-model="activeWave.start_date" required
-                                   class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
+                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
                         </div>
                         <div>
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tanggal Tutup</label>
                             <input type="date" name="end_date" x-model="activeWave.end_date" required
-                                   class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
+                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
                         </div>
                         <div>
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Kuota Pendaftar</label>
                             <input type="number" name="quota" x-model="activeWave.quota" required
-                                   class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
+                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
                         </div>
                         <div>
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Status</label>
-                            <select name="status" x-model="activeWave.status" class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white font-bold uppercase tracking-wider">
+                            <select name="status" x-model="activeWave.status" class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
                                 <option value="draft">DRAF</option>
                                 <option value="open">BUKA</option>
                                 <option value="closed">TUTUP</option>
@@ -135,7 +135,7 @@
                         <div class="md:col-span-2">
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Deskripsi / Catatan</label>
                             <textarea name="description" x-model="activeWave.description" rows="2" placeholder="Catatan tambahan untuk gelombang ini..."
-                                class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white"></textarea>
+                                class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300"></textarea>
                         </div>
                     </div>
 

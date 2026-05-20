@@ -60,6 +60,22 @@
                             class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 rounded-lg bg-white/50 backdrop-blur-md text-green-950 font-bold text-lg border-2 border-green-900/10 hover:bg-white hover:border-green-900/30 transition-all active:scale-95">
                             PROFIL SEKOLAH
                         </a>
+                        @php
+                            $brochure = \App\Models\Setting::getValue('school_brochure');
+                        @endphp
+                        @if($brochure)
+                            <a href="{{ asset('storage/' . $brochure) }}" download
+                                class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 rounded-lg bg-yellow-500 hover:bg-yellow-400 text-green-950 font-black text-lg transition-all shadow-xl shadow-yellow-500/20 active:scale-95">
+                                <iconify-icon icon="lucide:download"></iconify-icon>
+                                BROSUR PPDB
+                            </a>
+                        @else
+                            <a href="/brosur"
+                                class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 rounded-lg bg-yellow-500 hover:bg-yellow-400 text-green-950 font-black text-lg transition-all shadow-xl shadow-yellow-500/20 active:scale-95">
+                                <iconify-icon icon="lucide:book-open"></iconify-icon>
+                                BROSUR PPDB
+                            </a>
+                        @endif
                     </div>
 
                     {{-- Stats Summary --}}

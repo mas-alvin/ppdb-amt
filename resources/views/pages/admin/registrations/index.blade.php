@@ -57,7 +57,7 @@
                                         ][$reg->status];
                                     @endphp
                                     <span class="px-2.5 py-1 rounded-sm border {{ $statusClasses }} text-[10px] font-black uppercase tracking-widest">
-                                        {{ $reg->status }}
+                                        {{ $reg->status == 'verified' ? 'Lulus' : ($reg->status == 'rejected' ? 'Ditolak' : 'Pending') }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-right">

@@ -28,17 +28,17 @@
                     </div>
 
                     <div class="text-center md:text-left flex-1">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 {{ $registration && $registration->status == 'verified' ? 'bg-emerald-100 text-emerald-800' : 'bg-yellow-500 text-green-950' }} rounded-lg text-[10px] font-black uppercase tracking-widest mb-6">
-                            @if(!$registration || $registration->status != 'verified')
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 {{ $registration && $registration->status == 'verified' ? 'bg-emerald-100 text-emerald-800' : ($registration && $registration->status == 'rejected' ? 'bg-red-100 text-red-800' : 'bg-yellow-500 text-green-950') }} rounded-lg text-[10px] font-black uppercase tracking-widest mb-6">
+                            @if(!$registration || ($registration->status != 'verified' && $registration->status != 'rejected'))
                                 <span class="size-2 bg-green-950 rounded-lg animate-ping"></span>
                             @endif
-                            {{ $registration ? ($registration->status == 'verified' ? 'Pendaftaran Diterima' : 'Tahap Verifikasi Dokumen') : 'Belum Mendaftar' }}
+                            {{ $registration ? ($registration->status == 'verified' ? 'Pendaftaran Diterima' : ($registration->status == 'rejected' ? 'Pendaftaran Ditolak' : 'Tahap Verifikasi Dokumen')) : 'Belum Mendaftar' }}
                         </div>
                         <h2 class="text-3xl font-black text-green-950 leading-tight mb-4">
-                            {{ $registration ? ($registration->status == 'verified' ? 'Selamat! Anda Diterima' : 'Berkas Sedang Ditinjau') : 'Ayo Mulai Mendaftar' }}
+                            {{ $registration ? ($registration->status == 'verified' ? 'Selamat! Anda Diterima' : ($registration->status == 'rejected' ? 'Pendaftaran Belum Disetujui' : 'Berkas Sedang Ditinjau')) : 'Ayo Mulai Mendaftar' }}
                         </h2>
                         <p class="text-slate-600 leading-relaxed max-w-md">
-                            {{ $registration ? ($registration->status == 'verified' ? 'Proses verifikasi dokumen Anda telah selesai. Silakan tunggu pengumuman jadwal ujian seleksi.' : 'Panitia sedang memeriksa keabsahan dokumen yang Anda unggah. Proses ini biasanya memakan waktu 1-3 hari kerja. Harap periksa portal atau email Anda secara berkala.') : 'Silakan isi formulir pendaftaran dan unggah dokumen pendukung untuk memulai proses seleksi.' }}
+                            {{ $registration ? ($registration->status == 'verified' ? 'Proses verifikasi dokumen Anda telah selesai. Silakan tunggu pengumuman jadwal ujian seleksi.' : ($registration->status == 'rejected' ? 'Mohon maaf, pendaftaran Anda belum dapat kami setujui. Silakan hubungi panitia PPDB untuk informasi lebih lanjut.' : 'Panitia sedang memeriksa keabsahan dokumen yang Anda unggah. Proses ini biasanya memakan waktu 1-3 hari kerja. Harap periksa portal Anda secara berkala.')) : 'Silakan isi formulir pendaftaran dan unggah dokumen pendukung untuk memulai proses seleksi.' }}
                         </p>
                     </div>
                 </div>
@@ -93,25 +93,31 @@
                             }
                         @endphp
 
-                        <div class="relative pl-14 {{ !$isCompleted && !$isActive ? 'opacity-40' : '' }}">
+                        @php
+                            $isRejected = ($stage->key === 'verify' && $registration && $registration->status === 'rejected');
+                        @endphp
+                        <div class="relative pl-14 {{ !$isCompleted && !$isActive && !$isRejected ? 'opacity-40' : '' }}">
                             <div @class([
                                 'absolute left-0 top-0 size-10 rounded-lg flex items-center justify-center shadow-lg z-10 border-4 border-white',
                                 'bg-green-900 text-white shadow-green-900/20' => $isCompleted,
+                                'bg-red-650 bg-red-600 text-white shadow-red-600/20' => $isRejected,
                                 'bg-yellow-500 text-green-950 shadow-yellow-500/20' => $isActive,
-                                'bg-slate-100 text-slate-400' => !$isCompleted && !$isActive,
+                                'bg-slate-100 text-slate-400' => !$isCompleted && !$isActive && !$isRejected,
                             ])>
-                                <iconify-icon icon="{{ $isCompleted ? 'lucide:check' : ($isActive ? 'lucide:loader-2' : 'lucide:circle') }}" 
+                                <iconify-icon icon="{{ $isCompleted ? 'lucide:check' : ($isRejected ? 'lucide:x' : ($isActive ? 'lucide:loader-2' : 'lucide:circle')) }}" 
                                     @class(['text-xl', 'animate-spin' => $isActive])></iconify-icon>
                             </div>
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
                                 <h4 @class([
                                     'text-lg font-black',
-                                    'text-green-950' => $isCompleted || $isActive,
-                                    'text-slate-400' => !$isCompleted && !$isActive,
+                                    'text-green-950' => $isCompleted || $isActive || $isRejected,
+                                    'text-slate-400' => !$isCompleted && !$isActive && !$isRejected,
                                 ])>{{ $stage->label }}</h4>
                                 
                                 @if($isCompleted)
                                     <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg uppercase tracking-wider">Selesai</span>
+                                @elseif($isRejected)
+                                    <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded-lg uppercase tracking-wider">Ditolak</span>
                                 @elseif($isActive)
                                     <span class="text-xs font-bold text-yellow-600 bg-yellow-50 px-2 py-1 rounded-lg uppercase tracking-wider italic animate-pulse">Sedang Berjalan</span>
                                 @else

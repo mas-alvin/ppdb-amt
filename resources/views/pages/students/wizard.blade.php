@@ -58,11 +58,11 @@
                             </div>
                         </div>
 
-                        <form action="{{ route('student.pendaftaran.store') }}" method="POST" id="registrationForm">
+                        <form action="{{ route('student.pendaftaran.store') }}" method="POST" id="registrationForm" @submit.prevent="submitForm($el)">
                             @csrf
      
                         <!-- Step 1: Data Pribadi & Kontak -->
-                        <div x-show="step === 1" x-transition class="p-8 space-y-8">
+                        <div x-show="step === 1" id="step-container-1" x-transition class="p-8 space-y-8">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-6">
                                     <span
@@ -149,7 +149,7 @@
                         </div>
      
                         <!-- Step 2: Data Orang Tua / Wali -->
-                        <div x-show="step === 2" x-transition class="p-8 space-y-12">
+                        <div x-show="step === 2" id="step-container-2" x-transition class="p-8 space-y-12">
                             @foreach (['Ayah Kandung', 'Ibu Kandung', 'Wali'] as $entity)
                                 @php $prefix = strtolower(str_replace(' Kandung', '', $entity)); @endphp
                                 <div>
@@ -201,7 +201,7 @@
                         </div>
      
                         <!-- Step 3: Data Periodik & Rincian -->
-                        <div x-show="step === 3" x-transition class="p-8 space-y-8">
+                        <div x-show="step === 3" id="step-container-3" x-transition class="p-8 space-y-8">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-6">
                                     <span
@@ -257,7 +257,7 @@
                         </div>
      
                         <!-- Step 4: Prestasi, Beasiswa & Kesejahteraan -->
-                        <div x-show="step === 4" x-transition class="p-8 space-y-8">
+                        <div x-show="step === 4" id="step-container-4" x-transition class="p-8 space-y-8">
                             <div>
                                 <div class="flex justify-between items-center mb-6">
                                     <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
@@ -318,7 +318,7 @@
                         </div>
      
                         <!-- Step 5: Registrasi & Dokumen (Final) -->
-                        <div x-show="step === 5" x-transition class="p-8 space-y-8">
+                        <div x-show="step === 5" id="step-container-5" x-transition class="p-8 space-y-8">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-6">
                                     <span
@@ -366,7 +366,26 @@
                             </button>
                             <div x-show="step === 1"></div> <!-- Spacer for first step -->
     
-                            <button type="button" x-show="step < 5" @click="step++"
+                            <button type="button" x-show="step < 5"
+                                @click="
+                                    let validation = validateStep(step);
+                                    if (!validation.valid) {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Kolom Wajib Diisi',
+                                            html: '<p class=\'text-sm text-slate-500 mb-3\'>Mohon lengkapi kolom berikut sebelum melanjutkan:</p>' +
+                                                  '<div class=\'max-h-60 overflow-y-auto text-left bg-slate-50 dark:bg-slate-800 p-4 rounded border border-slate-100 dark:border-slate-700\'>' +
+                                                  '<ul class=\'list-disc list-inside space-y-1 text-xs font-semibold text-red-600 dark:text-red-400\'>' +
+                                                  validation.fields.map(f => '<li>' + f + '</li>').join('') +
+                                                  '</ul></div>',
+                                            confirmButtonColor: '#064e3b',
+                                            confirmButtonText: 'OK'
+                                        });
+                                    } else {
+                                        step++;
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }
+                                "
                                 class="px-10 py-3 bg-green-900 text-white rounded-lg font-black text-lg shadow-xl shadow-green-900/20 hover:bg-green-800 transition-all flex items-center gap-3">
                                 LANJUT
                                 <iconify-icon icon="lucide:arrow-right" class="text-2xl"></iconify-icon>
@@ -611,4 +630,100 @@
 
     <!-- Alpine.js is included in layout -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        function validateStep(stepNumber) {
+            const container = document.getElementById('step-container-' + stepNumber);
+            if (!container) return { valid: true };
+
+            const requiredInputs = container.querySelectorAll('[required]');
+            let missingFields = [];
+
+            requiredInputs.forEach(input => {
+                const val = input.value ? input.value.trim() : '';
+                let labelText = input.getAttribute('placeholder') || input.name;
+                
+                const labelElement = input.closest('div').querySelector('label') || 
+                                     input.closest('.grid > div')?.querySelector('label');
+                if (labelElement) {
+                    labelText = labelElement.textContent.replace(/[*:]/g, '').trim();
+                }
+
+                if (val === '') {
+                    missingFields.push(labelText + ' wajib diisi.');
+                } else {
+                    if (input.name === 'nisn' && val.length !== 10) {
+                        missingFields.push(labelText + ' harus tepat 10 digit angka.');
+                    }
+                    if (['nik', 'no_kk', 'ayah_nik', 'ibu_nik', 'wali_nik'].includes(input.name) && val.length !== 16) {
+                        missingFields.push(labelText + ' harus tepat 16 digit angka.');
+                    }
+                    if (input.type === 'email') {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(val)) {
+                            missingFields.push(labelText + ' format email tidak valid.');
+                        }
+                    }
+                }
+            });
+
+            if (missingFields.length > 0) {
+                return {
+                    valid: false,
+                    fields: missingFields
+                };
+            }
+
+            return { valid: true };
+        }
+
+        function validateAllSteps() {
+            let allMissing = [];
+            for (let s = 1; s <= 5; s++) {
+                const res = validateStep(s);
+                if (!res.valid) {
+                    allMissing = allMissing.concat(res.fields);
+                }
+            }
+            if (allMissing.length > 0) {
+                return {
+                    valid: false,
+                    fields: allMissing
+                };
+            }
+            return { valid: true };
+        }
+
+        function submitForm(formElement) {
+            const validation = validateAllSteps();
+            if (!validation.valid) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lengkapi Data Anda',
+                    html: '<p class="text-sm text-slate-500 mb-3">Kolom berikut wajib diisi dengan benar sebelum mengirim pendaftaran:</p>' +
+                          '<div class="max-h-60 overflow-y-auto text-left bg-slate-50 dark:bg-slate-800 p-4 rounded border border-slate-100 dark:border-slate-700">' +
+                          '<ul class="list-disc list-inside space-y-1 text-xs font-semibold text-red-600 dark:text-red-400">' +
+                          validation.fields.map(f => '<li>' + f + '</li>').join('') +
+                          '</ul></div>',
+                    confirmButtonColor: '#064e3b',
+                    confirmButtonText: 'KEMBALI'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Kirim Pendaftaran?',
+                    text: 'Pastikan seluruh data Anda sudah benar. Data tidak dapat diubah setelah dikirim.',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#064e3b',
+                    cancelButtonColor: '#ef4444',
+                    confirmButtonText: 'YA, KIRIM',
+                    cancelButtonText: 'BATAL'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        formElement.submit();
+                    }
+                });
+            }
+        }
+    </script>
 </x-layout>

@@ -15,6 +15,7 @@ services:
       - .:/var/www
     networks:
       - ppdb-network
+      - shared-amt-network
     depends_on:
       ppdb-db:
         condition: service_healthy
@@ -68,6 +69,8 @@ services:
 networks:
   ppdb-network:
     driver: bridge
+  shared-amt-network:
+    external: true
 
 volumes:
   ppdb-db-data:

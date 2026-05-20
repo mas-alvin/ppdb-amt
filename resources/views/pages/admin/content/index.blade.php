@@ -105,11 +105,11 @@
                         <div>
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Judul Pengumuman</label>
                             <input type="text" name="title" x-model="activeItem.title" placeholder="Judul informasi"
-                                   class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white" required>
+                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300" required>
                         </div>
                         <div>
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tipe / Kategori</label>
-                            <select name="type" x-model="activeItem.type" class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
+                            <select name="type" x-model="activeItem.type" class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
                                 <option value="info">Informasi (Biru)</option>
                                 <option value="warning">Peringatan (Kuning)</option>
                                 <option value="danger">Penting / Mendesak (Merah)</option>
@@ -118,12 +118,12 @@
                         <div>
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Konten / Deskripsi</label>
                             <textarea name="content" rows="4" x-model="activeItem.content" placeholder="Tulis isi pengumuman di sini..."
-                                class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white" required></textarea>
+                                class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300" required></textarea>
                         </div>
                         <div>
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Lampiran Dokumen (PDF, Maks 5MB)</label>
                             <input type="file" name="document" accept=".pdf"
-                                   class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-black file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
+                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300 file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-black file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
                             <p class="mt-1 text-[10px] text-slate-400">Kosongkan jika tidak ada lampiran.</p>
                         </div>
                     </div>

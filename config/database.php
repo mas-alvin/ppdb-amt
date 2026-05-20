@@ -98,6 +98,21 @@ return [
             'sslmode' => env('DB_SSLMODE', 'prefer'),
         ],
 
+        'datacenter' => [
+            'driver' => 'pgsql',
+            'url' => env('DB_URL_DATACENTER'),
+            'host' => env('DB_HOST_DATACENTER', '127.0.0.1'),
+            'port' => env('DB_PORT_DATACENTER', '5432'),
+            'database' => env('DB_DATABASE_DATACENTER', 'forge'),
+            'username' => env('DB_USERNAME_DATACENTER', 'forge'),
+            'password' => env('DB_PASSWORD_DATACENTER', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => env('DB_SSLMODE_DATACENTER', 'prefer'),
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DB_URL'),

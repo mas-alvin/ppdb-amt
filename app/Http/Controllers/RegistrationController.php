@@ -172,4 +172,22 @@ class RegistrationController extends Controller
                 ->with('active_tab', 'dokumen');
         }
     }
+
+    /**
+     * Manually promote a verified registration to the Data Center.
+     */
+    public function manualPromote(int $id): RedirectResponse
+    {
+        try {
+            $registration = \App\Models\Registration::findOrFail($id);
+            
+            app(\App\Services\PromoteStudentService::class)->promote($registration);
+
+            return back()->with('success', 'Pendaftaran berhasil disinkronkan ke Data Center.')
+                ->with('active_tab', 'identitas');
+        } catch (Exception $e) {
+            return back()->with('error', 'Gagal menyinkronkan data ke Data Center: ' . $e->getMessage())
+                ->with('active_tab', 'identitas');
+        }
+    }
 }

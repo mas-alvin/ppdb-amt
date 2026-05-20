@@ -72,6 +72,8 @@ class Registration extends Model
         'catatan_admin',
         'jurusan_id',
         'wave_id',
+        'is_synced_to_datacenter',
+        'datacenter_student_id',
     ];
 
     /**

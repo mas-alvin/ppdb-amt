@@ -2,7 +2,7 @@
     ['label' => 'Pendaftaran', 'url' => route('admin.registrations.index')],
     ['label' => 'Detail Siswa']
 ]">
-    <div class="space-y-6" x-data="{ tab: '{{ session('active_tab', 'identitas') }}' }">
+    <div class="space-y-6" x-data="{ tab: '{{ session('active_tab', 'identitas') }}', rejectModalOpen: false }">
         {{-- Header Detail --}}
         <div class="bg-emerald-900 rounded-sm p-8 text-white relative overflow-hidden shadow-sm">
             <div class="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay"
@@ -14,11 +14,35 @@
                         {{ substr($registration->nama_lengkap, 0, 1) }}
                     </div>
                     <div>
-                        <div class="flex items-center gap-3 mb-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-1">
                             <h2 class="text-3xl font-black uppercase tracking-tight">{{ $registration->nama_lengkap }}</h2>
                             <span class="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest bg-emerald-800 text-emerald-100 border border-emerald-700">
                                 {{ $registration->nisn }}
                             </span>
+                            
+                            @if($registration->status == 'verified')
+                                <span class="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest bg-green-600 text-white border border-green-500 flex items-center gap-1">
+                                    <iconify-icon icon="lucide:check-circle"></iconify-icon> Lulus / Diterima
+                                </span>
+                            @elseif($registration->status == 'rejected')
+                                <span class="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest bg-red-600 text-white border border-red-500 flex items-center gap-1">
+                                    <iconify-icon icon="lucide:x-circle"></iconify-icon> Ditolak
+                                </span>
+                            @else
+                                <span class="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest bg-yellow-500 text-green-950 border border-yellow-400 flex items-center gap-1">
+                                    <iconify-icon icon="lucide:clock"></iconify-icon> Pending
+                                </span>
+                            @endif
+
+                            @if($registration->is_synced_to_datacenter)
+                                <span class="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest bg-emerald-500 text-white border border-emerald-400 flex items-center gap-1">
+                                    <iconify-icon icon="lucide:database"></iconify-icon> Tersinkron Ke Data Center
+                                </span>
+                            @else
+                                <span class="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest bg-slate-700 text-slate-300 border border-slate-600 flex items-center gap-1">
+                                    <iconify-icon icon="lucide:refresh-cw"></iconify-icon> Belum Sinkron
+                                </span>
+                            @endif
                         </div>
                         <p class="text-emerald-100/70 font-medium text-sm flex items-center gap-2">
                             <iconify-icon icon="lucide:school"></iconify-icon>
@@ -29,12 +53,70 @@
 
                 <div class="flex items-center gap-3">
                     @if($registration->status == 'pending')
-                        <form action="{{ route('admin.registrations.update-status', $registration->id) }}" method="POST">
+                        <form action="{{ route('admin.registrations.update-status', $registration->id) }}" method="POST" class="inline">
                             @csrf
                             @method('PATCH')
                             <input type="hidden" name="status" value="verified">
-                            <button type="submit" class="px-6 py-2.5 bg-yellow-500 hover:bg-yellow-400 text-green-950 font-black text-sm rounded-sm transition-all shadow-lg shadow-yellow-500/20 flex items-center gap-2">
-                                <iconify-icon icon="lucide:check-square"></iconify-icon> TERIMA PENDAFTARAN
+                            <button type="submit" class="px-6 py-2.5 bg-yellow-500 hover:bg-yellow-400 text-green-950 font-black text-sm rounded-lg transition-all shadow-lg shadow-yellow-500/20 flex items-center gap-2 active:scale-95">
+                                <iconify-icon icon="lucide:check-circle" class="text-base"></iconify-icon> TERIMA PENDAFTARAN
+                            </button>
+                        </form>
+
+                        <button @click="rejectModalOpen = true" type="button" class="px-6 py-2.5 bg-red-600 hover:bg-red-500 text-white font-black text-sm rounded-lg transition-all shadow-lg shadow-red-600/20 flex items-center gap-2 active:scale-95">
+                            <iconify-icon icon="lucide:x-circle" class="text-base"></iconify-icon> TOLAK PENDAFTARAN
+                        </button>
+
+                        <!-- Reject Confirmation Modal -->
+                        <div x-show="rejectModalOpen" 
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-200"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 scale-95"
+                             class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm" x-cloak>
+                            
+                            <div @click.away="rejectModalOpen = false" class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-red-100">
+                                <div class="px-6 py-4 border-b border-red-50 bg-red-50/50 flex items-center justify-between text-left">
+                                    <h3 class="text-sm font-black text-red-700 uppercase tracking-widest flex items-center gap-2">
+                                        <iconify-icon icon="lucide:alert-triangle" class="text-lg"></iconify-icon> Konfirmasi Penolakan
+                                    </h3>
+                                    <button @click="rejectModalOpen = false" type="button" class="text-red-400 hover:text-red-600">
+                                        <iconify-icon icon="lucide:x" class="text-xl"></iconify-icon>
+                                    </button>
+                                </div>
+                                
+                                <div class="p-6 space-y-4 text-left">
+                                    <p class="text-sm text-slate-600 leading-relaxed">
+                                        Apakah Anda yakin ingin menolak pendaftaran calon siswa <strong class="text-slate-800 uppercase">{{ $registration->nama_lengkap }}</strong>?
+                                    </p>
+                                    <p class="text-xs text-red-500 bg-red-50 p-3 rounded-lg font-medium">
+                                        Calon siswa yang ditolak hanya akan disimpan sebagai riwayat di sistem PPDB dan tidak akan disinkronkan ke Data Center.
+                                    </p>
+                                </div>
+
+                                <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-3">
+                                    <button @click="rejectModalOpen = false" type="button" class="px-4 py-2 text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-700">
+                                        BATAL
+                                    </button>
+                                    <form action="{{ route('admin.registrations.update-status', $registration->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="status" value="rejected">
+                                        <button type="submit" class="px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-black text-xs rounded-lg uppercase tracking-wider transition-all shadow-md shadow-red-600/10 active:scale-95">
+                                            YA, TOLAK PENDAFTARAN
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($registration->status == 'verified' && !$registration->is_synced_to_datacenter)
+                        <form action="{{ route('admin.registrations.promote', $registration->id) }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="px-6 py-2.5 bg-yellow-500 hover:bg-yellow-400 text-green-950 font-black text-sm rounded-lg transition-all shadow-lg shadow-yellow-500/20 flex items-center gap-2 active:scale-95">
+                                <iconify-icon icon="lucide:refresh-cw" class="text-base"></iconify-icon> SINKRONKAN KE DATA CENTER
                             </button>
                         </form>
                     @endif

@@ -20,6 +20,8 @@ Route::get('/informasi', function () {
     return view('information', compact('waves'));
 });
 
+Route::get('/brosur', [\App\Http\Controllers\Public\BrochureController::class, 'index']);
+
 // Auth Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -63,6 +65,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/registrations/{id}', [\App\Http\Controllers\RegistrationController::class, 'show'])->name('registrations.show');
     
     Route::patch('/registrations/{id}/status', [\App\Http\Controllers\RegistrationController::class, 'updateStatus'])->name('registrations.update-status');
+    Route::post('/registrations/{id}/promote', [\App\Http\Controllers\RegistrationController::class, 'manualPromote'])->name('registrations.promote');
     
     // Documents Verification
     Route::patch('/documents/{id}/status', [\App\Http\Controllers\RegistrationController::class, 'updateDocumentStatus'])->name('documents.update-status');
@@ -78,5 +81,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::patch('/content/{announcement}/toggle', [\App\Http\Controllers\Admin\AnnouncementController::class, 'toggleStatus'])->name('content.toggle');
     Route::view('/reporting', 'pages.admin.reporting.index')->name('reporting.index');
     Route::view('/activity', 'pages.admin.activity.index')->name('activity.index');
-    Route::view('/settings', 'pages.admin.settings.index')->name('settings.index');
+    Route::get('/settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings/update', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
+    Route::post('/settings/brochure', [\App\Http\Controllers\Admin\SettingController::class, 'uploadBrochure'])->name('settings.brochure');
+    Route::delete('/settings/brochure', [\App\Http\Controllers\Admin\SettingController::class, 'deleteBrochure'])->name('settings.brochure.delete');
 });

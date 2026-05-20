@@ -82,22 +82,32 @@
                         <iconify-icon icon="lucide:file-check" class="text-green-900 text-3xl"></iconify-icon>
                         Syarat Pendaftaran
                     </h3>
-                    <div class="space-y-4">
+                    <div class="space-y-6">
                         <div>
                             <h4 class="font-bold text-green-950 mb-2">Persyaratan Umum</h4>
                             <ul class="list-disc list-inside text-slate-600 text-sm space-y-1">
                                 <li>Lulusan SMP/MTs sederajat.</li>
                                 <li>Berusia maksimal 21 tahun pada awal tahun pelajaran baru.</li>
-                                <li>Berkelakuan baik dan tidak terlibat narkoba.</li>
+                                <li>Berkelakuan baik, berkarakter mulia, dan siap mengikuti kegiatan pembelajaran.</li>
                             </ul>
                         </div>
                         <div>
-                            <h4 class="font-bold text-green-950 mb-2">Dokumen yang Harus Diunggah</h4>
+                            <h4 class="font-bold text-green-950 mb-2">Formulir yang Harus Dilengkapi</h4>
+                            <ul class="list-disc list-inside text-slate-600 text-sm space-y-1">
+                                <li><strong>Data Diri Lengkap</strong> (Identitas, NIK, NISN, No. KK, Akta Lahir, dan Alamat Detail).</li>
+                                <li><strong>Data Orang Tua / Wali</strong> (Nama, NIK, Pekerjaan, dan Penghasilan Ayah/Ibu/Wali Kandung).</li>
+                                <li><strong>Kondisi Fisik & Penunjang</strong> (Tinggi/Berat Badan, Jarak Tempuh, No KKS/PKH/KIP jika ada).</li>
+                                <li><strong>Rincian Akademik</strong> (Asal Sekolah & No Ijazah/SKHUN).</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-green-950 mb-2">Dokumen Wajib Diunggah (Format Gambar/PDF)</h4>
                             <ul class="list-disc list-inside text-slate-600 text-sm space-y-1">
                                 <li>Scan Kartu Keluarga (KK).</li>
                                 <li>Scan Akta Kelahiran.</li>
-                                <li>Scan Rapor semester 1-5.</li>
-                                <li>Pas foto terbaru ukuran 3x4.</li>
+                                <li>Scan Ijazah Terakhir / Surat Keterangan Lulus (SKL).</li>
+                                <li>Scan SKHUN / Transkrip Kelulusan dari SMP/MTs.</li>
+                                <li>Pas Foto Terbaru ukuran 3x4.</li>
                             </ul>
                         </div>
                     </div>

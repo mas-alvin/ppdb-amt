@@ -90,10 +90,21 @@ class RegistrationService
         return DB::transaction(function () use ($id, $status, $note) {
             try {
                 $registration = Registration::findOrFail($id);
-                return $registration->update([
+                $updated = $registration->update([
                     'status' => $status,
                     'catatan_admin' => $note
                 ]);
+
+                if ($updated && $status === 'verified') {
+                    try {
+                        app(PromoteStudentService::class)->promote($registration);
+                    } catch (Exception $e) {
+                        Log::error('Automatic Promotion to Data Center Failed: ' . $e->getMessage());
+                        // Gracefully absorb error so the PPDB registration verification still succeeds, allowing manual retry
+                    }
+                }
+
+                return $updated;
             } catch (Exception $e) {
                 Log::error('Update Status Error: ' . $e->getMessage());
                 throw $e;
