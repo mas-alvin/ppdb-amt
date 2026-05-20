@@ -8,16 +8,16 @@
             font-family: 'Helvetica', 'Arial', sans-serif;
             font-size: 11pt;
             color: #333;
-            line-height: 1.1;
-            background-color: #fff;
+            line-height: 1.4;
+            background-color: #f9f9f9;
             margin: 0;
             padding: 20px;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
-            /* border: 2px solid #064e3b; */
-            padding: 10px;
+            border: 2px solid #064e3b;
+            padding: 30px;
             background-color: #fff;
             position: relative;
             box-sizing: border-box;
@@ -66,13 +66,12 @@
             color: #064e3b;
         }
         .section-title {
-            background-color: #032e15;
+            background-color: #f4f6f3;
             padding: 6px 10px;
             font-weight: bold;
             font-size: 10pt;
             margin-top: 20px;
-            border-left: 4px solid #ffee00;
-            color: #fff;
+            border-left: 4px solid #064e3b;
         }
         .content-table {
             width: 100%;
@@ -142,7 +141,7 @@
             <tr>
                 <td class="header-logo">
                     <!-- Ganti path/url_logo_sekolah.png dengan aset gambar logo SMK Anda -->
-                    <img src="{{ public_path('logo-amt.webp') }}" alt="Logo Sekolah">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo Sekolah">
                 </td>
                 <td class="header-text">
                     <h1>SMK AL-MUJTAMA'</h1>
@@ -156,14 +155,14 @@
         <div class="registration-title">BUKTI PENDAFTARAN ONLINE</div>
 
         <!-- Box Foto Tetap Absolute, Mengikuti Sisi Kanan Container yang Terkunci -->
-        {{-- <div class="photo-box">PAS FOTO 3x4</div> --}}
+        <div class="photo-box">PAS FOTO 3x4</div>
 
         <div class="section-title">DATA PENDAFTARAN</div>
-        <table class="content-table"> <!-- Dipersempit agar tidak tabrakan dengan pas foto -->
+        <table class="content-table" style="width: 75%;"> <!-- Dipersempit agar tidak tabrakan dengan pas foto -->
             <tr>
                 <td class="label">No. Pendaftaran</td>
                 <td class="colon">:</td>
-                <td class="value">{{ str_pad($registration->id, 5, '0', STR_PAD_LEFT) }}</td>
+                <td class="value">PPDB-{{ str_pad($registration->id, 5, '0', STR_PAD_LEFT) }}</td>
             </tr>
             <tr>
                 <td class="label">Gelombang</td>
@@ -237,7 +236,7 @@
 
         <div class="footer">
             <div class="signature">
-                <p>Kabupaten Pamekasan, {{ now()->format('d F Y') }}<br>Pendaftar,</p>
+                <p>Kabupaten, {{ now()->format('d F Y') }}<br>Pendaftar,</p>
                 <strong>( {{ $registration->nama_lengkap }} )</strong>
             </div>
             <div class="clear"></div>
