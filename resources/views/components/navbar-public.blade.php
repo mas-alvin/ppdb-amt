@@ -8,8 +8,7 @@
             style="background-image: url('{{ asset('batik-pattern.png') }}'); background-size: 400px; background-repeat: repeat; background-position: center center;">
         </div>
 
-        <div
-            class="relative max-w-full px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+        <div class="relative max-w-full px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
 
             <!-- Logo + Title -->
             <div class="flex items-center gap-3 sm:gap-4">
@@ -69,7 +68,7 @@
                         class="px-4 py-2 text-sm font-semibold rounded-lg text-white/90 hover:bg-green-800 hover:text-white transition-all">
                         Informasi
                     </a>
-                    
+
                     <a href="/brosur"
                         class="px-4 py-2 text-sm font-semibold rounded-lg text-white/90 hover:bg-green-800 hover:text-white transition-all">
                         Brosur
@@ -111,12 +110,20 @@
 
     <!-- Sidebar Header -->
     <div class="flex items-center justify-between p-5 border-b border-slate-100">
-        <img src="{{ asset('LOGO-PPDB.png') }}" alt="Logo" class="h-10 w-auto">
-
+        <div class="flex items-center gap-2">
+            <img src="{{ asset('logo-amt.webp') }}" alt="Logo" class="h-10 w-auto">
+            <!-- Mengubah pembungkus teks menjadi flex-col agar menumpuk ke bawah -->
+            <div class="flex flex-col justify-center">
+                <span class="text-green-900 font-black tracking-wide text-lg leading-tight">PPDB <span
+                        class="text-yellow-600">AMT</span></span>
+                <span class="text-xs text-gray-400 font-medium leading-tight">TAHUN AJARAN {{ now()->year }}</span>
+            </div>
+        </div>
         <button id="sidebar-close-btn" class="p-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors">
             <iconify-icon icon="lucide:x" class="text-xl"></iconify-icon>
         </button>
     </div>
+
 
     <!-- Navigation Links -->
     <nav class="flex-1 overflow-y-auto py-4 px-3">
