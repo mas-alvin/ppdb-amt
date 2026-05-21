@@ -13,13 +13,13 @@
                         SMK AL-MUJTAMA' Pamekasan berkomitmen untuk mencetak generasi yang cerdas secara intelektual dan memiliki kedalaman spiritual yang kuat.
                     </p>
                     <div class="flex gap-4">
-                        <a href="#" class="size-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-yellow-500 hover:text-green-950 transition-all">
-                            <iconify-icon icon="lucide:facebook"></iconify-icon>
+                        <a href="https://www.tiktok.com/@smkalmujtama?is_from_webapp=1&sender_device=pc" target="_blank" class="size-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-yellow-500 hover:text-green-950 transition-all">
+                            <iconify-icon icon="tabler:brand-tiktok"></iconify-icon>
                         </a>
-                        <a href="#" class="size-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-yellow-500 hover:text-green-950 transition-all">
+                        <a href="https://www.instagram.com/smk_almujtama?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="size-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-yellow-500 hover:text-green-950 transition-all">
                             <iconify-icon icon="lucide:instagram"></iconify-icon>
                         </a>
-                        <a href="#" class="size-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-yellow-500 hover:text-green-950 transition-all">
+                        <a href="https://youtube.com/@smkalmujtama?si=Vk7bjSLToNdefgua" target="_blank" class="size-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-yellow-500 hover:text-green-950 transition-all">
                             <iconify-icon icon="lucide:youtube"></iconify-icon>
                         </a>
                     </div>
@@ -51,7 +51,7 @@
                     &copy; {{ now()->year }} PPDB SMK AL-MUJTAMA' Pamekasan. Hak Cipta Dilindungi Undang-Undang.
                 </p>
                 <p class="text-white/40 text-sm flex items-center gap-1">
-                    Made with <iconify-icon icon="lucide:heart" class="text-red-500"></iconify-icon> for better education
+                    Made with <iconify-icon icon="lucide:heart" class="text-red-500"></iconify-icon> by <a href="">Alfiansyah</a>
                 </p>
             </div>
         </div>

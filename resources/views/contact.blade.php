@@ -42,7 +42,7 @@
                             </div>
                             <div>
                                 <h4 class="text-xl font-bold text-green-950 mb-1">Telepon & WhatsApp</h4>
-                                <p class="text-slate-600">(0324) 322551 / +62 812-3456-7890</p>
+                                <a href="https://wa.me/6287811156664" target="_blank" class="text-slate-600">087811156664</a>
                             </div>
                         </div>
 

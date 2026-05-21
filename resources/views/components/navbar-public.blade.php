@@ -38,7 +38,7 @@
     <div class="bg-green-900 border-t border-green-800">
         <div class="max-w-auto px-4 sm:px-6">
 
-            <div class="flex items-center justify-between h-14">
+            <div class="flex items-center justify-between h-14 relative">
 
                 <!-- Mobile Hamburger (Left) -->
                 <button id="hamburger-btn-mobile"
