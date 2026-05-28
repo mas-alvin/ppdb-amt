@@ -48,26 +48,58 @@
                 <form action="{{ route('admin.settings.update') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
                     @csrf
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Nama Lembaga</label>
-                        <input type="text" name="school_name" value="{{ \App\Models\Setting::getValue('school_name', 'SMK AL-MUJTAMA\'') }}" required
-                            class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
+                        <x-form-input
+                            name="school_name"
+                            id="school_name"
+                            label="Nama Lembaga"
+                            value="{{ \App\Models\Setting::getValue('school_name', 'SMK AL-MUJTAMA\'') }}"
+                            required />
                     </div>
                     <div>
-                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Zona Waktu</label>
-                        <select name="timezone" required
-                            class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
-                            @php
-                                $tz = \App\Models\Setting::getValue('timezone', 'WIB');
-                            @endphp
-                            <option value="WIB" {{ $tz === 'WIB' ? 'selected' : '' }}>WIB (Waktu Indonesia Barat)</option>
-                            <option value="WITA" {{ $tz === 'WITA' ? 'selected' : '' }}>WITA (Waktu Indonesia Tengah)</option>
-                            <option value="WIT" {{ $tz === 'WIT' ? 'selected' : '' }}>WIT (Waktu Indonesia Timur)</option>
-                        </select>
+                        <x-form-input
+                            name="academic_year"
+                            id="academic_year"
+                            label="Tahun Pelajaran"
+                            value="{{ \App\Models\Setting::getValue('academic_year', '2026/2027') }}"
+                            placeholder="Contoh: 2026/2027"
+                            required />
                     </div>
                     <div>
-                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Ukuran Unggah Maks (MB)</label>
-                        <input type="number" name="max_upload_size" value="{{ \App\Models\Setting::getValue('max_upload_size', 2048) / 1024 }}" min="1" required
-                            class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
+                        <x-form-input
+                            type="number"
+                            name="max_upload_size"
+                            id="max_upload_size"
+                            label="Ukuran Unggah Maks (MB)"
+                            value="{{ \App\Models\Setting::getValue('max_upload_size', 2048) / 1024 }}"
+                            min="1"
+                            required />
+                    </div>
+                    <div>
+                        @php
+                            $tz = \App\Models\Setting::getValue('timezone', 'WIB');
+                            $tzOptions = [
+                                'WIB' => 'WIB (Waktu Indonesia Barat)',
+                                'WITA' => 'WITA (Waktu Indonesia Tengah)',
+                                'WIT' => 'WIT (Waktu Indonesia Timur)',
+                            ];
+                        @endphp
+                        <x-form-select
+                            name="timezone"
+                            id="timezone"
+                            label="Zona Waktu"
+                            :options="$tzOptions"
+                            :selected="$tz"
+                            required />
+                    </div>
+                    <div class="md:col-span-2">
+                        <x-form-textarea
+                            name="school_address"
+                            id="school_address"
+                            label="Alamat Lembaga"
+                            value="{{ \App\Models\Setting::getValue('school_address', 'Jl. Raya Pegantenan No.KM. 09, Tengracak, Plakpak, Kec. Pegantenan, Kabupaten Pamekasan, Jawa Timur 69361') }}"
+                            placeholder="Alamat lengkap sekolah..."
+                            rows="3"
+                            required />
                     </div>
                     <div class="md:col-span-2 pt-4">
                         <button type="submit"
@@ -114,7 +146,7 @@
                                             Buka brosur aktif <iconify-icon icon="lucide:external-link" class="text-[10px]"></iconify-icon>
                                         </a>
                                         <span class="text-slate-300">|</span>
-                                        <form action="{{ route('admin.settings.brochure.delete') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus brosur ini?')" class="inline">
+                                        <form action="{{ route('admin.settings.brochure.delete') }}" method="POST" onsubmit="return confirmDelete(event, 'Apakah Anda yakin ingin menghapus brosur ini?')" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-[11px] text-red-600 hover:underline font-semibold flex items-center gap-1">

@@ -59,7 +59,7 @@
                                                 class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-all" title="Edit">
                                             <iconify-icon icon="lucide:edit-3" class="text-lg"></iconify-icon>
                                         </button>
-                                        <form action="{{ route('admin.jurusan.destroy', $jurusan) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jurusan ini?')" class="inline">
+                                        <form action="{{ route('admin.jurusan.destroy', $jurusan) }}" method="POST" onsubmit="return confirmDelete(event, 'Apakah Anda yakin ingin menghapus jurusan ini?')" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-all" title="Hapus">

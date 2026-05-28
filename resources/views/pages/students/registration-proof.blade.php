@@ -145,10 +145,10 @@
                     <img src="{{ public_path('logo-amt.webp') }}" alt="Logo Sekolah">
                 </td>
                 <td class="header-text">
-                    <h1>SMK AL-MUJTAMA'</h1>
+                    <h1>{{ \App\Models\Setting::getValue('school_name', "SMK AL-MUJTAMA'") }}</h1>
                     <p><b>Panitia Penerimaan Peserta Didik Baru (PPDB) Online</b></p>
-                    <p>Tahun Pelajaran 2026/2027</p>
-                    <p style="font-size: 8.5pt; color: #555; margin-top: 5px;">Jl. Raya Contoh No. 123, Kabupaten/Kota, Provinsi</p>
+                    <p>Tahun Pelajaran {{ \App\Models\Setting::getValue('academic_year', '2026/2027') }}</p>
+                    <p style="font-size: 8.5pt; color: #555; margin-top: 5px;">{{ \App\Models\Setting::getValue('school_address', 'Jl. Raya Pegantenan No.KM. 09, Tengracak, Plakpak, Kec. Pegantenan, Kabupaten Pamekasan, Jawa Timur 69361') }}</p>
                 </td>
             </tr>
         </table>

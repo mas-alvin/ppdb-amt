@@ -64,7 +64,7 @@
                                 class="p-2 text-slate-400 hover:text-green-950 transition-colors">
                                 <iconify-icon icon="lucide:edit-3" class="text-xl"></iconify-icon>
                             </button>
-                            <form action="{{ route('admin.content.destroy', $announcement) }}" method="POST" onsubmit="return confirm('Hapus pengumuman ini?')">
+                            <form action="{{ route('admin.content.destroy', $announcement) }}" method="POST" onsubmit="return confirmDelete(event, 'Apakah Anda yakin ingin menghapus pengumuman ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="p-2 text-slate-400 hover:text-red-600 transition-colors">
@@ -88,51 +88,55 @@
              class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-green-950/20 backdrop-blur-sm" x-cloak>
             
             <div @click.away="modalOpen = false" class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-100">
-                <div class="px-6 py-4 border-b border-slate-50 bg-slate-50/50 flex items-center justify-between">
-                    <h3 class="text-sm font-black text-green-950 uppercase tracking-widest" x-text="isEdit ? 'Ubah Pengumuman' : 'Buat Pengumuman Baru'"></h3>
-                    <button @click="modalOpen = false" class="text-slate-400 hover:text-slate-600">
-                        <iconify-icon icon="lucide:x" class="text-xl"></iconify-icon>
-                    </button>
-                </div>
-                
-                <form :action="isEdit ? `{{ url('admin/content') }}/${activeItem.id}` : `{{ route('admin.content.index') }}`" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
-                    @csrf
-                    <template x-if="isEdit">
-                        @method('PUT')
-                    </template>
+                <template x-if="activeItem">
+                    <div>
+                        <div class="px-6 py-4 border-b border-slate-50 bg-slate-50/50 flex items-center justify-between">
+                            <h3 class="text-sm font-black text-green-950 uppercase tracking-widest" x-text="isEdit ? 'Ubah Pengumuman' : 'Buat Pengumuman Baru'"></h3>
+                            <button @click="modalOpen = false" class="text-slate-400 hover:text-slate-600">
+                                <iconify-icon icon="lucide:x" class="text-xl"></iconify-icon>
+                            </button>
+                        </div>
+                        
+                        <form :action="isEdit ? `{{ url('admin/content') }}/${activeItem.id}` : `{{ route('admin.content.index') }}`" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
+                            @csrf
+                            <template x-if="isEdit">
+                                @method('PUT')
+                            </template>
 
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Judul Pengumuman</label>
-                            <input type="text" name="title" x-model="activeItem.title" placeholder="Judul informasi"
-                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300" required>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tipe / Kategori</label>
-                            <select name="type" x-model="activeItem.type" class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
-                                <option value="info">Informasi (Biru)</option>
-                                <option value="warning">Peringatan (Kuning)</option>
-                                <option value="danger">Penting / Mendesak (Merah)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Konten / Deskripsi</label>
-                            <textarea name="content" rows="4" x-model="activeItem.content" placeholder="Tulis isi pengumuman di sini..."
-                                class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300" required></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Lampiran Dokumen (PDF, Maks 5MB)</label>
-                            <input type="file" name="document" accept=".pdf"
-                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300 file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-black file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
-                            <p class="mt-1 text-[10px] text-slate-400">Kosongkan jika tidak ada lampiran.</p>
-                        </div>
-                    </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Judul Pengumuman</label>
+                                    <input type="text" name="title" x-model="activeItem.title" placeholder="Judul informasi"
+                                           class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300" required>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tipe / Kategori</label>
+                                    <select name="type" x-model="activeItem.type" class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
+                                        <option value="info">Informasi (Biru)</option>
+                                        <option value="warning">Peringatan (Kuning)</option>
+                                        <option value="danger">Penting / Mendesak (Merah)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Konten / Deskripsi</label>
+                                    <textarea name="content" rows="4" x-model="activeItem.content" placeholder="Tulis isi pengumuman di sini..."
+                                        class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300" required></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Lampiran Dokumen (PDF, Maks 5MB)</label>
+                                    <input type="file" name="document" accept=".pdf"
+                                           class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300 file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-black file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
+                                    <p class="mt-1 text-[10px] text-slate-400">Kosongkan jika tidak ada lampiran.</p>
+                                </div>
+                            </div>
 
-                    <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">
-                        <button type="button" @click="modalOpen = false" class="px-6 py-2.5 rounded-lg bg-slate-100 text-slate-600 text-xs font-black uppercase tracking-widest hover:bg-slate-200 transition-all">BATAL</button>
-                        <button type="submit" class="px-8 py-2.5 rounded-lg bg-green-900 text-white text-xs font-black uppercase tracking-widest hover:bg-green-800 shadow-xl shadow-green-900/20 transition-all" x-text="isEdit ? 'PERBARUI' : 'TERBITKAN'"></button>
+                            <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">
+                                <button type="button" @click="modalOpen = false" class="px-6 py-2.5 rounded-lg bg-slate-100 text-slate-600 text-xs font-black uppercase tracking-widest hover:bg-slate-200 transition-all">BATAL</button>
+                                <button type="submit" class="px-8 py-2.5 rounded-lg bg-green-900 text-white text-xs font-black uppercase tracking-widest hover:bg-green-800 shadow-xl shadow-green-900/20 transition-all" x-text="isEdit ? 'PERBARUI' : 'TERBITKAN'"></button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </template>
             </div>
         </div>
     </div>

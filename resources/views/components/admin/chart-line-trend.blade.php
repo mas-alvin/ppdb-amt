@@ -63,7 +63,7 @@
 
     <!-- Tooltip -->
     <div x-show="hovered !== null" 
-         x-transition
+         x-transition x-data="{ points: [], hovered: null }"
          class="absolute pointer-events-none bg-emerald-950 text-white px-3 py-1.5 rounded-sm text-[10px] font-bold shadow-xl -translate-x-1/2 -translate-y-full"
          :style="`left: ${(hovered / {{ $count > 1 ? $count - 1 : 1 }}) * 100}%; top: -10px`"
     >

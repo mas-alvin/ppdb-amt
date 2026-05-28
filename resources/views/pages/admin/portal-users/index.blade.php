@@ -37,7 +37,7 @@
                                 <td class="px-6 py-4 text-sm font-medium text-slate-400">{{ $user->created_at->format('d M Y H:i') }}</td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex items-center justify-end gap-2">
-                                        <form action="{{ route('admin.portal-users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Hapus akun ini? Tindakan ini tidak dapat dibatalkan.')">
+                                        <form action="{{ route('admin.portal-users.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete(event, 'Apakah Anda yakin ingin menghapus akun siswa ini? Tindakan ini tidak dapat dibatalkan.')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="p-2 text-slate-300 hover:text-red-600 hover:bg-red-50 rounded-sm transition-all">

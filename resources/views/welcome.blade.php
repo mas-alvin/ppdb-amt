@@ -325,7 +325,7 @@
                             </div>
                             <div>
                                 <h4 class="text-xl font-bold text-green-950 mb-1">Alamat Utama</h4>
-                                <p class="text-slate-600">Jl. Raya Pegantenan No.KM. 09, Tengracak, Plakpak, Kec. Pegantenan, Kabupaten Pamekasan, Jawa Timur 69361</p>
+                                <p class="text-slate-600">{{ \App\Models\Setting::getValue('school_address', 'Jl. Raya Pegantenan No.KM. 09, Tengracak, Plakpak, Kec. Pegantenan, Kabupaten Pamekasan, Jawa Timur 69361') }}</p>
                             </div>
                         </div>
 

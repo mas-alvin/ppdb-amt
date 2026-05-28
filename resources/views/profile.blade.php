@@ -67,7 +67,7 @@
                         <iframe class="absolute inset-0 w-full h-full"
                             src="https://www.youtube.com/embed/y42Kxd_yPEs?si=YfIh6iFc4a4cVOGs&autoplay=1&mute=0"
                             title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>

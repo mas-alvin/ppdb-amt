@@ -60,7 +60,7 @@
                                         class="p-2 text-green-700 hover:text-green-900 transition-colors">
                                         <iconify-icon icon="lucide:edit-3" class="text-lg"></iconify-icon>
                                     </button>
-                                    <form action="{{ route('admin.schedule.destroy', $w) }}" method="POST" onsubmit="return confirm('Hapus gelombang ini?')">
+                                    <form action="{{ route('admin.schedule.destroy', $w) }}" method="POST" onsubmit="return confirmDelete(event, 'Apakah Anda yakin ingin menghapus gelombang pendaftaran ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="p-2 text-slate-400 hover:text-red-600 transition-colors">
@@ -90,60 +90,64 @@
              class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-green-950/20 backdrop-blur-sm" x-cloak>
             
             <div @click.away="waveOpen = false" class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-slate-100">
-                <div class="px-6 py-4 border-b border-slate-50 bg-slate-50/50 flex items-center justify-between">
-                    <h3 class="text-sm font-black text-green-950 uppercase tracking-widest" x-text="mode === 'add' ? 'Tambah Gelombang Baru' : 'Ubah Konfigurasi Gelombang'"></h3>
-                    <button @click="waveOpen = false" class="text-slate-400 hover:text-slate-600">
-                        <iconify-icon icon="lucide:x" class="text-xl"></iconify-icon>
-                    </button>
-                </div>
-                
-                <form :action="mode === 'edit' ? `{{ url('admin/schedule') }}/${activeWave.id}` : `{{ route('admin.schedule.index') }}`" method="POST" class="p-6 space-y-6">
-                    @csrf
-                    <template x-if="mode === 'edit'">
-                        @method('PUT')
-                    </template>
+                <template x-if="activeWave">
+                    <div>
+                        <div class="px-6 py-4 border-b border-slate-50 bg-slate-50/50 flex items-center justify-between">
+                            <h3 class="text-sm font-black text-green-950 uppercase tracking-widest" x-text="mode === 'add' ? 'Tambah Gelombang Baru' : 'Ubah Konfigurasi Gelombang'"></h3>
+                            <button @click="waveOpen = false" class="text-slate-400 hover:text-slate-600">
+                                <iconify-icon icon="lucide:x" class="text-xl"></iconify-icon>
+                            </button>
+                        </div>
+                        
+                        <form :action="mode === 'edit' ? `{{ url('admin/schedule') }}/${activeWave.id}` : `{{ route('admin.schedule.index') }}`" method="POST" class="p-6 space-y-6">
+                            @csrf
+                            <template x-if="mode === 'edit'">
+                                @method('PUT')
+                            </template>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="md:col-span-2">
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Nama Gelombang</label>
-                            <input type="text" name="name" x-model="activeWave.name" placeholder="Contoh: Gelombang III" required
-                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tanggal Buka</label>
-                            <input type="date" name="start_date" x-model="activeWave.start_date" required
-                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tanggal Tutup</label>
-                            <input type="date" name="end_date" x-model="activeWave.end_date" required
-                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Kuota Pendaftar</label>
-                            <input type="number" name="quota" x-model="activeWave.quota" required
-                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Status</label>
-                            <select name="status" x-model="activeWave.status" class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
-                                <option value="draft">DRAF</option>
-                                <option value="open">BUKA</option>
-                                <option value="closed">TUTUP</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Deskripsi / Catatan</label>
-                            <textarea name="description" x-model="activeWave.description" rows="2" placeholder="Catatan tambahan untuk gelombang ini..."
-                                class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300"></textarea>
-                        </div>
-                    </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="md:col-span-2">
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Nama Gelombang</label>
+                                    <input type="text" name="name" x-model="activeWave.name" placeholder="Contoh: Gelombang III" required
+                                           class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tanggal Buka</label>
+                                    <input type="date" name="start_date" x-model="activeWave.start_date" required
+                                           class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tanggal Tutup</label>
+                                    <input type="date" name="end_date" x-model="activeWave.end_date" required
+                                           class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Kuota Pendaftar</label>
+                                    <input type="number" name="quota" x-model="activeWave.quota" required
+                                           class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Status</label>
+                                    <select name="status" x-model="activeWave.status" class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
+                                        <option value="draft">DRAF</option>
+                                        <option value="open">BUKA</option>
+                                        <option value="closed">TUTUP</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Deskripsi / Catatan</label>
+                                    <textarea name="description" x-model="activeWave.description" rows="2" placeholder="Catatan tambahan untuk gelombang ini..."
+                                        class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300"></textarea>
+                                </div>
+                            </div>
 
-                    <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">
-                        <button type="button" @click="waveOpen = false" class="px-6 py-2.5 rounded-lg bg-slate-100 text-slate-600 text-xs font-black uppercase tracking-widest hover:bg-slate-200 transition-all">BATAL</button>
-                        <button type="submit" class="px-8 py-2.5 rounded-lg bg-green-900 text-white text-xs font-black uppercase tracking-widest hover:bg-green-800 shadow-xl shadow-green-900/20 transition-all">SIMPAN KONFIGURASI</button>
+                            <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">
+                                <button type="button" @click="waveOpen = false" class="px-6 py-2.5 rounded-lg bg-slate-100 text-slate-600 text-xs font-black uppercase tracking-widest hover:bg-slate-200 transition-all">BATAL</button>
+                                <button type="submit" class="px-8 py-2.5 rounded-lg bg-green-900 text-white text-xs font-black uppercase tracking-widest hover:bg-green-800 shadow-xl shadow-green-900/20 transition-all">SIMPAN KONFIGURASI</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </template>
             </div>
         </div>
     </div>

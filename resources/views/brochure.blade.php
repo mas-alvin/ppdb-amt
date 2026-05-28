@@ -27,7 +27,7 @@
                             </div>
                             <div>
                                 <h3 class="font-black text-lg">Brosur Resmi PPDB SMK Al-Mujtama'</h3>
-                                <p class="text-white/60 text-xs uppercase tracking-widest font-semibold">Tahun Pelajaran {{ now()->year }}/{{ now()->year + 1 }}</p>
+                                <p class="text-white/60 text-xs uppercase tracking-widest font-semibold">Tahun Pelajaran {{ \App\Models\Setting::getValue('academic_year', now()->year . '/' . (now()->year + 1)) }}</p>
                             </div>
                         </div>
 

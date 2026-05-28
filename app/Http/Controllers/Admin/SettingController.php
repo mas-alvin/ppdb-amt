@@ -28,6 +28,8 @@ class SettingController extends Controller
             'school_name' => 'required|string|max:255',
             'timezone' => 'required|string|in:WIB,WITA,WIT',
             'max_upload_size' => 'required|integer|min:1',
+            'academic_year' => 'required|string|max:50',
+            'school_address' => 'required|string|max:500',
         ]);
 
         try {
@@ -44,6 +46,16 @@ class SettingController extends Controller
             Setting::updateOrCreate(
                 ['key' => 'max_upload_size'],
                 ['value' => $request->max_upload_size * 1024, 'type' => 'integer'] // stored in KB
+            );
+
+            Setting::updateOrCreate(
+                ['key' => 'academic_year'],
+                ['value' => $request->academic_year, 'type' => 'string']
+            );
+
+            Setting::updateOrCreate(
+                ['key' => 'school_address'],
+                ['value' => $request->school_address, 'type' => 'string']
             );
 
             return back()->with('success', 'Konfigurasi umum berhasil disimpan!');

@@ -113,6 +113,27 @@
         });
     }
 
+    function confirmDelete(event, message = 'Tindakan ini tidak dapat dibatalkan!') {
+        event.preventDefault();
+        const form = event.currentTarget.closest('form') || event.target.closest('form');
+        if (!form) return;
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#64748b',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+        return false;
+    }
+
     window.addEventListener('resize', () => {
         if (window.innerWidth >= 768) {
             document.getElementById('sidebarOverlay').classList.add('hidden');
