@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <title>{{ $title ?? 'PPDBOnline' }}</title>
+    <title>{{ $title ?? 'PPDB SMK AL-MUJTAMA' }}</title>
     <link rel="shortcut icon" href="{{ asset('logo-amt.webp') }}" type="image/webp">
     @vite(['resources/css/app.css'])
     <style>
