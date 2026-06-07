@@ -8,6 +8,7 @@
     <title>Daftar Akun - Portal PPDB</title>
     <link rel="shortcut icon" href="{{ asset('logo-amt.webp') }}" type="image/webp">
     @vite(['resources/css/app.css'])
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"></script>
 </head>
 
 <body
@@ -43,56 +44,51 @@
                 </div>
                 <form class="space-y-4" onsubmit="return false;">
                     <!-- Nama Lengkap -->
-                    <div class="space-y-1.5">
-                        {{-- <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="fullname">Nama
-                            Lengkap</label> --}}
-                        <div class="relative">
-                            <iconify-icon icon="lucide:user"
-                                class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></iconify-icon>
-                            <input
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg text-sm transition-all shadow-sm"
-                                id="fullname" placeholder="Masukkan Nama Lengkap" type="text" />
-                        </div>
-                    </div>
+                    <x-form-input
+                        type="text"
+                        name="fullname"
+                        id="fullname"
+                        label="Nama Lengkap"
+                        icon="user"
+                    />
+
                     <!-- NISN / Username -->
-                    <div class="space-y-1.5">
-                        {{-- <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="nisn">NISN
-                            / Username</label> --}}
-                        <div class="relative">
-                            <iconify-icon icon="lucide:user"
-                                class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></iconify-icon>
-                            <input
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg text-sm transition-all shadow-sm"
-                                id="username" placeholder="Masukkan Username" type="text" />
-                        </div>
-                    </div>
+                    <x-form-input
+                        type="text"
+                        name="username"
+                        id="username"
+                        label="NISN / Username"
+                        icon="user"
+                    />
+
                     <!-- Email -->
-                    <div class="space-y-1.5">
-                        {{-- <label class="block text-sm font-medium text-slate-700 dark:text-slate-300"
-                            for="email">Email</label> --}}
-                        <div class="relative">
-                            <iconify-icon icon="lucide:mail"
-                                class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></iconify-icon>
-                            <input
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg text-sm transition-all shadow-sm"
-                                id="email" placeholder="Masukkan Email" type="email" />
-                        </div>
-                    </div>
+                    <x-form-input
+                        type="email"
+                        name="email"
+                        id="email"
+                        label="Email"
+                        icon="mail"
+                    />
+
                     <!-- Password -->
-                    <div class="space-y-1.5">
-                        {{-- <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="password">Kata
-                            Sandi</label> --}}
-                        <div class="relative">
-                            <iconify-icon icon="lucide:lock"
-                                class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></iconify-icon>
-                            <input
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg text-sm transition-all shadow-sm"
-                                id="password" placeholder="Masukkan Password" type="password" />
-                        </div>
+                    <div x-data="{ showPassword: false }">
+                        <x-form-input
+                            x-bind:type="showPassword ? 'text' : 'password'"
+                            name="password"
+                            id="password"
+                            label="Kata Sandi"
+                            icon="lock"
+                        >
+                            <x-slot:suffix>
+                                <button type="button" @click="showPassword = !showPassword" class="text-slate-400 hover:text-emerald-800 dark:hover:text-white transition-colors focus:outline-none flex items-center h-full" title="Tampilkan/Sembunyikan Password">
+                                    <iconify-icon :icon="showPassword ? 'lucide:eye-off' : 'lucide:eye'" class="text-xl"></iconify-icon>
+                                </button>
+                            </x-slot:suffix>
+                        </x-form-input>
                     </div>
                     <!-- Primary Action Button -->
                     <button
-                        class="w-full py-3.5 bg-accent hover:bg-amber-600 text-white font-bold rounded-lg shadow-lg shadow-accent/20 transition-all flex items-center justify-center gap-2 mt-6 group"
+                        class="w-full bg-green-900 text-white py-4 rounded-sm font-black uppercase tracking-[0.2em] text-xs hover:bg-green-800 transition-all shadow-xl shadow-green-900/20 active:scale-[0.98] flex items-center justify-center gap-2 mt-6 group"
                         type="submit">
                         <span>Buat Akun</span>
                         <iconify-icon icon="lucide:user-plus" class="text-xl group-hover:translate-x-1 transition-transform"></iconify-icon>

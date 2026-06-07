@@ -53,6 +53,9 @@ Route::middleware(['auth', 'role:student'])->group(function () {
 
         return view('pages.students.status', compact('registration', 'progress', 'stages'));
     })->name('student.status');
+
+    Route::get('/settings', [\App\Http\Controllers\Student\SettingController::class, 'index'])->name('student.settings');
+    Route::post('/settings/password', [\App\Http\Controllers\Student\SettingController::class, 'updatePassword'])->name('student.settings.update-password');
 });
 
 // Admin Routes
@@ -77,8 +80,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     // Wave / Schedule
     Route::resource('schedule', \App\Http\Controllers\Admin\WaveController::class);
     Route::resource('portal-users', \App\Http\Controllers\Admin\PortalUserController::class);
+    Route::post('/portal-users/{portal_user}/reset-password', [\App\Http\Controllers\Admin\PortalUserController::class, 'resetPassword'])->name('portal-users.reset-password');
     Route::resource('content', \App\Http\Controllers\Admin\AnnouncementController::class);
-    Route::patch('/content/{announcement}/toggle', [\App\Http\Controllers\Admin\AnnouncementController::class, 'toggleStatus'])->name('content.toggle');
+    Route::patch('/content/{content}/toggle', [\App\Http\Controllers\Admin\AnnouncementController::class, 'toggleStatus'])->name('content.toggle');
     Route::view('/reporting', 'pages.admin.reporting.index')->name('reporting.index');
     Route::view('/activity', 'pages.admin.activity.index')->name('activity.index');
     Route::get('/settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');

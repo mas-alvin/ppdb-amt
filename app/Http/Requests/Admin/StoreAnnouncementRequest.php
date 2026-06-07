@@ -11,7 +11,7 @@ class StoreAnnouncementRequest extends FormRequest
         return auth()->user()->role === 'admin';
     }
 
-    public function rules(): bool
+    public function rules(): array
     {
         return [
             'title' => 'required|string|max:255',

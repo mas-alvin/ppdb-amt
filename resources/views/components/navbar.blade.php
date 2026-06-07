@@ -83,6 +83,14 @@
                         Status
                     </a>
 
+                    <a href="{{ route('student.settings') }}"
+                        class="px-4 py-2 text-sm font-semibold rounded-lg transition-all
+                        {{ Request::routeIs('student.settings') 
+                            ? 'bg-green-700 text-white' 
+                            : 'text-white/90 hover:bg-green-800 hover:text-white' }}">
+                        Pengaturan
+                    </a>
+
                 </div>
 
                 <!-- Mobile Center Title -->
@@ -174,7 +182,7 @@
 
         <div>
             <p class="text-sm font-bold text-slate-900">
-                Alfiansyah
+                {{ auth()->user()->name }}
             </p>
             <p class="text-xs text-slate-500">
                 Siswa
@@ -216,6 +224,13 @@
             <iconify-icon icon="lucide:bar-chart-3"
                 class="text-xl shrink-0"></iconify-icon>
             <span class="text-sm font-medium">Status</span>
+        </a>
+
+        <a href="{{ route('student.settings') }}"
+            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors mb-1 {{ Request::routeIs('student.settings') ? 'bg-green-100 text-green-900' : 'text-slate-600' }}">
+            <iconify-icon icon="lucide:settings"
+                class="text-xl shrink-0"></iconify-icon>
+            <span class="text-sm font-medium">Pengaturan</span>
         </a>
 
     </nav>

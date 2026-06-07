@@ -81,31 +81,47 @@
 
                     <div class="space-y-4">
                         <div x-show="!isEdit">
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Key Identifikasi (Unik)</label>
-                            <input type="text" name="key" x-model="activeStage.key" placeholder="misal: seleksi_ujian"
-                                   class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white" required>
+                            <x-form-input
+                                type="text"
+                                name="key"
+                                x-model="activeStage.key"
+                                label="Key Identifikasi (Unik)"
+                                placeholder="misal: seleksi_ujian"
+                                x-bind:required="!isEdit"
+                            />
                         </div>
                         <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Nama Tahapan</label>
-                            <input type="text" name="label" x-model="activeStage.label" placeholder="Nama tahapan"
-                                   class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white" required>
+                            <x-form-input
+                                type="text"
+                                name="label"
+                                x-model="activeStage.label"
+                                label="Nama Tahapan"
+                                placeholder="Nama tahapan"
+                                required
+                            />
                         </div>
                         <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Deskripsi Keterangan</label>
-                            <textarea name="description" rows="2" x-model="activeStage.description" placeholder="Penjelasan singkat tahap ini"
-                                class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white"></textarea>
+                            <x-form-textarea
+                                name="description"
+                                rows="2"
+                                x-model="activeStage.description"
+                                label="Deskripsi Keterangan"
+                                placeholder="Penjelasan singkat tahap ini"
+                            />
                         </div>
                         <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tanggal Mulai</label>
-                                <input type="date" name="start_date" x-model="activeStage.start_date"
-                                       class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tanggal Selesai</label>
-                                <input type="date" name="end_date" x-model="activeStage.end_date"
-                                       class="w-full text-sm border-slate-200 rounded-lg focus:ring-green-900 focus:border-green-900 bg-white">
-                            </div>
+                            <x-form-input
+                                type="date"
+                                name="start_date"
+                                x-model="activeStage.start_date"
+                                label="Tanggal Mulai"
+                            />
+                            <x-form-input
+                                type="date"
+                                name="end_date"
+                                x-model="activeStage.end_date"
+                                label="Tanggal Selesai"
+                            />
                         </div>
                     </div>
 

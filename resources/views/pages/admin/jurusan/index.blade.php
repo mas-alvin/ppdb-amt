@@ -111,28 +111,40 @@
                     </template>
 
                     <div class="space-y-4">
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Nama Jurusan</label>
-                            <input type="text" name="nama_jurusan" x-model="activeJurusan.nama_jurusan" placeholder="Contoh: Pengembangan Perangkat Lunak & Gim" required
-                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Kode Jurusan</label>
-                            <input type="text" name="kode_jurusan" x-model="activeJurusan.kode_jurusan" placeholder="Contoh: PPLG" required
-                                   class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Deskripsi</label>
-                            <textarea name="deskripsi" x-model="activeJurusan.deskripsi" rows="3" placeholder="Masukkan deskripsi kompetensi keahlian..."
-                                      class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Status</label>
-                            <select name="is_active" x-model="activeJurusan.is_active" class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
-                                <option value="1">Aktif</option>
-                                <option value="0">Non-Aktif</option>
-                            </select>
-                        </div>
+                        <x-form-input
+                            type="text"
+                            name="nama_jurusan"
+                            x-model="activeJurusan.nama_jurusan"
+                            label="Nama Jurusan"
+                            placeholder="Contoh: Pengembangan Perangkat Lunak & Gim"
+                            required
+                        />
+
+                        <x-form-input
+                            type="text"
+                            name="kode_jurusan"
+                            x-model="activeJurusan.kode_jurusan"
+                            label="Kode Jurusan"
+                            placeholder="Contoh: PPLG"
+                            required
+                        />
+
+                        <x-form-textarea
+                            name="deskripsi"
+                            x-model="activeJurusan.deskripsi"
+                            label="Deskripsi"
+                            placeholder="Masukkan deskripsi kompetensi keahlian..."
+                            rows="3"
+                        />
+
+                        <x-form-select
+                            name="is_active"
+                            x-model="activeJurusan.is_active"
+                            label="Status"
+                            placeholder="Pilih Status..."
+                            :options="['1' => 'Aktif', '0' => 'Non-Aktif']"
+                            required
+                        />
                     </div>
 
                     <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">

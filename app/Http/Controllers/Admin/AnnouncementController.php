@@ -38,29 +38,29 @@ class AnnouncementController extends Controller
         }
     }
 
-    public function update(StoreAnnouncementRequest $request, Announcement $announcement)
+    public function update(StoreAnnouncementRequest $request, Announcement $content)
     {
         try {
-            $this->announcementService->updateAnnouncement($announcement, $request->validated());
+            $this->announcementService->updateAnnouncement($content, $request->validated());
             return back()->with('success', 'Pengumuman berhasil diperbarui.');
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }
 
-    public function destroy(Announcement $announcement)
+    public function destroy(Announcement $content)
     {
         try {
-            $this->announcementService->deleteAnnouncement($announcement);
+            $this->announcementService->deleteAnnouncement($content);
             return back()->with('success', 'Pengumuman berhasil dihapus.');
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }
 
-    public function toggleStatus(Announcement $announcement)
+    public function toggleStatus(Announcement $content)
     {
-        $this->announcementService->toggleStatus($announcement);
+        $this->announcementService->toggleStatus($content);
         return back()->with('success', 'Status pengumuman berhasil diubah.');
     }
 }

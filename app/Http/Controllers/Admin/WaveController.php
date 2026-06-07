@@ -34,20 +34,20 @@ class WaveController extends Controller
         }
     }
 
-    public function update(UpdateWaveRequest $request, Wave $wave)
+    public function update(UpdateWaveRequest $request, Wave $schedule)
     {
         try {
-            $this->waveService->updateWave($wave, $request->validated());
+            $this->waveService->updateWave($schedule, $request->validated());
             return back()->with('success', 'Data gelombang berhasil diperbarui.');
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }
 
-    public function destroy(Wave $wave)
+    public function destroy(Wave $schedule)
     {
         try {
-            $this->waveService->deleteWave($wave);
+            $this->waveService->deleteWave($schedule);
             return back()->with('success', 'Gelombang berhasil dihapus.');
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());

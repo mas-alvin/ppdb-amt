@@ -15,6 +15,16 @@ class WaveService
 
     public function storeWave(array $data)
     {
+        // Validasi bentrokan tanggal periode gelombang
+        $overlapping = Wave::where(function ($query) use ($data) {
+            $query->where('start_date', '<=', $data['end_date'])
+                  ->where('end_date', '>=', $data['start_date']);
+        })->first();
+
+        if ($overlapping) {
+            throw new Exception("Tanggal periode bertabrakan dengan gelombang '{$overlapping->name}' ({$overlapping->start_date->format('d-m-Y')} s/d {$overlapping->end_date->format('d-m-Y')}).");
+        }
+
         try {
             return Wave::create($data);
         } catch (Exception $e) {
@@ -25,6 +35,17 @@ class WaveService
 
     public function updateWave(Wave $wave, array $data)
     {
+        // Validasi bentrokan tanggal periode gelombang (abaikan data diri sendiri)
+        $overlapping = Wave::where('id', '!=', $wave->id)
+            ->where(function ($query) use ($data) {
+                $query->where('start_date', '<=', $data['end_date'])
+                      ->where('end_date', '>=', $data['start_date']);
+            })->first();
+
+        if ($overlapping) {
+            throw new Exception("Tanggal periode bertabrakan dengan gelombang '{$overlapping->name}' ({$overlapping->start_date->format('d-m-Y')} s/d {$overlapping->end_date->format('d-m-Y')}).");
+        }
+
         try {
             return $wave->update($data);
         } catch (Exception $e) {

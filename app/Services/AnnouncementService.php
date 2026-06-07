@@ -63,18 +63,22 @@ class AnnouncementService
      * @return bool
      * @throws Exception
      */
-    public function deleteAnnouncement(Announcement $announcement): bool
+        public function deleteAnnouncement(Announcement $announcement): bool
     {
         try {
             if ($announcement->document_path) {
                 Storage::disk('public')->delete($announcement->document_path);
             }
-            return $announcement->delete();
+            
+            // Tambahkan (bool) di depan untuk memaksa nilai null menjadi false
+            return (bool) $announcement->delete(); 
+            
         } catch (Exception $e) {
             Log::error('Error deleting announcement: ' . $e->getMessage());
             throw new Exception('Gagal menghapus pengumuman.');
         }
     }
+
 
     /**
      * Toggle active status.

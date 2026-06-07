@@ -99,9 +99,7 @@
                         
                         <form :action="isEdit ? `{{ url('admin/content') }}/${activeItem.id}` : `{{ route('admin.content.index') }}`" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
                             @csrf
-                            <template x-if="isEdit">
-                                @method('PUT')
-                            </template>
+                            <input type="hidden" name="_method" :value="isEdit ? 'PUT' : 'POST'">
 
                             <div class="space-y-4">
                                 <div>
@@ -140,4 +138,21 @@
             </div>
         </div>
     </div>
+
+    <x-slot name="scripts">
+        @if(session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showToast("{{ session('success') }}", 'success');
+                });
+            </script>
+        @endif
+        @if(session('error'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showToast("{{ session('error') }}", 'error');
+                });
+            </script>
+        @endif
+    </x-slot>
 </x-admin-layout>

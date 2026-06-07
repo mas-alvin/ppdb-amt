@@ -56,7 +56,15 @@
                                         ])>{{ $w->status }}</span>
                                 </td>
                                 <td class="px-6 py-4 text-right flex items-center justify-end gap-2">
-                                    <button type="button" @click="mode = 'edit'; activeWave = @js($w); waveOpen = true"
+                                    <button type="button" @click="mode = 'edit'; activeWave = @js([
+                                            'id' => $w->id,
+                                            'name' => $w->name,
+                                            'start_date' => $w->start_date->format('Y-m-d'),
+                                            'end_date' => $w->end_date->format('Y-m-d'),
+                                            'quota' => $w->quota,
+                                            'status' => $w->status,
+                                            'description' => $w->description,
+                                        ]); waveOpen = true"
                                         class="p-2 text-green-700 hover:text-green-900 transition-colors">
                                         <iconify-icon icon="lucide:edit-3" class="text-lg"></iconify-icon>
                                     </button>
@@ -101,43 +109,64 @@
                         
                         <form :action="mode === 'edit' ? `{{ url('admin/schedule') }}/${activeWave.id}` : `{{ route('admin.schedule.index') }}`" method="POST" class="p-6 space-y-6">
                             @csrf
-                            <template x-if="mode === 'edit'">
-                                @method('PUT')
-                            </template>
+                            <input type="hidden" name="_method" :value="mode === 'edit' ? 'PUT' : 'POST'">
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="md:col-span-2">
-                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Nama Gelombang</label>
-                                    <input type="text" name="name" x-model="activeWave.name" placeholder="Contoh: Gelombang III" required
-                                           class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
+                                    <x-form-input
+                                        type="text"
+                                        name="name"
+                                        x-model="activeWave.name"
+                                        label="Nama Gelombang"
+                                        placeholder="Contoh: Gelombang III"
+                                        required
+                                    />
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tanggal Buka</label>
-                                    <input type="date" name="start_date" x-model="activeWave.start_date" required
-                                           class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
+                                    <x-form-input
+                                        type="date"
+                                        name="start_date"
+                                        x-model="activeWave.start_date"
+                                        label="Tanggal Buka"
+                                        required
+                                    />
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tanggal Tutup</label>
-                                    <input type="date" name="end_date" x-model="activeWave.end_date" required
-                                           class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
+                                    <x-form-input
+                                        type="date"
+                                        name="end_date"
+                                        x-model="activeWave.end_date"
+                                        label="Tanggal Tutup"
+                                        required
+                                    />
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Kuota Pendaftar</label>
-                                    <input type="number" name="quota" x-model="activeWave.quota" required
-                                           class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
+                                    <x-form-input
+                                        type="number"
+                                        name="quota"
+                                        x-model="activeWave.quota"
+                                        label="Kuota Pendaftar"
+                                        required
+                                    />
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Status</label>
-                                    <select name="status" x-model="activeWave.status" class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300">
-                                        <option value="draft">DRAF</option>
-                                        <option value="open">BUKA</option>
-                                        <option value="closed">TUTUP</option>
-                                    </select>
+                                    <x-form-select
+                                        name="status"
+                                        x-model="activeWave.status"
+                                        label="Status"
+                                        placeholder="Pilih Status..."
+                                        :options="['draft' => 'DRAF', 'open' => 'BUKA', 'closed' => 'TUTUP']"
+                                        required
+                                    />
                                 </div>
                                 <div class="md:col-span-2">
-                                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Deskripsi / Catatan</label>
-                                    <textarea name="description" x-model="activeWave.description" rows="2" placeholder="Catatan tambahan untuk gelombang ini..."
-                                        class="w-full text-sm border border-slate-200 rounded-lg focus:border-green-800 focus:ring-4 focus:ring-green-800/10 transition-all duration-200 outline-none text-slate-700 font-medium px-4 py-3 bg-white hover:border-slate-300"></textarea>
+                                    <x-form-textarea
+                                        name="description"
+                                        x-model="activeWave.description"
+                                        label="Deskripsi / Catatan"
+                                        placeholder="Catatan tambahan untuk gelombang ini..."
+                                        rows="2"
+                                    />
                                 </div>
                             </div>
 
@@ -151,4 +180,21 @@
             </div>
         </div>
     </div>
+
+    <x-slot name="scripts">
+        @if(session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showToast("{{ session('success') }}", 'success');
+                });
+            </script>
+        @endif
+        @if(session('error'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showToast("{{ session('error') }}", 'error');
+                });
+            </script>
+        @endif
+    </x-slot>
 </x-admin-layout>

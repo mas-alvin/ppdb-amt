@@ -8,34 +8,32 @@
             <h1 class="text-lg font-black text-green-950 uppercase tracking-tighter">Masuk Akun</h1>
             <p class="text-slate-500 text-sm mt-1">Masuk dengan akun anda untuk melakukan pendaftaran</p>
         </div>
-        <div>
-            <label for="email" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Email atau Username</label>
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
-                    <iconify-icon icon="lucide:user"></iconify-icon>
-                </span>
-                <input type="text" name="email" id="email" value="{{ old('email') }}" required autofocus
-                    class="w-full pl-10 pr-4 py-3 text-sm border-slate-200 rounded-sm focus:ring-green-900 focus:border-green-900 bg-slate-50/50 transition-all placeholder:text-slate-300"
-                    placeholder="nama@email.com atau username">
-            </div>
-            @error('email')
-                <p class="text-red-500 text-[10px] font-bold mt-1 uppercase tracking-wider">{{ $message }}</p>
-            @enderror
-        </div>
+        <x-form-input
+            type="text"
+            name="email"
+            id="email"
+            :value="old('email')"
+            required
+            autofocus
+            label="Email atau Username"
+            icon="user"
+        />
 
-        <div>
-            <label for="password" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Password</label>
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
-                    <iconify-icon icon="lucide:lock"></iconify-icon>
-                </span>
-                <input type="password" name="password" id="password" required
-                    class="w-full pl-10 pr-4 py-3 text-sm border-slate-200 rounded-sm focus:ring-green-900 focus:border-green-900 bg-slate-50/50 transition-all placeholder:text-slate-300"
-                    placeholder="••••••••">
-            </div>
-            @error('password')
-                <p class="text-red-500 text-[10px] font-bold mt-1 uppercase tracking-wider">{{ $message }}</p>
-            @enderror
+        <div x-data="{ showPassword: false }">
+            <x-form-input
+                x-bind:type="showPassword ? 'text' : 'password'"
+                name="password"
+                id="password"
+                required
+                label="Password"
+                icon="lock"
+            >
+                <x-slot:suffix>
+                    <button type="button" @click="showPassword = !showPassword" class="text-slate-400 hover:text-emerald-800 dark:hover:text-white transition-colors focus:outline-none flex items-center h-full" title="Tampilkan/Sembunyikan Password">
+                        <iconify-icon :icon="showPassword ? 'lucide:eye-off' : 'lucide:eye'" class="text-xl"></iconify-icon>
+                    </button>
+                </x-slot:suffix>
+            </x-form-input>
         </div>
 
         <div class="flex items-center justify-between py-2">

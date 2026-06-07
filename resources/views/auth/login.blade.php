@@ -8,6 +8,7 @@
     <title>Login - Portal PPDB</title>
     <link rel="shortcut icon" href="{{ asset('logo-amt.webp') }}" type="image/webp">
     @vite(['resources/css/app.css'])
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"></script>
 </head>
 
 <body
@@ -49,44 +50,50 @@
                 </div>
                 <form class="space-y-5" onsubmit="return false;">
                     <!-- Username/NISN Field -->
-                    <div class="space-y-2">
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="nisn">Email
-                            /Username</label>
-                        <div class="relative">
-                            <iconify-icon icon="lucide:user"
-                                class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></iconify-icon>
-                            <input
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg text-sm transition-all shadow-sm"
-                                id="nisn" placeholder="Contoh: 0012345678" type="text" />
-                        </div>
-                    </div>
+                    {{-- <x-form-input
+                        type="text"
+                        name="nisn"
+                        id="nisn"
+                        label="Email / Username"
+                        icon="user"
+                    /> --}}
+                    <x-form-input type="text" name="nisn" id="nisn" label="Alamat Email" icon="mail"
+                        required />
+
                     <!-- Password Field -->
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-center">
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300"
-                                for="password">Kata Sandi</label>
+                    <div x-data="{ showPassword: false }">
+                        <div class="flex justify-between items-center mb-2">
+                            <div></div>
                             <a class="text-xs text-primary hover:underline font-medium" href="#">Lupa sandi?</a>
                         </div>
-                        <div class="relative">
-                            <iconify-icon icon="lucide:lock"
-                                class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></iconify-icon>
-                            <input
-                                class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg text-sm transition-all shadow-sm"
-                                id="password" placeholder="••••••••" type="password" />
-                        </div>
+
+                        <x-form-input x-bind:type="showPassword ? 'text' : 'password'" name="password" id="password"
+                            label="Kata Sandi" icon="lock" required>
+
+                            <x-slot name="suffix">
+                                <button type="button" @click="showPassword = !showPassword"
+                                    class="text-slate-400 hover:text-emerald-800 dark:hover:text-white transition-colors focus:outline-none flex items-center h-full"
+                                    title="Tampilkan/Sembunyikan Password">
+                                    <iconify-icon :icon="showPassword ? 'lucide:eye-off' : 'lucide:eye'"
+                                        class="text-xl"></iconify-icon>
+                                </button>
+                            </x-slot>
+
+                        </x-form-input>
                     </div>
                     <!-- Remember Me -->
-                    <div class="flex items-center">
-                        <input class="w-4 h-4 text-primary bg-slate-100 border-slate-300 rounded focus:ring-primary"
-                            id="remember" type="checkbox" />
-                        <label class="ml-2 block text-sm text-slate-500 dark:text-slate-400" for="remember">Ingat
-                            perangkat ini</label>
+                    <div class="flex items-center justify-between py-2">
+                        <label class="flex items-center gap-2 cursor-pointer group">
+                            <input type="checkbox" id="remember" name="remember" class="rounded-sm border-slate-300 text-green-900 focus:ring-green-900 size-4">
+                            <span class="text-xs text-slate-500 group-hover:text-green-900 transition-colors">Ingat saya</span>
+                        </label>
                     </div>
                     <!-- Primary Action Button -->
                     <a href="/dashboard"
-                        class="w-full py-3.5 bg-accent hover:bg-amber-600 text-white font-bold rounded-lg shadow-lg shadow-accent/20 transition-all flex items-center justify-center gap-2 mt-4 group">
+                        class="w-full bg-green-900 text-white py-4 rounded-sm font-black uppercase tracking-[0.2em] text-xs hover:bg-green-800 transition-all shadow-xl shadow-green-900/20 active:scale-[0.98] flex items-center justify-center gap-2 mt-4 group">
                         <span>Masuk ke Akun</span>
-                        <iconify-icon icon="lucide:arrow-right" class="text-xl group-hover:translate-x-1 transition-transform"></iconify-icon>
+                        <iconify-icon icon="lucide:arrow-right"
+                            class="text-xl group-hover:translate-x-1 transition-transform"></iconify-icon>
                     </a>
 
                     <div class="relative py-4">
