@@ -54,7 +54,7 @@
                 {{-- Action Buttons --}}
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full lg:w-auto border-t border-emerald-800/60 lg:border-none pt-4 lg:pt-0">
                     @if($registration->status == 'pending')
-                        <form action="{{ route('admin.registrations.update-status', $registration->id) }}" method="POST" class="w-full sm:w-auto">
+                        <form action="{{ route('admin.registrations.update-status', $registration->id) }}" method="POST" class="w-full sm:w-auto" onsubmit="return confirmAccept(event, '{{ addslashes($registration->nama_lengkap) }}')">
                             @csrf
                             @method('PATCH')
                             <input type="hidden" name="status" value="verified">
@@ -293,4 +293,29 @@
             </div>
         </div>
     </div>
+
+    <x-slot name="scripts">
+        <script>
+            function confirmAccept(event, name) {
+                event.preventDefault();
+                const form = event.currentTarget.closest('form') || event.target.closest('form');
+                if (!form) return;
+                Swal.fire({
+                    title: 'Terima Pendaftaran?',
+                    text: `Apakah Anda yakin ingin menyetujui/menerima pendaftaran calon siswa ${name}?`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#10b981', // green/emerald
+                    cancelButtonColor: '#64748b',
+                    confirmButtonText: 'Ya, Terima!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+                return false;
+            }
+        </script>
+    </x-slot>
 </x-admin-layout>

@@ -10,6 +10,13 @@ use Exception;
 
 class RegistrationService
 {
+    protected PromoteStudentService $promoteService;
+
+    public function __construct(PromoteStudentService $promoteService)
+    {
+        $this->promoteService = $promoteService;
+    }
+
     /**
      * Create a new registration.
      * 
@@ -79,36 +86,52 @@ class RegistrationService
     /**
      * Update registration status.
      * 
+     * Jika status = 'verified', akan langsung mencoba sinkronisasi ke Data Center.
+     * Jika sinkronisasi gagal, status tetap verified dan admin bisa retry
+     * melalui tombol "SINKRONKAN KE DATA CENTER".
+     * 
      * @param int $id
      * @param string $status
-     * @param string|null $note
-     * @return bool
+     * @param string|null $catatanAdmin
+     * @return array{status_updated: bool, sync_success: bool, sync_error: string|null}
      * @throws Exception
      */
-    public function updateStatus(int $id, string $status, ?string $note = null): bool
+    public function updateStatus(int $id, string $status, ?string $catatanAdmin): array
     {
-        return DB::transaction(function () use ($id, $status, $note) {
+        $result = [
+            'status_updated' => false,
+            'sync_success' => false,
+            'sync_error' => null,
+        ];
+
+        // LANGKAH 1: Update status di PPDB (commit langsung)
+        $registration = Registration::findOrFail($id);
+        $registration->update([
+            'status' => $status,
+            'catatan_admin' => $catatanAdmin,
+        ]);
+        $result['status_updated'] = true;
+
+        Log::info("Registration #{$id} status updated to '{$status}'");
+
+        // LANGKAH 2: Jika verified, coba sinkronkan ke Data Center
+        if ($status === 'verified') {
             try {
-                $registration = Registration::findOrFail($id);
-                $updated = $registration->update([
-                    'status' => $status,
-                    'catatan_admin' => $note
-                ]);
-
-                if ($updated && $status === 'verified') {
-                    try {
-                        app(PromoteStudentService::class)->promote($registration);
-                    } catch (Exception $e) {
-                        Log::error('Automatic Promotion to Data Center Failed: ' . $e->getMessage());
-                        // Gracefully absorb error so the PPDB registration verification still succeeds, allowing manual retry
-                    }
-                }
-
-                return $updated;
+                $registration->refresh();
+                $this->promoteService->promote($registration);
+                $result['sync_success'] = true;
+                Log::info("Registration #{$id} successfully synced to Data Center");
             } catch (Exception $e) {
-                Log::error('Update Status Error: ' . $e->getMessage());
-                throw $e;
+                // Status tetap verified, tapi sync gagal.
+                // Admin bisa retry via tombol "SINKRONKAN KE DATA CENTER"
+                $result['sync_error'] = $e->getMessage();
+                Log::error('Data Center Sync Error: ' . $e->getMessage(), [
+                    'registration_id' => $id,
+                    'trace' => $e->getTraceAsString(),
+                ]);
             }
-        });
+        }
+
+        return $result;
     }
 }

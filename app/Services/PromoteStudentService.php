@@ -29,6 +29,14 @@ class PromoteStudentService
         // 2. Perform synchronization in a direct Data Center database transaction
         DB::connection('datacenter')->transaction(function () use ($registration) {
             
+            // Fetch verified pasfoto document path
+            $pasfotoDoc = DB::table('student_documents')
+                ->where('user_id', $registration->user_id)
+                ->where('document_type', 'pasfoto')
+                ->where('status', 'verified')
+                ->first();
+            $photoPath = $pasfotoDoc ? $pasfotoDoc->file_path : null;
+
             // A. Fetch first available school institution from Data Center
             $schoolInstitution = DB::connection('datacenter')->table('school_institutions')->first();
             $schoolInstitutionId = $schoolInstitution ? $schoolInstitution->id : null;
@@ -54,6 +62,8 @@ class PromoteStudentService
                     'email' => $registration->email,
                     'phone' => $registration->no_hp,
                     'address' => $registration->alamat,
+                    'postal_code' => $registration->kode_pos,
+                    'photo' => $photoPath,
                     'gender' => $registration->jenis_kelamin === 'L' ? 'male' : 'female',
                     'birth_date' => $registration->tanggal_lahir,
                     'birth_place' => $registration->tempat_lahir,
@@ -101,6 +111,8 @@ class PromoteStudentService
                     ->where('id', $personId)
                     ->update([
                         'religion' => $person->religion ?: $registration->agama,
+                        'photo' => $person->photo ?: $photoPath,
+                        'postal_code' => $person->postal_code ?? $registration->kode_pos,
                         'rt' => $person->rt ?? $registration->rt,
                         'rw' => $person->rw ?? $registration->rw,
                         'dusun' => $person->dusun ?? $registration->dusun,

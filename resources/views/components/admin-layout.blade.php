@@ -140,6 +140,27 @@
             document.getElementById('sidebar').classList.remove('-translate-x-full');
         }
     });
+
+    // Flash message toasts
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('success'))
+            showToast(@json(session('success')), 'success');
+        @endif
+
+        @if(session('error'))
+            showToast(@json(session('error')), 'error');
+        @endif
+
+        @if(session('warning'))
+            Swal.fire({
+                icon: 'warning',
+                title: 'Peringatan',
+                text: @json(session('warning')),
+                confirmButtonColor: '#059669',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    });
 </script>
 
 {{ $scripts ?? '' }}

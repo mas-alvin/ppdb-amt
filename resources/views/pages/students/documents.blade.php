@@ -88,7 +88,7 @@
                                 <form action="{{ route('student.documents.store') }}" method="POST" enctype="multipart/form-data" class="relative">
                                     @csrf
                                     <input type="hidden" name="document_type" value="{{ $type }}">
-                                    <input type="file" name="file" id="file_{{ $type }}" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="this.form.submit()" accept=".pdf,.jpg,.jpeg,.png">
+                                    <input type="file" name="file" id="file_{{ $type }}" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="validateAndSubmit(this, {{ \App\Models\Setting::getValue('max_upload_size', 2048) }})" accept=".pdf,.jpg,.jpeg,.png">
                                     <button type="button"
                                         class="px-8 py-2.5 text-sm font-black bg-green-900 text-white rounded-lg shadow-xl shadow-green-900/20 hover:bg-green-800 transition-all flex items-center gap-2 w-full">
                                         <iconify-icon icon="lucide:{{ $userDoc ? 'refresh-cw' : 'plus-circle' }}" class="text-lg"></iconify-icon>
@@ -120,7 +120,26 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
+
+    <script>
+        function validateAndSubmit(input, maxKB) {
+            if (!input.files || input.files.length === 0) return;
+            const file = input.files[0];
+            const fileSizeKB = file.size / 1024;
+            if (fileSizeKB > maxKB) {
+                const maxMB = (maxKB / 1024).toFixed(1).replace('.0', '');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Berkas Terlalu Besar',
+                    text: `Ukuran berkas maksimal yang diizinkan adalah ${maxMB}MB (${maxKB} KB). Berkas Anda berukuran ${(fileSizeKB / 1024).toFixed(2)}MB.`,
+                    confirmButtonColor: '#064e3b',
+                });
+                input.value = ''; // Reset input
+                return;
+            }
+            input.form.submit();
+        }
+    </script>
     <x-footer></x-footer>
 </x-layout>

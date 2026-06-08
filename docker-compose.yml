@@ -15,7 +15,7 @@ services:
       - .:/var/www
     networks:
       - ppdb-network
-      - shared-amt-network
+      - amt-data-center-network # Ikut bergabung ke network pusat
     depends_on:
       ppdb-db:
         condition: service_healthy
@@ -35,7 +35,7 @@ services:
     depends_on:
       - ppdb-app
 
-  # 3. Database
+  # 3. Database Internal PPDB
   ppdb-db:
     image: postgres:15-alpine
     container_name: ppdb-db
@@ -56,7 +56,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # 4. Adminer
+  # 4. Adminer PPDB
   ppdb-adminer:
     image: adminer
     container_name: ppdb-adminer
@@ -69,8 +69,8 @@ services:
 networks:
   ppdb-network:
     driver: bridge
-  shared-amt-network:
-    external: true
+  amt-data-center-network:
+    external: true # Mengarah ke network buatan kita tadi
 
 volumes:
   ppdb-db-data:

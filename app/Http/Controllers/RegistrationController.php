@@ -134,14 +134,23 @@ class RegistrationController extends Controller
                 }
             }
 
-            $this->registrationService->updateStatus(
+            $result = $this->registrationService->updateStatus(
                 $id,
                 $request->status,
                 $request->catatan_admin
             );
 
-            return back()->with('success', 'Status pendaftaran berhasil diperbarui.')
-                ->with('active_tab', 'identitas');
+            // Berikan feedback yang sesuai berdasarkan hasil
+            if ($result['status_updated'] && $result['sync_success']) {
+                return back()->with('success', 'Status pendaftaran berhasil diperbarui dan data berhasil disinkronkan ke Data Center.')
+                    ->with('active_tab', 'identitas');
+            } elseif ($result['status_updated'] && $result['sync_error']) {
+                return back()->with('warning', 'Status berhasil diubah ke VERIFIED, tetapi sinkronisasi ke Data Center gagal: ' . $result['sync_error'] . '. Gunakan tombol "SINKRONKAN KE DATA CENTER" untuk mencoba lagi.')
+                    ->with('active_tab', 'identitas');
+            } else {
+                return back()->with('success', 'Status pendaftaran berhasil diperbarui.')
+                    ->with('active_tab', 'identitas');
+            }
         } catch (Exception $e) {
             return back()->with('error', 'Gagal memperbarui status: ' . $e->getMessage())
                 ->with('active_tab', 'identitas');
