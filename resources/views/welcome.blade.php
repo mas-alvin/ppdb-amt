@@ -336,7 +336,7 @@
                             </div>
                             <div>
                                 <h4 class="text-xl font-bold text-green-950 mb-1">Telepon & WhatsApp</h4>
-                                <p class="text-slate-600">(0324) 322551 / +62 812-3456-7890</p>
+                                <a href="https://wa.me/{{ \App\Models\Setting::getValue('phone_number', '(0324) 322551') }}  {{ \App\Models\Setting::getValue('whatsapp_number', '+62 812-3456-7890') }}" target="_blank" class="text-slate-600">{{ \App\Models\Setting::getValue('phone_number', '(0324) 322551') }}  {{ \App\Models\Setting::getValue('whatsapp_number', '+62 812-3456-7890') }}</a>
                             </div>
                         </div>
 

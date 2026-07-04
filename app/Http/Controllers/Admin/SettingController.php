@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Exception;
 
 class SettingController extends Controller
 {
@@ -16,6 +16,7 @@ class SettingController extends Controller
     public function index()
     {
         $settings = Setting::all()->keyBy('key');
+
         return view('pages.admin.settings.index', compact('settings'));
     }
 
@@ -30,6 +31,8 @@ class SettingController extends Controller
             'max_upload_size' => 'required|integer|min:1',
             'academic_year' => 'required|string|max:50',
             'school_address' => 'required|string|max:500',
+            'phone_number' => 'required|string|max:50',
+            'whatsapp_number' => 'nullable|string|max:50',
         ]);
 
         try {
@@ -58,9 +61,19 @@ class SettingController extends Controller
                 ['value' => $request->school_address, 'type' => 'string']
             );
 
+            Setting::updateOrCreate(
+                ['key' => 'phone_number'],
+                ['value' => $request->phone_number, 'type' => 'string']
+            );
+
+            Setting::updateOrCreate(
+                ['key' => 'whatsapp_number'],
+                ['value' => $request->whatsapp_number, 'type' => 'string']
+            );
+
             return back()->with('success', 'Konfigurasi umum berhasil disimpan!');
         } catch (Exception $e) {
-            return back()->with('error', 'Gagal menyimpan konfigurasi: ' . $e->getMessage());
+            return back()->with('error', 'Gagal menyimpan konfigurasi: '.$e->getMessage());
         }
     }
 
@@ -84,11 +97,11 @@ class SettingController extends Controller
                 }
 
                 // Store the new brochure file
-                $filename = 'brosur_ppdb_' . time() . '.' . $file->getClientOriginalExtension();
+                $filename = 'brosur_ppdb_'.time().'.'.$file->getClientOriginalExtension();
                 $path = $file->storeAs('brochures', $filename, 'public');
 
-                if (!$path) {
-                    throw new Exception("Gagal menulis file brosur ke disk.");
+                if (! $path) {
+                    throw new Exception('Gagal menulis file brosur ke disk.');
                 }
 
                 // Update database setting
@@ -97,7 +110,7 @@ class SettingController extends Controller
                     [
                         'value' => $path,
                         'description' => 'File brosur pendaftaran PPDB resmi',
-                        'type' => 'string'
+                        'type' => 'string',
                     ]
                 );
 
@@ -106,7 +119,7 @@ class SettingController extends Controller
 
             return back()->with('error', 'Tidak ada file brosur yang diunggah.');
         } catch (Exception $e) {
-            return back()->with('error', 'Gagal mengunggah brosur: ' . $e->getMessage());
+            return back()->with('error', 'Gagal mengunggah brosur: '.$e->getMessage());
         }
     }
 
@@ -126,7 +139,7 @@ class SettingController extends Controller
 
             return back()->with('success', 'Brosur pendaftaran berhasil dihapus!');
         } catch (Exception $e) {
-            return back()->with('error', 'Gagal menghapus brosur: ' . $e->getMessage());
+            return back()->with('error', 'Gagal menghapus brosur: '.$e->getMessage());
         }
     }
 }

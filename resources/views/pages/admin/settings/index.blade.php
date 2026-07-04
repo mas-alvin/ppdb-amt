@@ -101,6 +101,25 @@
                             rows="3"
                             required />
                     </div>
+                    <div>
+                        <x-form-input
+                            type="tel"
+                            name="phone_number"
+                            id="phone_number"
+                            label="No. Telepon"
+                            value="{{ \App\Models\Setting::getValue('phone_number', '(0324) 322551') }}"
+                            placeholder="Contoh: (0324) 322551"
+                            required />
+                    </div>
+                    <div>
+                        <x-form-input
+                            type="tel"
+                            name="whatsapp_number"
+                            id="whatsapp_number"
+                            label="No. WhatsApp"
+                            value="{{ \App\Models\Setting::getValue('whatsapp_number', '0812-3456-7890') }}"
+                            placeholder="Contoh: 0812-3456-7890" />
+                    </div>
                     <div class="md:col-span-2 pt-4">
                         <button type="submit"
                             class="px-8 py-3 rounded-lg bg-green-900 text-white text-xs font-black uppercase tracking-widest hover:bg-green-800 transition-all shadow-xl shadow-green-900/20">

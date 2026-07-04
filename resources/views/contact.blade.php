@@ -42,7 +42,7 @@
                             </div>
                             <div>
                                 <h4 class="text-xl font-bold text-green-950 mb-1">Telepon & WhatsApp</h4>
-                                <a href="https://wa.me/6287811156664" target="_blank" class="text-slate-600">087811156664</a>
+                                <a href="https://wa.me/{{ \App\Models\Setting::getValue('phone_number', '(0324) 322551') }}  {{ \App\Models\Setting::getValue('whatsapp_number', '+62 812-3456-7890') }}" target="_blank" class="text-slate-600">{{ \App\Models\Setting::getValue('phone_number', '(0324) 322551') }}  {{ \App\Models\Setting::getValue('whatsapp_number', '+62 812-3456-7890') }}</a>
                             </div>
                         </div>
 
